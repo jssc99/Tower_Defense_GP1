@@ -6,5 +6,5 @@ public:
     App();
     ~App();
 
-    void Update();
+    void Update() {};
 };

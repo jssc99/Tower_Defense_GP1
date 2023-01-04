@@ -1,4 +1,4 @@
-#prama once
+#pragma once
 
 #include "types.hpp"
 #include "imgui_utils.hpp"
@@ -12,10 +12,5 @@ public:
 	Entity() virtual {};
 	~Entity() virtual {};
 
-	virtual void drawEntity();
-};
-
-void Entity::drawEntity virtual()
-{
-	// TODO
+	virtual void drawEntity() {};
 };

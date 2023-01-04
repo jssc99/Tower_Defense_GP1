@@ -8,11 +8,4 @@ public:
 
 	HealthSystem() {};
 	~HealthSystem() {};
-
-	virtual void drawLifeBar() {};
-};
-
-void HealthSystem::drawLifeBar virtual()
-{
-	// TODO
 };
