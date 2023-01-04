@@ -87,6 +87,7 @@
     <ClCompile Include="externals\src\imgui_widgets.cpp" />
     <ClCompile Include="externals\src\stb_image.cpp" />
     <ClCompile Include="src\app.cpp" />
+    <ClCompile Include="src\enemy.cpp" />
     <ClCompile Include="src\grid.cpp" />
     <ClCompile Include="src\square.cpp" />
     <ClCompile Include="src\imgui_utils.cpp" />

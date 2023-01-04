@@ -36,6 +36,7 @@
     </ClCompile>
     <ClCompile Include="src\square.cpp" />
     <ClCompile Include="src\grid.cpp" />
+    <ClCompile Include="src\enemy.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\app.hpp">

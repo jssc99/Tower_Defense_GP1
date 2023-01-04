@@ -4,11 +4,9 @@
 
 #include "entity.hpp"
 #include "checkpoint.hpp"
+#include "checkpoint.hpp"
 
-constexpr auto NB_SQUARES_COL = 40;
-constexpr auto NB_SQUARES_ROW = 22;
-
-constexpr auto SQUARE_SIZE = 32.f;
+constexpr float SQUARE_SIZE = 32.f;
 
 enum Type
 {
@@ -31,13 +29,20 @@ public:
 	ImGuiCol color;
 	Checkpoint checkpoint;
 
+	Square();
 	Square(Type type);
 	//creator for checkpoint pathway TODO
 	~Square() {};
 
 	std::string getType();
+	void setType(Type type);
 	virtual void drawEntity();
 };
+
+
+
+
+
 /*
 // Background tiles
 class Background : public Square

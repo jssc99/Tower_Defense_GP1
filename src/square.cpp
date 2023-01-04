@@ -1,6 +1,8 @@
 #include "square.hpp"
 
-Square::Square(Type type = NONE) : type(type)
+#define stringify( name ) #name
+
+Square::Square(Type type) : type(type)
 {
 	this->id = _id++;
 	this->canPlaceTower = false;
@@ -31,43 +33,58 @@ Square::Square(Type type = NONE) : type(type)
 	}
 }
 
+Square::Square()
+{
+	this->type = NONE;
+}
+
 std::string Square::getType()
 {
-	switch (this->type)
+	return stringify(this->type);
+}
+
+void Square::setType(Type type)
+{
+	this->type = type;
+
+	switch (type)
 	{
 	case NONE:
-		return (std::string)"None";
+		this->color = ImColor(0.f, 0.f, 0.f, 1.f);
+		break;
 	case BACKGROUND:
-		return (std::string)"Background";
+		this->color = ImColor(1.f, 0.f, 0.f, 1.f);
+		break;
 	case GRASS:
-		return (std::string)"Grass";
+		this->color = ImColor(0.f, 1.f, 0.f, 1.f);
+		this->canPlaceTower = true;
+		break;
 	case PATH:
-		return (std::string)"Path";
+		this->color = ImColor(1.f, 1.f, 0.f, 1.f);
+		break;
 	case CASTLE:
-		return (std::string)"Castle";
+		this->color = ImColor(1.f, 0.f, 1.f, 1.f);
+		break;
 	default:
-		return (std::string)"error";
+		break;
 	}
 }
 
 void Square::drawEntity()
 {
 	ImDrawList& bgDrawlist = *ImGui::GetBackgroundDrawList();
-
+	
 	switch (type)
 	{
 	case NONE:
 		bgDrawlist.AddRect({ this->pos.x - 16, this->pos.y - 16 }, { this->pos.x + 16, this->pos.y + 16 }, this->color);
 		break;
 
-	case BACKGROUND:
-	case GRASS:
-	case PATH:
-	case CASTLE:
+	default:
 		bgDrawlist.AddRectFilled({ this->pos.x - 16, this->pos.y - 16 }, { this->pos.x + 16, this->pos.y + 16 }, this->color);
 		break;
-
-	default:
-		break;
 	}
+	char* nb = new char;
+	sprintf(nb, "%d", this->id);
+	bgDrawlist.AddText({ this->pos.x - 16.f, this->pos.y }, ImColor(1.f, 1.f, 1.f, 1.f), nb);
 }
