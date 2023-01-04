@@ -1,14 +1,13 @@
 #pragma once
 
 #include "entity.hpp"
+#include "healthSystem.hpp"
 
-class Castle : public Entity
+class Castle : public Entity, public HealthSystem
 {
 public:
-	int hp;
+	Castle() {};
+	~Castle() {};
 
-	Castle() virtual {};
-	~Castle() virtual {};
-
-	void updateCastle() virtual {};
+	void updateCastle() {};
 };
