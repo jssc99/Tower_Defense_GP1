@@ -12,10 +12,10 @@ public:
 	Entity() virtual {};
 	~Entity() virtual {};
 
-	void drawEntity() virtual;
+	virtual void drawEntity();
 };
 
-void Entity::drawEntity()
+void Entity::drawEntity virtual()
 {
 	// TODO
 };
