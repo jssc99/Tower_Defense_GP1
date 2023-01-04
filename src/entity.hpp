@@ -9,8 +9,8 @@ public:
 	float2 pos;
 	ImGuiUtils sprite;
 
-	inline Entity() {};
-	inline ~Entity() {};
+	inline Entity() {}
+	inline ~Entity() {}
 
-	virtual void drawEntity() {};
+	virtual void drawEntity() {}
 };

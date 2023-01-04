@@ -1,15 +1,21 @@
+#pragma once
 
-enum direction
+#include "types.hpp"
+
+struct Direction
 {
-	UP, LEFT, RIGHT, DOWN
+	static float2 UP;
+	static float2 DOWN;
+	static float2 RIGHT;
+	static float2 LEFT;
 };
 
 class Checkpoint
 {
 public:
 	int value;
-	direction newDirection;
+	float2 newDirection;
 
-	Checkpoint(int val, direction dir) : value(val), newDirection(dir) {};
+	Checkpoint(int val, float2 dir) : value(val), newDirection(dir) {};
 	~Checkpoint() {};
 };
