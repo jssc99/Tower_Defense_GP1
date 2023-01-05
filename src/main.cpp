@@ -27,10 +27,11 @@ int main(int argc, char* argv[])
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
 
     // Create window with graphics context
-    GLFWwindow* window = glfwCreateWindow(1280, 720, "Tower Defense", NULL, NULL);
+    GLFWwindow* window = glfwCreateWindow(1280, 700, "Tower Defense", NULL, NULL);
     if (window == NULL)
         return 1;
-    
+    //glfwwin
+  //  ImGuiWindowFlags_NoResize
     glfwMakeContextCurrent(window);
     glfwSwapInterval(1); // Enable vsync
 
