@@ -34,9 +34,9 @@
     <ClCompile Include="externals\src\stb_image.cpp">
       <Filter>externals</Filter>
     </ClCompile>
-    <ClCompile Include="src\enemy.cpp" />
-    <ClCompile Include="src\gridSquare.cpp" />
-    <ClCompile Include="src\checkpoint.cpp" />
+    <ClCompile Include="src\entities\square.cpp" />
+    <ClCompile Include="src\grid.cpp" />
+    <ClCompile Include="src\entities\enemy.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\app.hpp">
@@ -45,15 +45,16 @@
     <ClInclude Include="src\imgui_utils.hpp">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="src\healthSystem.hpp" />
     <ClInclude Include="src\calc.hpp" />
-    <ClInclude Include="src\castle.hpp" />
-    <ClInclude Include="src\checkpoint.hpp" />
-    <ClInclude Include="src\enemy.hpp" />
+    <ClInclude Include="src\entities\castle.hpp" />
+    <ClInclude Include="src\entities\checkpoint.hpp" />
+    <ClInclude Include="src\entities\enemy.hpp" />
     <ClInclude Include="src\entity.hpp" />
-    <ClInclude Include="src\tower.hpp" />
+    <ClInclude Include="src\grid.hpp" />
+    <ClInclude Include="src\entities\square.hpp" />
+    <ClInclude Include="src\entities\healthSystem.hpp" />
+    <ClInclude Include="src\entities\tower.hpp" />
     <ClInclude Include="src\types.hpp" />
-    <ClInclude Include="src\gridSquare.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">

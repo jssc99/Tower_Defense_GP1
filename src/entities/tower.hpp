@@ -1,6 +1,6 @@
 #pragma once
 
-#include "entity.hpp"
+#include "../entity.hpp"
 
 class Tower : public Entity
 {

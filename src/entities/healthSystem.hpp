@@ -1,6 +1,8 @@
 #pragma once
 
-class HealthSystem
+#include "../entity.hpp"
+
+class HealthSystem : public Entity
 {
 public:
 	int maxHealth;

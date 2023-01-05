@@ -2,9 +2,13 @@
 
 #include "enemy.hpp"
 
+#include "grid.hpp"
+
 class App
 {
 public:
+    Grid grid;
+
     App();
     ~App();
 

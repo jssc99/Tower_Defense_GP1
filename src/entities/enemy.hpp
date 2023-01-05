@@ -1,12 +1,7 @@
 #pragma once
 
-#include "entity.hpp"
+#include "../entity.hpp"
 #include "checkpoint.hpp"
-
-static float2 UP;
-static float2 DOWN;
-static float2 RIGHT;
-static float2 LEFT;
 
 class Enemy : public Entity
 {
