@@ -14,7 +14,8 @@ enum Type
 	BACKGROUND,
 	GRASS,
 	PATH,
-	CASTLE
+	CASTLE,
+	SPAWN
 };
 
 static int _id = 0;

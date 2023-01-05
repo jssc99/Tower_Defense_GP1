@@ -30,7 +30,8 @@ int main(int argc, char* argv[])
     GLFWwindow* window = glfwCreateWindow(1280, 700, "Tower Defense", NULL, NULL);
     if (window == NULL)
         return 1;
-    
+    //glfwwin
+  //  ImGuiWindowFlags_NoResize
     glfwMakeContextCurrent(window);
     glfwSwapInterval(1); // Enable vsync
 
