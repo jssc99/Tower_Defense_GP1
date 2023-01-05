@@ -1,6 +1,6 @@
 #pragma once
 
-#include "square.hpp"
+#include "entities/square.hpp"
 
 constexpr auto NB_SQUARES_COL = 40;
 constexpr auto NB_SQUARES_ROW = 22;

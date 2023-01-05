@@ -1,6 +1,6 @@
 #pragma once
 
-#include "types.hpp"
+#include "../types.hpp"
 
 constexpr float2 UP = { 0, -1 };
 constexpr float2 DOWN = { 0, 1 };
