@@ -17,4 +17,5 @@ public:
 	~Grid() {};
 
 	void drawGrid();
+	float2 getSpawnPoint();
 };
