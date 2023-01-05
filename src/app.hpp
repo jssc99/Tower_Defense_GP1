@@ -1,8 +1,10 @@
 #pragma once
 
-#include "enemy.hpp"
-
 #include "grid.hpp"
+#include "imgui_utils.hpp"
+#include "entities/enemy.hpp"
+#include "entity.hpp"
+#include "calc.hpp"
 
 class App
 {
