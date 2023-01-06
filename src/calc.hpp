@@ -5,6 +5,7 @@
 
 #include "types.hpp"
 
+
 static inline float2 operator+(float2 a, float2 b) { return { a.x + b.x, a.y + b.y }; }
 static inline float2 operator-(float2 a, float2 b) { return { a.x - b.x, a.y - b.y }; }
 static inline float2 operator*(float2 a, float2 b) { return { a.x * b.x, a.y * b.y }; }

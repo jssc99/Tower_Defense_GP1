@@ -5,15 +5,29 @@
 App::App()
 {
 	// grid test
-	this->grid.square[0][1].setType(BACKGROUND);
-	this->grid.square[10][0].setType(SPAWN);
-	this->grid.square[10][1].setType(GRASS);
-
-	//enemy test
-	
-	e.pos = this->grid.getSpawnPoint();
-	e.moveSpeed = 1.f;
-	e.direction = RIGHT;
+	std::string lvl1 =  std::string("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb")+
+												"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb" +
+												"bbbggggggggggggbbbbbbbbggggggggggbbbbbbb" +
+												"bggggggggggggggggbbgggggggggcggggggggggb" +
+												"gggggggggggggggggggggggggggpppgggggggggg" +
+												"pppppppppggggggggggggggggggpppgggggggggg" +
+												"sppppppppggggggggggggggggggpppgggggggggg" +
+												"pppppppppggggggggggggggggggpppgggggggggg" +
+												"ggggggpppggggggggggggggggggpppgggggggggg" +
+												"ggggggpppggggggggggggggggggpppgggggggggg" +
+												"ggggggpppggggggggbbggggggggpppgggggggggg" +
+												"ggggggpppgggggggbbbggggggggpppgggggggggg" +
+												"ggggggpppgggggggbbbbgggggggpppgggggggggg" +
+												"ggggggpppgggggggggbbgggggggpppgggggggggg" +
+												"ggggggpppggggggggggggggggggpppgggggggggg" +
+												"ggggggppppppppppppppppppppppppgggggggggg" +
+												"ggggggppppppppppppppppppppppppgggggggggg" +
+												"ggggggppppppppppppppppppppppppgggggggggg" +
+												"gggggggggggggggggggggggggggggggggggggggg" +
+												"gggggggggggggggggggggggggggggggggggggggg" +
+												"bbbggggggggggggbbbbbbbbggggggggggbbbbbbb" +
+												"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb" ;
+	this->grid.loadGrid(lvl1);
 }
 
 App::~App()
@@ -21,7 +35,7 @@ App::~App()
 }
 
 void App::Update()
-{	
+{
 	{
 		ImGui::Begin("Tower");
 		ImGui::Text("e.pos = %f, %f", e.pos.x, e.pos.y);
@@ -39,13 +53,10 @@ void App::Update()
 
 		ImGui::Text("square id %d:", this->grid.square[0][1].id);
 		ImGui::Text("square type %s", this->grid.square[0][1].getType());
-		
+
 		ImGui::Text("square id %d:", this->grid.square[10][1].id);
 		ImGui::Text("square type %s", this->grid.square[10][1].getType());
 		ImGui::End();
 	}
 	this->grid.drawGrid();
-
-	e.drawEntity();
-	e.pos += e.direction * e.moveSpeed;
 }

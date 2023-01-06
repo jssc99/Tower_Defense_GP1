@@ -16,6 +16,9 @@ public:
 	Grid();
 	~Grid() {};
 
+	void loadGrid(std::string seed);
+	void loadCheckpoints(Checkpoint* checkpointList);
 	void drawGrid();
-	float2 getSpawnPoint();
+	float2 getSpawnPoint() const;
+	float2* getCheckpoints() const;
 };
