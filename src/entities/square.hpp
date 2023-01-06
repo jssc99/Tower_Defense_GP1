@@ -7,14 +7,14 @@
 
 constexpr float SQUARE_SIZE = 32.f;
 
-enum Type
+enum class Type : char
 {
-	NONE,
-	BACKGROUND,
-	GRASS,
-	PATH,
-	CASTLE,
-	SPAWN
+	NONE = 'n',
+	BACKGROUND = 'b',
+	GRASS = 'g',
+	PATH = 'p',
+	CASTLE = 'c',
+	SPAWN = 's'
 };
 
 static int _id = 0;
@@ -30,18 +30,19 @@ public:
 	Checkpoint checkpoint;
 
 	Square();
-	Square(Type type);
-	//creator for checkpoint pathway TODO
+	// maybe useless
+	Square(Type type, bool isCheckpoint = 0, int chkpId = 0, float2 newDirChkp = { 0,0 });
 	~Square() {};
 
-	std::string getType();
-	void setType(Type type);
+	std::string getType() const;
+
+	// also used to set checkpoint
+	void setType(Type type, bool isCheckpoint = 0, int chkpId = 0, float2 newDirChkp = { 0,0 });
 	virtual void drawEntity();
+
+private:
+	void setCheckpoint(int id, float2 newDir, float2 pos);
 };
-
-
-
-
 
 /*
 // Background tiles
