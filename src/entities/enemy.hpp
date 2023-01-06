@@ -14,5 +14,5 @@ public:
 	Enemy() {}
 	~Enemy() {}
 
-	void drawEntity() override;
+	void draw() override;
 };

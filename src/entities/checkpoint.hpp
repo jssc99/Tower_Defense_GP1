@@ -10,12 +10,11 @@ public:
 	float2 newDirection;
 
 	Checkpoint() : id(0), newDirection( {0,0} ) {};
-	Checkpoint(int id, float2 dir) : id(id), newDirection(dir) {};
+	Checkpoint(int id, float2 pos, float2 dir) : id(id), newDirection(dir) { this->pos = pos; };
 	~Checkpoint() {};
 
-	void drawEntity() override
+	void draw() override
 	{
-		ImDrawList* fgDrawlist = ImGui::GetForegroundDrawList();
-		fgDrawlist->AddCircleFilled({ pos.x, pos.y }, 3, ImColor(0.f, 0.f, 1.f));
+		ImGui::GetForegroundDrawList()->AddCircleFilled({ this->pos.x, this->pos.y }, 3.f, BLUE);
 	};
 };
