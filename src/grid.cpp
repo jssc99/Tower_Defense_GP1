@@ -22,4 +22,5 @@ float2 Grid::getSpawnPoint()
 		for (int j = 0; j < NB_SQUARES_ROW; j++)
 			if (this->square[i][j].type == SPAWN)
 				return this->square[i][j].pos;
+	return { 0,0 };
 }
