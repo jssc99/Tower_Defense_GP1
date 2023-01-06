@@ -97,12 +97,12 @@
     <ClInclude Include="src\app.hpp" />
     <ClInclude Include="src\calc.hpp" />
     <ClInclude Include="src\entities\castle.hpp" />
-    <ClInclude Include="src\checkpoint.hpp" />
+    <ClInclude Include="src\entities\checkpoint.hpp" />
     <ClInclude Include="src\entities\enemy.hpp" />
     <ClInclude Include="src\entity.hpp" />
     <ClInclude Include="src\grid.hpp" />
     <ClInclude Include="src\entities\square.hpp" />
-    <ClInclude Include="src\healthSystem.hpp" />
+    <ClInclude Include="src\entities\healthSystem.hpp" />
     <ClInclude Include="src\imgui_utils.hpp" />
     <ClInclude Include="src\entities\tower.hpp" />
     <ClInclude Include="src\types.hpp" />

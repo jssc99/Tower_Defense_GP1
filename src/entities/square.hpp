@@ -3,8 +3,7 @@
 #include <string>
 
 #include "../entity.hpp"
-#include "../checkpoint.hpp"
-#include "../checkpoint.hpp"
+#include "checkpoint.hpp"
 
 constexpr float SQUARE_SIZE = 32.f;
 

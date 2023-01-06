@@ -2,6 +2,7 @@
 
 #include "grid.hpp"
 #include "entities/enemy.hpp"
+#include "calc.hpp"
 
 class App
 {
@@ -13,4 +14,7 @@ public:
 
     void Update();
     Enemy e;
+
+    int nbrCheck;
+    Checkpoint check[5];
 };

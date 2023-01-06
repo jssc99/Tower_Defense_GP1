@@ -28,6 +28,9 @@ Square::Square(Type type) : type(type)
 	case CASTLE:
 		this->color = ImColor(1.f, 0.f, 1.f, 1.f);
 		break;
+	case SPAWN:
+		this->color = ImColor(0.f, 0.f, 1.f, 1.f);
+		break;
 	default:
 		break;
 	}
@@ -36,6 +39,10 @@ Square::Square(Type type) : type(type)
 Square::Square()
 {
 	this->type = NONE;
+	this->id = 9999;
+	this->canPlaceTower = false;
+	this->hasCheckpoint = false;
+	this->color = ImColor(0.f, 0.f, 0.f, 0.f);
 }
 
 std::string Square::getType()
@@ -65,6 +72,9 @@ void Square::setType(Type type)
 	case CASTLE:
 		this->color = ImColor(1.f, 0.f, 1.f, 1.f);
 		break;
+	case SPAWN:
+		this->color = ImColor(0.f, 0.f, 1.f, 1.f);
+		break;
 	default:
 		break;
 	}
@@ -85,6 +95,8 @@ void Square::drawEntity()
 		break;
 	}
 	char* nb = new char;
-	sprintf(nb, "%d", this->id);
-	bgDrawlist.AddText({ this->pos.x - 16.f, this->pos.y }, ImColor(1.f, 1.f, 1.f, 1.f), nb);
+	sprintf(nb, "%d", (int)this->pos.x / 32);
+	bgDrawlist.AddText({ this->pos.x, this->pos.y }, ImColor(1.f, 1.f, 1.f, 1.f), nb);
+	sprintf(nb, "%d", (int)this->pos.y / 32);
+	bgDrawlist.AddText({ this->pos.x - 16.f, this->pos.y - 16.f }, ImColor(1.f, 1.f, 1.f, 1.f), nb);
 }
