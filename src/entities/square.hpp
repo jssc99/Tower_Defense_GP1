@@ -5,7 +5,7 @@
 #include "../entity.hpp"
 #include "checkpoint.hpp"
 
-constexpr float SQUARE_SIZE = 32.f;
+constexpr auto SQUARE_SIZE = 32;
 
 enum class Type : char
 {
@@ -23,22 +23,19 @@ class Square : public Entity
 {
 public:
 	int id;
+	Type type;
+	Checkpoint checkpoint;
 	bool canPlaceTower;
 	bool hasCheckpoint;
-	Type type;
-	ImGuiCol color;
-	Checkpoint checkpoint;
 
 	Square();
-	// maybe useless
-	Square(Type type, bool isCheckpoint = 0, int chkpId = 0, float2 newDirChkp = { 0,0 });
 	~Square() {};
 
 	std::string getType() const;
 
 	// also used to set checkpoint
 	void setType(Type type, bool isCheckpoint = 0, int chkpId = 0, float2 newDirChkp = { 0,0 });
-	virtual void drawEntity();
+	void draw() override;
 
 private:
 	void setCheckpoint(int id, float2 newDir, float2 pos);
