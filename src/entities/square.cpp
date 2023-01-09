@@ -58,7 +58,7 @@ void Square::setType(Type type)
 
 float2 Square::getPosCenter() const
 {
-	return this->pos + SQUARE_SIZE / 2.f;
+	return this->pos + H_SQUARE_SIZE;
 }
 
 void Square::draw()
@@ -78,5 +78,5 @@ void Square::draw()
 	sprintf(temp, "%.0f", (this->pos.y / SQUARE_SIZE));
 	bgDrawlist.AddText({ this->pos.x, this->pos.y }, WHITE, temp);
 	sprintf(temp, "%.0f", (this->pos.x / SQUARE_SIZE));
-	bgDrawlist.AddText({ this->pos.x + SQUARE_SIZE / 2.f, this->pos.y + SQUARE_SIZE / 2.f }, WHITE, temp);
+	bgDrawlist.AddText({ this->pos.x + H_SQUARE_SIZE, this->pos.y + H_SQUARE_SIZE }, WHITE, temp);
 }

@@ -23,16 +23,15 @@ void Grid::loadGrid(std::string seed)
 void Grid::loadCheckpoints(Checkpoint *checkpointList, int nbCheckpoints)
 {
 	this->nbCheckpoints = nbCheckpoints;
-	this->nbCheckpoints = nbCheckpoints;/*
 	for (int i = 0; i < nbCheckpoints; i++) {
 		if (i + 1 == nbCheckpoints)
-			this->square[(int)(checkpointList[i].pos.x)][(int)(checkpointList[i].pos.y)].setType(Type::CASTLE, true, checkpointList[i].id, checkpointList[i].newDirection);
+			this->square[(int)(checkpointList[i].pos.x)][(int)(checkpointList[i].pos.y)].setType(Type::CASTLE);
 		else
-			this->square[(int)(checkpointList[i].pos.x)][(int)(checkpointList[i].pos.y)].setType(Type::PATH, true, checkpointList[i].id, checkpointList[i].newDirection);
+			this->square[(int)(checkpointList[i].pos.x)][(int)(checkpointList[i].pos.y)].setType(Type::PATH);
 		checkpointList[i].pos = this->square[(int)(checkpointList[i].pos.x)][(int)(checkpointList[i].pos.y)].pos;
 		checkpointList[i].pos.y += SQUARE_SIZE;
 		this->chkpList[i] = checkpointList[i];
-	}*/
+	}
 }
 
 void Grid::draw()

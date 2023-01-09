@@ -2,10 +2,6 @@
 
 #include "entities/square.hpp"
 
-constexpr auto NB_SQUARES_COL = 40;
-constexpr auto NB_SQUARES_ROW = 22;
-constexpr auto MAX_NB_CHECKPOINTS = 22;
-
 class Grid
 {
 public:

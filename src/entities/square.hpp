@@ -5,8 +5,6 @@
 #include "../entity.hpp"
 #include "checkpoint.hpp"
 
-constexpr auto SQUARE_SIZE = 32;
-
 enum class Type : char
 {
 	NONE = 'n',
