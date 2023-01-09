@@ -56,6 +56,11 @@ void Square::setType(Type type)
 	}
 }
 
+float2 Square::getPosCenter() const
+{
+	return this->pos + SQUARE_SIZE / 2.f;
+}
+
 void Square::draw()
 {
 	ImDrawList& bgDrawlist = *ImGui::GetBackgroundDrawList();

@@ -28,5 +28,7 @@ public:
 	std::string getType() const;
 	void setType(Type type);
 
+	float2 getPosCenter() const;
+
 	void draw() override;
 };
