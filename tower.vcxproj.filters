@@ -44,6 +44,7 @@
       <Filter>src\entities</Filter>
     </ClCompile>
     <ClCompile Include="src\entities\tower.cpp" />
+    <ClCompile Include="src\game.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -98,5 +99,6 @@
     <ClInclude Include="src\entities\towers\explosive_tower.hpp" />
     <ClInclude Include="src\entities\towers\quick_tower.hpp" />
     <ClInclude Include="src\entities\towers\slow_tower.hpp" />
+    <ClInclude Include="src\game.hpp" />
   </ItemGroup>
 </Project>

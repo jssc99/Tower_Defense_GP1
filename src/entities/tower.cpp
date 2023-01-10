@@ -49,8 +49,10 @@ bool Tower::mIsEnemyInsideRange(Enemy* en) // SS collision
 void Tower::mGetTarget(Enemy** en, int nbEnemies)
 {
 	for (int i = 0; i < nbEnemies; i++) {
-		if (en[i] && this->mIsEnemyInsideRange(en[i]))
+		if (en[i] && this->mIsEnemyInsideRange(en[i])) {
 			this->current_target = en[i];
+			break;
+		}
 		else this->current_target = nullptr;
 	}
 }
