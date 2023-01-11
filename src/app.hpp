@@ -9,6 +9,7 @@ class App
 {
 public:
 	Game game;
+	bool debug;
 
 	App();
 	~App();

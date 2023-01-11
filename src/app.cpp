@@ -56,6 +56,7 @@ App::App()
 		G.enemies[0] = new Enemy;
 		G.enemies[0]->pos = G.grid.square[12][7].pos;
 	}
+	this->debug = false;
 }
 
 App::~App()
@@ -67,12 +68,17 @@ void App::Update()
 	ImVec2 mouse = ImGui::GetMousePos();
 	{
 		ImGui::Begin("Tower");
+		ImGui::Checkbox("Draw Grid", &this->debug);
 		ImGui::Text("mouse: %f, %f", mouse.x, mouse.y);
 		ImGui::End();
 	}
-	//G.enemies[0]->pos = { mouse.x, mouse.y };
+	if (this->debug)
+		G.enemies[0]->pos = { mouse.x, mouse.y };
+	else
+		G.enemies[0]->pos = G.grid.square[12][7].pos;
 
 	G.update();
 	G.draw();
-	G.grid.drawCheckpoints();
+	if (this->debug)
+		G.drawDebug();
 }

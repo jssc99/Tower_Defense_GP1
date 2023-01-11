@@ -13,7 +13,7 @@ public:
 
 Quick::Quick()
 {
-	this->color = GREEN;
+	this->color = DARK_GREEN;
 	this->price = 15;
 	this->setAttackStats(150.f, 2.f, 1);
 }

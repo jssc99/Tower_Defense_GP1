@@ -17,6 +17,9 @@ static inline float2& operator+=(float2& a, float2 b) { a = a + b; return a; }
 static inline float2& operator*=(float2& a, float2 b) { a = a * b; return a; }
 static inline float2& operator/=(float2& a, float2 b) { a = a / b; return a; }
 
+static inline bool operator== (float2 a, float2 b) { if (a.x == b.x && a.y == b.y) return true; else return false; }
+static inline bool operator!= (float2 a, float2 b) { return !(a == b); }
+
 namespace calc
 {
 	static const float GRAVITY = 9.80665f;

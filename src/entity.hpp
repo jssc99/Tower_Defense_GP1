@@ -7,6 +7,7 @@
 #define BLACK ImColor(0.f, 0.f, 0.f, 1.f)
 #define RED ImColor(1.f, 0.f, 0.f, 1.f);
 #define GREEN ImColor(0.f, 1.f, 0.f, 1.f)
+#define DARK_GREEN ImColor(0.f, 0.5f, 0.f, 1.f)
 #define ORANGE ImColor(1.f, 0.5f, 0.f, 1.f)
 #define YELLOW ImColor(1.f, 1.f, 0.f, 1.f)
 #define VIOLET ImColor(0.5f, 0.f, 1.f, 1.f)
