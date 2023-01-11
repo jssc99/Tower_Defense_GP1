@@ -88,6 +88,7 @@
     <ClCompile Include="externals\src\stb_image.cpp" />
     <ClCompile Include="src\app.cpp" />
     <ClCompile Include="src\entities\enemy.cpp" />
+    <ClCompile Include="src\entities\tower.cpp" />
     <ClCompile Include="src\game.cpp" />
     <ClCompile Include="src\grid.cpp" />
     <ClCompile Include="src\entities\square.cpp" />
