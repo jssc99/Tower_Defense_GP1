@@ -4,9 +4,6 @@
 Square::Square()
 {
 	this->type = Type::NONE;
-	this->id = _id++;
-	this->canPlaceTower = false;
-	this->hasCheckpoint = false;
 	this->color = WHITE;
 }
 
@@ -31,7 +28,7 @@ std::string Square::getType() const
 	}
 }
 
-void Square::setType(Type type, bool isCheckpoint, int chkpId, float2 newDirChkp)
+void Square::setType(Type type)
 {
 	this->type = type;
 	switch (type)
@@ -44,18 +41,11 @@ void Square::setType(Type type, bool isCheckpoint, int chkpId, float2 newDirChkp
 		break;
 	case Type::GRASS:
 		this->color = GREEN;
-		this->canPlaceTower = true;
 		break;
 	case Type::PATH:
-		this->hasCheckpoint = isCheckpoint;
-		if (isCheckpoint)
-			this->setCheckpoint( chkpId, newDirChkp, this->pos);
 		this->color = ORANGE;
 		break;
 	case Type::CASTLE:
-		this->hasCheckpoint = isCheckpoint;
-		if (isCheckpoint)
-			this->setCheckpoint(chkpId, newDirChkp, this->pos);
 		this->color = VIOLET;
 		break;
 	case Type::SPAWN:
@@ -66,11 +56,9 @@ void Square::setType(Type type, bool isCheckpoint, int chkpId, float2 newDirChkp
 	}
 }
 
-void Square::setCheckpoint(int id, float2 newDir, float2 pos)
+float2 Square::getPosCenter() const
 {
-	this->checkpoint.id = id;
-	this->checkpoint.newDirection = newDir;
-	this->checkpoint.pos = pos;
+	return this->pos + H_SQUARE_SIZE;
 }
 
 void Square::draw()
@@ -90,5 +78,5 @@ void Square::draw()
 	sprintf(temp, "%.0f", (this->pos.y / SQUARE_SIZE));
 	bgDrawlist.AddText({ this->pos.x, this->pos.y }, WHITE, temp);
 	sprintf(temp, "%.0f", (this->pos.x / SQUARE_SIZE));
-	bgDrawlist.AddText({ this->pos.x + SQUARE_SIZE / 2.f, this->pos.y + SQUARE_SIZE / 2.f }, WHITE, temp);
+	bgDrawlist.AddText({ this->pos.x + H_SQUARE_SIZE, this->pos.y + H_SQUARE_SIZE }, WHITE, temp);
 }
