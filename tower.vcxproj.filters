@@ -61,6 +61,7 @@
     <ClInclude Include="src\entities\towers\quick_tower.hpp" />
     <ClInclude Include="src\entities\towers\slow_tower.hpp" />
     <ClInclude Include="src\game.hpp" />
+    <ClInclude Include="src\entities\projectile.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
