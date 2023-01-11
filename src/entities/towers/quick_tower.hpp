@@ -6,18 +6,19 @@ class Quick : public Tower
 {
 public:
 	inline Quick();
-	inline ~Quick();
+	inline ~Quick() {};
+
+	inline char* getType() const;
 };
 
 Quick::Quick()
 {
 	this->color = GREEN;
 	this->price = 15;
-	this->actionRadius = 150.f;
-	this->attackDmg = 1;
-	this->attackSpeed = 2.f;
+	this->setAttackStats(150.f, 2.f, 1);
 }
 
-Quick::~Quick()
+char* Quick::getType() const
 {
+	return (char*)"Quick";
 }

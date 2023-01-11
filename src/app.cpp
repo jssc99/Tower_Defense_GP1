@@ -70,7 +70,7 @@ void App::Update()
 		ImGui::Text("mouse: %f, %f", mouse.x, mouse.y);
 		ImGui::End();
 	}
-	G.enemies[0]->pos = { mouse.x, mouse.y };
+	//G.enemies[0]->pos = { mouse.x, mouse.y };
 
 	G.update();
 	G.draw();

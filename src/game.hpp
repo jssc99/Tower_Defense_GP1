@@ -7,12 +7,19 @@
 #include "entities/towers/quick_tower.hpp"
 #include "entities/towers/explosive_tower.hpp"
 
+struct purchaseMenu
+{
+	Tower* tow[4];
+};
+
 class Game
 {
 public:
 	Grid grid;
 	Tower* towers[50];
 	Enemy* enemies[50];
+
+	purchaseMenu purchaseMenu;
 
 	int level;
 	int money;
@@ -28,7 +35,9 @@ public:
 private:
 	void mUpdateEnemies();
 	void mUpdateTowers();
+	void mUpdateMenu();
 
 	void mDrawEnemies();
 	void mDrawTowers();
+	void mDrawMenu();
 };
