@@ -5,16 +5,16 @@
 #include "../entity.hpp"
 #include "checkpoint.hpp"
 
-constexpr float SQUARE_SIZE = 32.f;
+constexpr auto SQUARE_SIZE = 32;
 
-enum Type
+enum class Type : char
 {
-	NONE,
-	BACKGROUND,
-	GRASS,
-	PATH,
-	CASTLE,
-	SPAWN
+	NONE = 'n',
+	BACKGROUND = 'b',
+	GRASS = 'g',
+	PATH = 'p',
+	CASTLE = 'c',
+	SPAWN = 's'
 };
 
 static int _id = 0;
@@ -23,25 +23,23 @@ class Square : public Entity
 {
 public:
 	int id;
+	Type type;
+	Checkpoint checkpoint;
 	bool canPlaceTower;
 	bool hasCheckpoint;
-	Type type;
-	ImGuiCol color;
-	Checkpoint checkpoint;
 
 	Square();
-	Square(Type type);
-	//creator for checkpoint pathway TODO
 	~Square() {};
 
-	std::string getType();
-	void setType(Type type);
-	virtual void drawEntity();
+	std::string getType() const;
+
+	// also used to set checkpoint
+	void setType(Type type, bool isCheckpoint = 0, int chkpId = 0, float2 newDirChkp = { 0,0 });
+	void draw() override;
+
+private:
+	void setCheckpoint(int id, float2 newDir, float2 pos);
 };
-
-
-
-
 
 /*
 // Background tiles

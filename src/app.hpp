@@ -1,20 +1,22 @@
 #pragma once
 
-#include "grid.hpp"
 #include "entities/enemy.hpp"
+#include "entities/castle.hpp"
 #include "calc.hpp"
+#include "grid.hpp"
+
+constexpr auto WIDTH = 1280;
+constexpr auto HEIGHT = 704;
 
 class App
 {
 public:
-    Grid grid;
+	Grid grid;
+	Enemy e;
+	Castle c;
 
-    App();
-    ~App();
+	App();
+	~App();
 
-    void Update();
-    Enemy e;
-
-    int nbrCheck;
-    Checkpoint check[5];
+	void Update();
 };

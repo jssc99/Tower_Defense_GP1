@@ -1,102 +1,94 @@
 #include "square.hpp"
-
-#define stringify( name ) #name
-
-Square::Square(Type type) : type(type)
-{
-	this->id = _id++;
-	this->canPlaceTower = false;
-	this->hasCheckpoint = false;
-	this->color = ImColor(0.f, 0.f, 0.f, 0.f);
-	this->checkpoint = { 0, UP };
-
-	switch (type)
-	{
-	case NONE:
-		this->color = ImColor( 0.f ,0.f, 0.f, 1.f );
-		break;
-	case BACKGROUND:
-		this->color = ImColor(1.f, 0.f, 0.f, 1.f);
-		break;
-	case GRASS:
-		this->color = ImColor(0.f, 1.f, 0.f, 1.f);
-		this->canPlaceTower = true;
-		break;
-	case PATH:
-		this->color = ImColor(1.f, 1.f, 0.f, 1.f);
-		break;
-	case CASTLE:
-		this->color = ImColor(1.f, 0.f, 1.f, 1.f);
-		break;
-	case SPAWN:
-		this->color = ImColor(0.f, 0.f, 1.f, 1.f);
-		break;
-	default:
-		break;
-	}
-}
+#include "../calc.hpp"
 
 Square::Square()
 {
-	this->type = NONE;
-	this->id = 9999;
+	this->type = Type::NONE;
+	this->id = _id++;
 	this->canPlaceTower = false;
 	this->hasCheckpoint = false;
-	this->color = ImColor(0.f, 0.f, 0.f, 0.f);
+	this->color = WHITE;
 }
 
-std::string Square::getType()
+std::string Square::getType() const
 {
-	return stringify(this->type);
+	switch (this->type)
+	{
+	case Type::NONE:
+		return "None";
+	case Type::BACKGROUND:
+		return "Decor";
+	case Type::GRASS:
+		return "Grass";
+	case Type::PATH:
+		return "Path";
+	case Type::CASTLE:
+		return "Castle";
+	case Type::SPAWN:
+		return "Spawn";
+	default:
+		return "error";
+	}
 }
 
-void Square::setType(Type type)
+void Square::setType(Type type, bool isCheckpoint, int chkpId, float2 newDirChkp)
 {
 	this->type = type;
-
 	switch (type)
 	{
-	case NONE:
-		this->color = ImColor(0.f, 0.f, 0.f, 1.f);
+	case Type::NONE:
+		this->color = BLACK;
 		break;
-	case BACKGROUND:
-		this->color = ImColor(1.f, 0.f, 0.f, 1.f);
+	case Type::BACKGROUND:
+		this->color = RED;
 		break;
-	case GRASS:
-		this->color = ImColor(0.f, 1.f, 0.f, 1.f);
+	case Type::GRASS:
+		this->color = GREEN;
 		this->canPlaceTower = true;
 		break;
-	case PATH:
-		this->color = ImColor(1.f, 1.f, 0.f, 1.f);
+	case Type::PATH:
+		this->hasCheckpoint = isCheckpoint;
+		if (isCheckpoint)
+			this->setCheckpoint( chkpId, newDirChkp, this->pos);
+		this->color = ORANGE;
 		break;
-	case CASTLE:
-		this->color = ImColor(1.f, 0.f, 1.f, 1.f);
+	case Type::CASTLE:
+		this->hasCheckpoint = isCheckpoint;
+		if (isCheckpoint)
+			this->setCheckpoint(chkpId, newDirChkp, this->pos);
+		this->color = VIOLET;
 		break;
-	case SPAWN:
-		this->color = ImColor(0.f, 0.f, 1.f, 1.f);
+	case Type::SPAWN:
+		this->color = BLUE;
 		break;
 	default:
 		break;
 	}
 }
 
-void Square::drawEntity()
+void Square::setCheckpoint(int id, float2 newDir, float2 pos)
+{
+	this->checkpoint.id = id;
+	this->checkpoint.newDirection = newDir;
+	this->checkpoint.pos = pos;
+}
+
+void Square::draw()
 {
 	ImDrawList& bgDrawlist = *ImGui::GetBackgroundDrawList();
-	
 	switch (type)
 	{
-	case NONE:
-		bgDrawlist.AddRect({ this->pos.x - 16, this->pos.y - 16 }, { this->pos.x + 16, this->pos.y + 16 }, this->color);
+	case Type::NONE:
+		bgDrawlist.AddRect({ this->pos.x, this->pos.y }, { this->pos.x + SQUARE_SIZE, this->pos.y + SQUARE_SIZE }, this->color);
 		break;
 
 	default:
-		bgDrawlist.AddRectFilled({ this->pos.x - 16, this->pos.y - 16 }, { this->pos.x + 16, this->pos.y + 16 }, this->color);
+		bgDrawlist.AddRectFilled({ this->pos.x, this->pos.y }, { this->pos.x + SQUARE_SIZE, this->pos.y + SQUARE_SIZE }, this->color);
 		break;
 	}
-	char* nb = new char;
-	sprintf(nb, "%d", (int)this->pos.x / 32);
-	bgDrawlist.AddText({ this->pos.x, this->pos.y }, ImColor(1.f, 1.f, 1.f, 1.f), nb);
-	sprintf(nb, "%d", (int)this->pos.y / 32);
-	bgDrawlist.AddText({ this->pos.x - 16.f, this->pos.y - 16.f }, ImColor(1.f, 1.f, 1.f, 1.f), nb);
+	char* temp = new char;
+	sprintf(temp, "%.0f", (this->pos.y / SQUARE_SIZE));
+	bgDrawlist.AddText({ this->pos.x, this->pos.y }, WHITE, temp);
+	sprintf(temp, "%.0f", (this->pos.x / SQUARE_SIZE));
+	bgDrawlist.AddText({ this->pos.x + SQUARE_SIZE / 2.f, this->pos.y + SQUARE_SIZE / 2.f }, WHITE, temp);
 }
