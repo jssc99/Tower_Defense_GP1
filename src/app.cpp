@@ -74,7 +74,7 @@ void App::Update()
 			G.enemies[id] = new Knight;
 			G.enemies[id]->pos = G.grid.getSpawnPoint();
 		}
-		ImGui::Text("Castle health and max health: %f, %f", G.castle.healthSystem.health, G.castle.healthSystem.maxHealth);
+		ImGui::Text("Castle health and max health: %d, %d", G.castle.healthSystem.health, G.castle.healthSystem.maxHealth);
 		ImGui::Text("mouse: %f, %f", mouse.x, mouse.y);
 		ImGui::End();
 	}

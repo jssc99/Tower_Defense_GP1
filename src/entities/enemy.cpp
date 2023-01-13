@@ -17,7 +17,7 @@ Enemy::Enemy()
 
 void Enemy::update(Checkpoint* listCheckpoint, int nbCheckpoint, Castle* castle)
 {
-	if (this->checkId + 1 != nbCheckpoint)
+	if (this->checkId -1 != nbCheckpoint)
 		this->move(listCheckpoint, nbCheckpoint);
 	else
 		castle->healthSystem.health -= this->attackDmg;
