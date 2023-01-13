@@ -19,6 +19,7 @@ class Square : public Entity
 {
 public:
 	Type type;
+	bool canHaveTower;
 
 	Square();
 	~Square() {};
@@ -29,4 +30,5 @@ public:
 	float2 getPosCenter() const;
 
 	void draw() override;
+	void drawPos();
 };

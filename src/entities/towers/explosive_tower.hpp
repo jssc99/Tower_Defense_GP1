@@ -8,7 +8,9 @@ public:
 	float bombRadius;
 
 	inline Explosive();
-	inline ~Explosive();
+	inline ~Explosive() {};
+
+	inline char* getType() const;
 };
 
 Explosive::Explosive()
@@ -16,11 +18,10 @@ Explosive::Explosive()
 	this->bombRadius = 10.f;
 	this->color = VIOLET;
 	this->price = 40;
-	this->actionRadius = 200.f;
-	this->attackDmg = 15;
-	this->attackSpeed = 6.f;
+	this->setAttackStats(200.f, 6.f, 15);
 }
 
-Explosive::~Explosive()
+char* Explosive::getType() const
 {
+	return (char*)"Explosive";
 }

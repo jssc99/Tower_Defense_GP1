@@ -6,19 +6,27 @@ class Slow : public Tower
 {
 public:
 	inline Slow();
-	inline ~Slow();
+	inline ~Slow() {};
+
+	inline char* getType() const;
+
+private:
+	void mAttack() override;
 };
 
 Slow::Slow()
 {
-	
 	this->color = CYAN;
 	this->price = 30;
-	this->actionRadius = 50.f;
-	this->attackDmg = 0;
-	this->attackSpeed = 2.f;
+	this->setAttackStats(50.f, 0.f, 0);
 }
 
-Slow::~Slow()
+char* Slow::getType() const
 {
+	return (char*)"Slow";
+}
+
+inline void Slow::mAttack()
+{
+	this->current_target; // TODO slow it down
 }
