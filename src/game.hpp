@@ -20,8 +20,9 @@ class Game
 {
 public:
 	Grid grid;
-	Tower* towers[50];
-	Enemy* enemies[50];
+	Tower* towers[MAX_NB_TOWERS];
+	Enemy* enemies[MAX_NB_ENEMIES];
+	Castle castle;
 
 	purchaseMenu purchaseMenu;
 
@@ -37,16 +38,16 @@ public:
 	void draw();
 	void drawDebug();
 
-	void placeTower(Square* s);
-
 private:
-	void mUpdateEnemies();
-	void mUpdateTowers();
-	void mUpdateMenu();
+	void updateEnemies();
+	void updateTowers();
+	void updateMenu();
 
-	void mDrawEnemies();
-	void mDrawTowers();
-	void mDrawMenu();
+	void drawEnemies();
+	void drawTowers();
+	void drawMenu();
+
+	void placeTower(Square* s);
 
 	int getFreeEnemySpotId();
 	int getFreeTowerSpotId();

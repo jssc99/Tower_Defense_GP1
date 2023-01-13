@@ -12,20 +12,20 @@ App::App()
 														"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb" +
 														"bbbbggggggggggbbbbbbbbgggggggggggbbbbbbb" +
 														"bbbbggggggggggbbbbbbbbgggggggggggbbbbbbb" +
-														"ggggggggggggggggbbbbccpppppppppgggggggbb" +
-														"ggggggggggggggggbbbbccpppppppppgggggggbb" +
-														"spppppppgggggggggggggggggggggppgggggggbb" +
-														"ppppppppgggggggggggggggggggggppgggggggbb" +
-														"ggggggppggggggggbbgggggggggggppgggggggbb" +
-														"ggggggppggggggggbbgggggggggggppgggggggbb" +
-														"ggggggppggggggggbbgggggggggggppgggggggbb" +
-														"ggggggppggggggggbbbbgggggggggppgggggggbb" +
-														"ggggggppggggggggbbbbgggggggggppgggggggbb" +
-														"ggggggppggggggggbbbbgggggggggppgggggggbb" +
-														"ggggggppggggggggggbbbbgggggggppgggggggbb" +
-														"ggggggppggggggggggbbbbgggggggppgggggggbb" +
-														"bbggggpppppppppppppppppppppppppgggggggbb" +
-														"bbggggpppppppppppppppppppppppppgggggggbb" +
+														"ggggggggggggggggbbbbccppppppppppggggggbb" +
+														"ggggggggggggggggbbbbccppppppppppggggggbb" +
+														"spppppppggggggggggggggggggggggppggggggbb" +
+														"ppppppppggggggggggggggggggggggppggggggbb" +
+														"ggggggppggggggggbbggggggggggggppggggggbb" +
+														"ggggggppggggggggbbggggggggggggppggggggbb" +
+														"ggggggppggggggggbbggggggggggggppggggggbb" +
+														"ggggggppggggggggbbbbggggggggggppggggggbb" +
+														"ggggggppggggggggbbbbggggggggggppggggggbb" +
+														"ggggggppggggggggbbbbggggggggggppggggggbb" +
+														"ggggggppggggggggggbbbbggggggggppggggggbb" +
+														"ggggggppggggggggggbbbbggggggggppggggggbb" +
+														"bbggggppppppppppppppppppppppppppggggggbb" +
+														"bbggggppppppppppppppppppppppppppggggggbb" +
 														"bbbbggggggggggggggbbbbggggggggggggbbbbbb" +
 														"bbbbggggggggggggggbbbbggggggggggggbbbbbb" +
 														"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb" +
@@ -34,28 +34,11 @@ App::App()
 		Checkpoint list[12] = {
 			{++id, { 6,7 }, DOWN },
 			{++id, { 16,7 }, RIGHT},
-			{++id, { 16,30 }, UP},
-			{++id, { 4,30 }, LEFT},
+			{++id, { 16,31 }, UP},
+			{++id, { 4,31 }, LEFT},
 			{++id, { 4,21 }, STOP} };
 
 		G.load(lvl[G.level], list, id);
-	}
-	// tower test
-	{
-		/*// do not use
-		G.towers[0] = new Basic;
-		G.towers[0]->setPos(G.grid.square[10][8].getPosCenter());
-		G.towers[1] = new Explosive;
-		G.towers[1]->setPos(G.grid.square[15][8].getPosCenter());
-		G.towers[2] = new Quick;
-		G.towers[2]->setPos(G.grid.square[15][28].getPosCenter());
-		G.towers[3] = new Slow;
-		G.towers[3]->setPos(G.grid.square[6][28].getPosCenter());
-		G.towers[4] = new Slow;
-		G.towers[4]->setPos(G.grid.square[3][28].getPosCenter());
-		*/
-		G.enemies[0] = new Enemy;
-		G.enemies[0]->pos = G.grid.square[12][7].pos;
 	}
 	this->debug = false;
 }
@@ -70,14 +53,13 @@ void App::Update()
 	{
 		ImGui::Begin("Tower");
 		ImGui::Checkbox("Draw Grid", &this->debug);
-		ImGui::Text("mouse: %f, %f", mouse.x, mouse.y);
+		ImGui::Text("Money: %d", G.money);
+		if (ImGui::Button("$$$ + 20"))
+			G.money += 20;
+		if (ImGui::Button("$$$ - 20"))
+			G.money -= 20;
 		ImGui::End();
 	}
-	if (this->debug)
-		G.enemies[0]->pos = { mouse.x, mouse.y };
-	else
-		G.enemies[0]->pos = G.grid.square[12][7].pos;
-
 	G.update();
 	G.draw();
 	if (this->debug)

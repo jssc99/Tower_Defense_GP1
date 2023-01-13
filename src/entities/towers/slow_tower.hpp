@@ -27,5 +27,5 @@ char* Slow::getTypeName() const
 
 inline void Slow::attack()
 {
-	this->current_target; // TODO slow it down
+	this->current_target; // TODO slow target down
 }

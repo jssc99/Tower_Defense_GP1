@@ -22,7 +22,7 @@ public:
 	//Projectile projectile; //not used for now
 
 	Tower();
-	~Tower() { /*if (this->current_target) delete this->current_target;*/ };
+	~Tower() {};
 
 	void setPos(float2 pos);
 	void setPos(float x, float y);
