@@ -39,7 +39,7 @@ class Entity
 public:
 	float2 pos;
 	ImGuiCol color; // while there's no texture
-	//ImGuiUtils sprite; // useless for now
+	Texture sprite; // useless for now
 
 	Entity() : pos({ 0,0 }), color(WHITE) {};
 	inline ~Entity() {};

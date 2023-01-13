@@ -14,7 +14,8 @@ public:
 Basic::Basic()
 {
 	this->type = Type_Tower::BASIC;
-	this->color = BLUE;
+	//this->color = BLUE;
+	this->sprite	= ImGuiUtils::LoadTexture("assets/towerDefense_tile183.png");
 	this->price = 20;
 	this->setAttackStats(100.f, 4.f, 5);
 }

@@ -15,7 +15,8 @@ public:
 Slow::Slow()
 {
 	this->type = Type_Tower::SLOW;
-	this->color = CYAN;
+	//this->color = CYAN;
+	this->sprite = ImGuiUtils::LoadTexture("assets/towerDefense_tile182.png");
 	this->price = 30;
 	this->setAttackStats(50.f, 0.f, 0);
 }

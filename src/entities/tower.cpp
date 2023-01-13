@@ -53,8 +53,9 @@ void Tower::draw(bool drawRadius)
 	ImDrawList* bgDrawList = ImGui::GetBackgroundDrawList();
 	if (drawRadius && this->isMouseOverTower())
 		bgDrawList->AddCircle({ this->pos.x, this->pos.y }, this->mAttackRadius, SHY_LIGHT_BLUE, 0, 2.f);
-	bgDrawList->AddRectFilled({ this->pos.x - H_TOWER_SIZE , this->pos.y - H_TOWER_SIZE },
-												 { this->pos.x + H_TOWER_SIZE, this->pos.y + H_TOWER_SIZE }, this->color);
+	ImGuiUtils::DrawTextureEx(*bgDrawList, this->sprite, { this->pos.x, this->pos.y }, { 0.5f,0.5f });
+	//bgDrawList->AddRectFilled({ this->pos.x - H_TOWER_SIZE , this->pos.y - H_TOWER_SIZE },
+	//											 { this->pos.x + H_TOWER_SIZE, this->pos.y + H_TOWER_SIZE }, this->color);
 }
 
 void Tower::upgrade()
