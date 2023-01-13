@@ -57,15 +57,15 @@
     <ClInclude Include="src\entities\healthSystem.hpp" />
     <ClInclude Include="src\entities\tower.hpp" />
     <ClInclude Include="src\types.hpp" />
-    <ClInclude Include="src\entities\towers\basic_tower.hpp" />
-    <ClInclude Include="src\entities\towers\explosive_tower.hpp" />
-    <ClInclude Include="src\entities\towers\quick_tower.hpp" />
-    <ClInclude Include="src\entities\towers\slow_tower.hpp" />
     <ClInclude Include="src\entities\projectile.hpp" />
     <ClInclude Include="src\game.hpp" />
     <ClInclude Include="src\entities\enemies\soldier.hpp" />
     <ClInclude Include="src\entities\enemies\knight.hpp" />
     <ClInclude Include="src\entities\enemies\healer.hpp" />
+    <ClInclude Include="src\entities\towers\slow_tower.hpp" />
+    <ClInclude Include="src\entities\towers\basic_tower.hpp" />
+    <ClInclude Include="src\entities\towers\explosive_tower.hpp" />
+    <ClInclude Include="src\entities\towers\quick_tower.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
