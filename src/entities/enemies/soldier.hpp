@@ -15,7 +15,6 @@ Soldier::Soldier()
 	this->attackDmg = 20;
 	this->moveSpeed = 1;
 	this->loot = 10;
-	this->maxHealth = 50;
 }
 
 Soldier::~Soldier()

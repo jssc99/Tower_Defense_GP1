@@ -1,21 +1,30 @@
 #pragma once
 
 #include "grid.hpp"
-#include "entities/enemy.hpp"
-#include "entities/castle.hpp"
+#include "entities/enemies/healer.hpp"
+#include "entities/enemies/knight.hpp"
+#include "entities/enemies/soldier.hpp"
 #include "entities/towers/slow_tower.hpp"
 #include "entities/towers/basic_tower.hpp"
 #include "entities/towers/quick_tower.hpp"
 #include "entities/towers/explosive_tower.hpp"
 
+struct purchaseMenu
+{
+	Tower* tow[4];
+	Tower selection;
+	bool hasSelected;
+};
 
 class Game
 {
 public:
 	Grid grid;
+	Tower* towers[MAX_NB_TOWERS];
+	Enemy* enemies[MAX_NB_ENEMIES];
 	Castle castle;
-	Tower* towers[50];
-	Enemy* enemies[50];
+
+	purchaseMenu purchaseMenu;
 
 	int level;
 	int money;
@@ -27,11 +36,19 @@ public:
 	void load(std::string seed, Checkpoint* checkpointList, int nbCheckpoint);
 	void update();
 	void draw();
+	void drawDebug();
 
+	int getFreeEnemySpotId();
+	int getFreeTowerSpotId();
 private:
-	void mUpdateEnemies();
-	void mUpdateTowers();
+	void updateEnemies();
+	void updateTowers();
+	void updateMenu();
 
-	void mDrawEnemies();
-	void mDrawTowers();
+	void drawEnemies();
+	void drawTowers();
+	void drawMenu();
+
+	void placeTower(Square* s);
+
 };

@@ -16,7 +16,9 @@ public:
 	void loadCheckpoints(Checkpoint* checkpointList, int nbCheckpoint);
 
 	void draw();
+	void drawGrid();
 	void drawCheckpoints();
 
 	float2 getSpawnPoint() const;
+	Square *getSquare(float2 point);
 };

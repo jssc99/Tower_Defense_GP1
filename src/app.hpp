@@ -8,6 +8,7 @@ constexpr auto HEIGHT = 704;
 class App
 {
 public:
+	bool debug;
 	Game game;
 
 	App();

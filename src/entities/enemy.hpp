@@ -3,7 +3,7 @@
 #include "castle.hpp"
 #include "../grid.hpp"
 
-class Enemy : public Entity, public HealthSystem
+class Enemy : public Entity
 {
 public:
 	int attackDmg;
@@ -11,14 +11,15 @@ public:
 	int loot;
 	float2 direction;
 	int checkId;
+	HealthSystem healthSystem;
 
 	Enemy();
 	~Enemy() {}
 
-	void setPos(float2 pos);
-	void update(Grid* grid, Castle* castle, int nbEnemies);
+	void update(Checkpoint* listCheckpoint, int nbCheckpoint, Castle* castle);
+	void spawn(Grid* grid);
 	void draw() override;
 
 private:
-	void mMove(Grid* grid, Castle* castle, int nbEnemies);
+	void move(Checkpoint* listCheckpoint, int nbCheckpoint);
 };

@@ -5,7 +5,7 @@
 #include "../entity.hpp"
 #include "checkpoint.hpp"
 
-enum class Type : char
+enum class Type_Square : char
 {
 	NONE = 'n',
 	BACKGROUND = 'b',
@@ -18,16 +18,18 @@ enum class Type : char
 class Square : public Entity
 {
 public:
-	Type type;
+	Type_Square type;
 	bool canHaveTower;
 
 	Square();
 	~Square() {};
 
 	std::string getType() const;
-	void setType(Type type);
+	void setType(Type_Square type);
 
 	float2 getPosCenter() const;
+
+	bool canPlaceTower();
 
 	void draw() override;
 	void drawPos();

@@ -7,7 +7,6 @@
 App::App()
 {
 	// grid test
-
 	std::string lvl1 = std::string("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb")+
 								   "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb" +
 								   "bbbbggggggggggbbbbbbbbgggggggggggbbbbbbb" +
@@ -30,7 +29,7 @@ App::App()
 								   "bbbbggggggggggggggbbbbggggggggggggbbbbbb" +
 								   "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb" +
 								   "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb";
-	int id = 9;
+	int id = 0;
 	Checkpoint list[9] = {
 		{++id, { 6,7 }, DOWN },
 		{++id, { 16,7 }, RIGHT},
@@ -43,7 +42,8 @@ App::App()
 		{++id, { 4,21 }, STOP}
 	};
 	G.load(lvl1, list, id);
-
+	this->debug = false;
+	G.money += 100;
 }
 
 App::~App()
@@ -51,6 +51,36 @@ App::~App()
 }
 
 void App::Update()
-{	
+{
+	ImVec2 mouse = ImGui::GetMousePos();
+	{
+		ImGui::Begin("Tower");
+		ImGui::Checkbox("Draw Grid", &this->debug);
+		if (ImGui::Button("Soldier"))
+		{
+			int id = G.getFreeEnemySpotId();
+			G.enemies[id] = new Soldier;
+			G.enemies[id]->pos = G.grid.getSpawnPoint();
+		}
+		if (ImGui::Button("Healer"))
+		{
+			int id = G.getFreeEnemySpotId();
+			G.enemies[id] = new Healer;
+			G.enemies[id]->pos = G.grid.getSpawnPoint();
+		}
+		if (ImGui::Button("Knight"))
+		{
+			int id = G.getFreeEnemySpotId();
+			G.enemies[id] = new Knight;
+			G.enemies[id]->pos = G.grid.getSpawnPoint();
+		}
+		ImGui::Text("Castle health and max health: %f, %f", G.castle.healthSystem.health, G.castle.healthSystem.maxHealth);
+		ImGui::Text("mouse: %f, %f", mouse.x, mouse.y);
+		ImGui::End();
+	}
+
 	G.update();
+	G.draw();
+	if (this->debug)
+		G.drawDebug();
 }
