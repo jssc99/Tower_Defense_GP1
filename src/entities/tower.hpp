@@ -2,16 +2,12 @@
 
 #include "../entity.hpp"
 #include "projectile.hpp"
-#include "../game.hpp"
+#include "enemy.hpp"
 
 class Tower : public Entity
 {
 public:
 	int price;
-	float actionRadius;
-	float attackSpeed;
-	int attackDmg;
-	int upgradeLvl;
 	Enemy *current_target;
 	Projectile projectile;
 
@@ -24,7 +20,15 @@ public:
 	void update(Enemy **en, int nbEnemies = 0);
 	void draw() override;
 
+	void upgrade();
+
 private: 
+	float mAttackCooldown;
+	float mActionRadius;
+	float mAttackSpeed;
+	int mAttackDmg;
+	int mUpgradeLvl;
+
 	bool mIsEnemyInsideRange(Enemy* en);
 	void mGetTarget(Enemy** en, int nbEnemies);
 	void mAttackTarget();
