@@ -3,9 +3,10 @@
 #include "castle.hpp"
 #include "../grid.hpp"
 
-class Enemy : public Entity, public HealthSystem
+class Enemy : public Entity 
 {
 public:
+	HealthSystem health;
 	int attackDmg;
 	float moveSpeed;
 	int loot;

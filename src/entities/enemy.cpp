@@ -2,8 +2,6 @@
 
 #include "enemy.hpp"
 #include "../calc.hpp"
-#include "../game.hpp"
-
 
 Enemy::Enemy()
 {
@@ -49,7 +47,7 @@ void Enemy::mMove(Grid* grid, Castle* castle, int nbEnemies)
 				//castle test
 				if (i + 1 == grid->nbCheckpoints)//==last checkpoint(castle)
 				{
-					castle->health -= this->attackDmg;
+					castle->health.health -= this->attackDmg;
 				}
 			}
 		}
