@@ -6,50 +6,52 @@
 Enemy::Enemy()
 {
 	this->attackDmg = 0;
-	this->moveSpeed = 0;
+	this->moveSpeed = 1;
 	this->loot = 0;
 	this->direction = RIGHT;
 	this->checkId = 1;
 }
 
 
-void Enemy::setPos(float2 pos)
+void Enemy::update(Checkpoint* listCheckpoint, int nbCheckpoint, Castle* castle)
 {
-	this->pos = pos;
-}
-
-void Enemy::update(Grid* grid, Castle* castle, int nbEnemies)
-{
-	if (nbEnemies)
-	{
-		mMove(grid, castle, nbEnemies);
-	}
+	if (this->checkId + 1 != nbCheckpoint)
+		this->mMove(listCheckpoint, nbCheckpoint);
+	else
+		castle->healthSystem.health -= this->attackDmg;
 }
 
 void Enemy::draw()
 {
 	ImDrawList* fgDrawlist = ImGui::GetForegroundDrawList();
-	fgDrawlist->AddCircleFilled({ pos.x, pos.y }, 10, ImColor(1.f, 0.f, 0.f));
+	fgDrawlist->AddCircleFilled({ pos.x, pos.y }, 10, this->color);
 }
 
-void Enemy::mMove(Grid* grid, Castle* castle, int nbEnemies)
+void Enemy::spawn(Grid* grid)
 {
-	if (nbEnemies)
-	{
-		this->pos += this->direction * this->moveSpeed;
-		//checkpoints change direction
-		for (int i = 0; i < grid->nbCheckpoints; ++i)
-		{
-			if (this->pos.x >= grid->chkpList[i].pos.x - 5.f && this->pos.x <= grid->chkpList[i].pos.x + 5.f && this->pos.y >= grid->chkpList[i].pos.y - 5.f && this->pos.y <= grid->chkpList[i].pos.y + 5.f && grid->chkpList[i].id == this->checkId)
-			{
-				this->direction = grid->chkpList[i].newDirection;
-				this->checkId++;
-				//castle test
-				if (i + 1 == grid->nbCheckpoints)//==last checkpoint(castle)
-				{
-					castle->health.health -= this->attackDmg;
-				}
-			}
-		}
-	}
+	this->pos = grid->getSpawnPoint();
 }
+
+void Enemy::mMove(Checkpoint* listCheckpoint, int nbCheckpoint)
+{
+	//checkpoints change direction
+	for (int i = 0; i < nbCheckpoint; ++i)
+	{
+		if (listCheckpoint[i].id == this->checkId)
+			if (this->pos.x >= listCheckpoint[i].pos.x - 5.f && 
+				this->pos.x <= listCheckpoint[i].pos.x + 5.f && 
+				this->pos.y >= listCheckpoint[i].pos.y - 5.f && 
+				this->pos.y <= listCheckpoint[i].pos.y + 5.f)
+			{
+				this->direction = listCheckpoint[i].newDirection;
+				this->checkId++;
+			}
+			else
+				this->pos += this->direction * this->moveSpeed;
+	}
+}/*
+			//castle test
+			if (i + 1 == grid->nbCheckpoints)//==last checkpoint(castle)
+			{
+				castle->healthSystem.health -= this->attackDmg;
+			}*/

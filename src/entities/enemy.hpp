@@ -16,10 +16,10 @@ public:
 	Enemy();
 	~Enemy() {}
 
-	void setPos(float2 pos);
-	void update(Grid* grid, Castle* castle, int nbEnemies);
+	void update(Checkpoint* listCheckpoint, int nbCheckpoint, Castle* castle);
+	void spawn(Grid* grid);
 	void draw() override;
 
 private:
-	void mMove(Grid* grid, Castle* castle, int nbEnemies);
+	void mMove(Checkpoint* listCheckpoint, int nbCheckpoint);
 };

@@ -8,6 +8,12 @@ public:
 	int maxHealth;
 	int health;
 
-	HealthSystem() {};
+	HealthSystem();
 	~HealthSystem() {};
+};
+
+HealthSystem::HealthSystem()
+{
+	maxHealth = 0;
+	health = 0;
 };

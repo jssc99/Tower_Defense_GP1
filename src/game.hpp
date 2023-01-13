@@ -38,6 +38,8 @@ public:
 	void draw();
 	void drawDebug();
 
+	int getFreeEnemySpotId();
+	int getFreeTowerSpotId();
 private:
 	void updateEnemies();
 	void updateTowers();
@@ -49,6 +51,4 @@ private:
 
 	void placeTower(Square* s);
 
-	int getFreeEnemySpotId();
-	int getFreeTowerSpotId();
 };
