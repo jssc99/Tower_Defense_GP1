@@ -21,4 +21,7 @@ public:
 
 	float2 getSpawnPoint() const;
 	Square* getSquare(float2 point);
+
+private:
+	void makePathLookGood();
 };

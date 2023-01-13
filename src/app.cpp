@@ -14,18 +14,18 @@ App::App()
 														"bbbbggggggggggbbbbbbbbgggggggggggbbbbbbb" +
 														"ggggggggggggggggbbbbccppppppppppggggggbb" +
 														"ggggggggggggggggbbbbccppppppppppggggggbb" +
-														"spppppppggggggggggggggggggggggppggggggbb" +
-														"ppppppppggggggggggggggggggggggppggggggbb" +
-														"ggggggppggggggggbbggggggggggggppggggggbb" +
-														"ggggggppggggggggbbggggggggggggppggggggbb" +
-														"ggggggppggggggggbbggggggggggggppggggggbb" +
-														"ggggggppggggggggbbbbggggggggggppggggggbb" +
-														"ggggggppggggggggbbbbggggggggggppggggggbb" +
-														"ggggggppggggggggbbbbggggggggggppggggggbb" +
-														"ggggggppggggggggggbbbbggggggggppggggggbb" +
-														"ggggggppggggggggggbbbbggggggggppggggggbb" +
-														"bbggggppppppppppppppppppppppppppggggggbb" +
-														"bbggggppppppppppppppppppppppppppggggggbb" +
+														"spppppppppppggggggggggggggggggppggggggbb" +
+														"ppppppppppppggggggggggggggggggppggggggbb" +
+														"ggppggppggggggggbbggggggggggggppggggggbb" +
+														"ggppggppggggggggbbggggggggggggppggggggbb" +
+														"ggppppppggggggggbbggggggggggggppggggggbb" +
+														"ggppppppggggggggbbbbggggggggggppggggggbb" +
+														"ggggggppppppggggbbbbggggggggggppggggggbb" +
+														"ggggggppppppggggbbbbggggggggggppggggggbb" +
+														"ggggggppggppggggggbbbbggggggggppggggggbb" +
+														"ggggggppggppggggggbbbbggggggggppggggggbb" +
+														"bbggppppppppppppppppppppppppppppggggggbb" +
+														"bbggppppppppppppppppppppppppppppggggggbb" +
 														"bbbbggggggggggggggbbbbggggggggggggbbbbbb" +
 														"bbbbggggggggggggggbbbbggggggggggggbbbbbb" +
 														"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb" +
@@ -58,6 +58,12 @@ void App::Update()
 			G.money += 20;
 		if (ImGui::Button("$$$ - 20"))
 			G.money -= 20;
+		for (int i = 0; i < MAX_NB_TOWERS; i++)
+			if (G.towers[i]) {
+				char name[20] = "";
+				sprintf(name, "angle tower #%d", i);
+				ImGui::SliderAngle(name, &G.towers[i]->angle, 0.f, 360.f);
+			}
 		ImGui::End();
 	}
 	G.update();

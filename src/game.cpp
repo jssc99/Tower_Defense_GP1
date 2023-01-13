@@ -43,6 +43,7 @@ void Game::load(std::string seed, Checkpoint* checkpointList, int nbCheckpoint)
 {
 	this->grid.loadGrid(seed);
 	this->grid.loadCheckpoints(checkpointList, nbCheckpoint);
+	this->grid.makePathLookGood(seed);
 }
 
 void Game::update()

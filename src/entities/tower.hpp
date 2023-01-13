@@ -17,12 +17,14 @@ class Tower : public Entity
 {
 public:
 	int price;
+	float angle;
+	Texture turret;
 	Type_Tower type;
 	Enemy* current_target;
 	//Projectile projectile; //not used for now
 
 	Tower();
-	~Tower() {};
+	~Tower();
 
 	void setPos(float2 pos);
 	void setPos(float x, float y);

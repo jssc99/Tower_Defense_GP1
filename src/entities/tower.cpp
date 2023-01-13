@@ -10,8 +10,13 @@ Tower::Tower()
 	this->mAttackSpeed = 0.f;
 	this->mAttackCooldown = 0.f;
 	this->mUpgradeLvl = 0;
+	this->angle = 0;
 	this->current_target = nullptr;
 	this->type = Type_Tower::NONE;
+}
+
+Tower::~Tower()
+{
 }
 
 void Tower::setPos(float2 pos)
@@ -54,8 +59,7 @@ void Tower::draw(bool drawRadius)
 	if (drawRadius && this->isMouseOverTower())
 		bgDrawList->AddCircle({ this->pos.x, this->pos.y }, this->mAttackRadius, SHY_LIGHT_BLUE, 0, 2.f);
 	ImGuiUtils::DrawTextureEx(*bgDrawList, this->sprite, { this->pos.x, this->pos.y }, { 0.5f,0.5f });
-	//bgDrawList->AddRectFilled({ this->pos.x - H_TOWER_SIZE , this->pos.y - H_TOWER_SIZE },
-	//											 { this->pos.x + H_TOWER_SIZE, this->pos.y + H_TOWER_SIZE }, this->color);
+	ImGuiUtils::DrawTextureEx(*bgDrawList, this->turret, { this->pos.x, this->pos.y }, { 0.4f,0.4f }, this->angle);
 }
 
 void Tower::upgrade()

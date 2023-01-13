@@ -38,11 +38,11 @@ class Entity
 {
 public:
 	float2 pos;
-	ImGuiCol color; // while there's no texture
-	Texture sprite; // useless for now
+	ImGuiCol color;
+	Texture sprite;
 
-	Entity() : pos({ 0,0 }), color(WHITE) {};
-	inline ~Entity() {};
+	Entity() : pos({ 0,0 }), color(WHITE) { this->sprite = ImGuiUtils::LoadTexture("assets/towerDefense_tile298.png"); };
+	~Entity() { ImGuiUtils::UnloadTexture(this->sprite); };
 
-	virtual void draw() {};
+	virtual void draw() { ImGuiUtils::DrawTextureEx(*ImGui::GetForegroundDrawList(), this->sprite, { this->pos.x, this->pos.y }); };
 };

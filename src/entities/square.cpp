@@ -9,29 +9,9 @@ Square::Square()
 	this->sprite = ImGuiUtils::LoadTexture("assets/towerDefense_tile015.png");
 }
 
-std::string Square::getType() const
-{
-	switch (this->type)
-	{
-	case Type_Square::NONE:
-		return "None";
-	case Type_Square::BACKGROUND:
-		return "Decor";
-	case Type_Square::GRASS:
-		return "Grass";
-	case Type_Square::PATH:
-		return "Path";
-	case Type_Square::CASTLE:
-		return "Castle";
-	case Type_Square::SPAWN:
-		return "Spawn";
-	default:
-		return "error";
-	}
-}
-
 void Square::setType(Type_Square type)
 {
+	int choiceGrass = (rand() % 4);
 	this->type = type;
 	switch (type)
 	{
@@ -46,7 +26,14 @@ void Square::setType(Type_Square type)
 	case Type_Square::GRASS:
 		this->canHaveTower = true;
 		//this->color = GREEN;
-		this->sprite = ImGuiUtils::LoadTexture("assets/towerDefense_tile024.png");
+		if (choiceGrass == 0)
+			this->sprite = ImGuiUtils::LoadTexture("assets/towerDefense_tile024.png");
+		else if (choiceGrass == 1)
+			this->sprite = ImGuiUtils::LoadTexture("assets/towerDefense_tile157.png");
+		else if (choiceGrass == 2)
+			this->sprite = ImGuiUtils::LoadTexture("assets/towerDefense_tile162.png");
+		else if (choiceGrass == 3)
+			this->sprite = ImGuiUtils::LoadTexture("assets/towerDefense_tile231.png");
 		break;
 	case Type_Square::PATH:
 		//this->color = ORANGE;
@@ -54,7 +41,7 @@ void Square::setType(Type_Square type)
 		break;
 	case Type_Square::CASTLE:
 		//this->color = VIOLET;
-		this->sprite = ImGuiUtils::LoadTexture("assets/towerDefense_tile086.png");
+		this->sprite = ImGuiUtils::LoadTexture("assets/towerDefense_tile090.png");
 		break;
 	case Type_Square::SPAWN:
 		//this->color = BLUE;
