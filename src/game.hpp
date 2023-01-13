@@ -36,9 +36,8 @@ public:
 	void drawDebug();
 
 	bool canPlaceTower(Tower t, Square* s);
-	void placeTower(float2 pos, Tower selection);
-	void placeTower(float x, float y, Tower selection);
-
+	void placeTower(float2 pos);
+	void placeTower(float x, float y);
 
 private:
 	void mUpdateEnemies();

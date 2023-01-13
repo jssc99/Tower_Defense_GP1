@@ -76,14 +76,14 @@ bool Game::canPlaceTower(Tower t, Square* s)
 	return false;
 }
 
-void Game::placeTower(float2 posCenter, Tower selection)
+void Game::placeTower(float2 posCenter)
 {
 	Square* s = this->grid.getSquare(posCenter);
 	s->canHaveTower = false;
-	this->getFreeTowerSpot() = new selection;
+	//this->getFreeTowerSpot() = new (this->purchaseMenu.selection);
 }
 
-void Game::placeTower(float xCenter, float yCenter, Tower selection)
+void Game::placeTower(float xCenter, float yCenter)
 {
 	this->placeTower({ xCenter,yCenter });
 }
