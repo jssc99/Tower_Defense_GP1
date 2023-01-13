@@ -6,18 +6,19 @@ class Basic : public Tower
 {
 public:
 	inline Basic();
-	inline ~Basic();
+	inline ~Basic() {};
+
+	inline char* getType() const;
 };
 
 Basic::Basic()
 {
 	this->color = BLUE;
 	this->price = 20;
-	this->actionRadius = 100.f;
-	this->attackDmg = 5;
-	this->attackSpeed = 4.f;
+	this->setAttackStats(100.f, 4.f, 5);
 }
 
-Basic::~Basic()
+char* Basic::getType() const
 {
+	return (char*)"Basic";
 }

@@ -1,7 +1,7 @@
 #pragma once
 
 #include "../entity.hpp"
-#include "checkpoint.hpp"
+#include "../checkpoint.hpp"
 
 class Enemy : public Entity
 {

@@ -5,6 +5,7 @@ Square::Square()
 {
 	this->type = Type::NONE;
 	this->color = WHITE;
+	this->canHaveTower = false;
 }
 
 std::string Square::getType() const
@@ -40,6 +41,7 @@ void Square::setType(Type type)
 		this->color = RED;
 		break;
 	case Type::GRASS:
+		this->canHaveTower = true;
 		this->color = GREEN;
 		break;
 	case Type::PATH:
@@ -63,20 +65,23 @@ float2 Square::getPosCenter() const
 
 void Square::draw()
 {
-	ImDrawList& bgDrawlist = *ImGui::GetBackgroundDrawList();
 	switch (type)
 	{
 	case Type::NONE:
-		bgDrawlist.AddRect({ this->pos.x, this->pos.y }, { this->pos.x + SQUARE_SIZE, this->pos.y + SQUARE_SIZE }, this->color);
+		ImGui::GetBackgroundDrawList()->AddRect({ this->pos.x, this->pos.y }, { this->pos.x + SQUARE_SIZE, this->pos.y + SQUARE_SIZE }, this->color);
 		break;
 
 	default:
-		bgDrawlist.AddRectFilled({ this->pos.x, this->pos.y }, { this->pos.x + SQUARE_SIZE, this->pos.y + SQUARE_SIZE }, this->color);
+		ImGui::GetBackgroundDrawList()->AddRectFilled({ this->pos.x, this->pos.y }, { this->pos.x + SQUARE_SIZE, this->pos.y + SQUARE_SIZE }, this->color);
 		break;
 	}
+}
+
+void Square::drawPos()
+{
 	char* temp = new char;
 	sprintf(temp, "%.0f", (this->pos.y / SQUARE_SIZE));
-	bgDrawlist.AddText({ this->pos.x, this->pos.y }, WHITE, temp);
+	ImGui::GetBackgroundDrawList()->AddText({ this->pos.x, this->pos.y }, WHITE, temp);
 	sprintf(temp, "%.0f", (this->pos.x / SQUARE_SIZE));
-	bgDrawlist.AddText({ this->pos.x + H_SQUARE_SIZE, this->pos.y + H_SQUARE_SIZE }, WHITE, temp);
+	ImGui::GetBackgroundDrawList()->AddText({ this->pos.x + H_SQUARE_SIZE, this->pos.y + H_SQUARE_SIZE }, WHITE, temp);
 }

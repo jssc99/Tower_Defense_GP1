@@ -9,7 +9,7 @@ public:
 	int id;
 	float2 newDirection;
 
-	Checkpoint() : id(0), newDirection( {0,0} ) {};
+	Checkpoint() : id(0), newDirection({ 0,0 }) {};
 	Checkpoint(int id, float2 pos, float2 dir) : id(id), newDirection(dir) { this->pos = pos; };
 	~Checkpoint() {};
 
