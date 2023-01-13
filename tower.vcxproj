@@ -96,6 +96,9 @@
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\entities\enemies\healer.hpp" />
+    <ClInclude Include="src\entities\enemies\knight.hpp" />
+    <ClInclude Include="src\entities\enemies\soldier.hpp" />
     <ClInclude Include="src\game.hpp" />
     <ClInclude Include="src\app.hpp" />
     <ClInclude Include="src\calc.hpp" />

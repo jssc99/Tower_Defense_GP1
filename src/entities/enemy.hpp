@@ -3,7 +3,7 @@
 #include "castle.hpp"
 #include "../grid.hpp"
 
-class Enemy : public Entity 
+class Enemy : public Entity
 {
 public:
 	HealthSystem health;

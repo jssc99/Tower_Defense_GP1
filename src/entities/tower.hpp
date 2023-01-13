@@ -4,10 +4,20 @@
 #include "projectile.hpp"
 #include "enemy.hpp"
 
+enum class Type_Tower : char
+{
+	NONE = 'n',
+	BASIC = 'b',
+	QUICK = 'q',
+	EXPLOSIVE = 'e',
+	SLOW = 's'
+};
+
 class Tower : public Entity
 {
 public:
 	int price;
+	Type_Tower type;
 	Enemy* current_target;
 	//Projectile projectile; //not used for now
 
@@ -17,15 +27,18 @@ public:
 	void setPos(float2 pos);
 	void setPos(float x, float y);
 
-	virtual char* getType() const;
+	virtual char* getTypeName() const;
 
 	void update(Enemy** en, int nbEnemies = 0);
 	void draw(bool drawRadius = 1);
 
 	void upgrade();
 
+	bool isMouseOverTower();
+
 protected:
 	void setAttackStats(float attackRadius, float attackSpeed, int attackDmg);
+	virtual void attack();
 
 private:
 	float mAttackRadius;
@@ -34,8 +47,7 @@ private:
 	int mAttackDmg;
 	int mUpgradeLvl;
 
-	bool mIsEnemyInsideRange(Enemy* en);
-	void mGetTarget(Enemy** en, int nbEnemies);
-	void mAttackTarget();
-	virtual void mAttack();
+	bool isEnemyInsideRange(Enemy* en);
+	void getTarget(Enemy** en, int nbEnemies);
+	void attackTarget();
 };

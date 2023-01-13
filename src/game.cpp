@@ -66,26 +66,32 @@ void Game::drawDebug()
 	this->grid.drawGrid();
 }
 
-bool Game::canPlaceTower(Tower t, Square* s)
+void Game::placeTower(Square* s)
 {
-	if (s->type == Type::GRASS)
-		for (int i = 0; i < MAX_NB_TOWERS; i++)
-			if (this->towers[i] &&
-				this->towers[i]->pos != (s->pos + (float)H_SQUARE_SIZE))
-				return true;
-	return false;
-}
-
-void Game::placeTower(float2 posCenter)
-{
-	Square* s = this->grid.getSquare(posCenter);
-	s->canHaveTower = false;
-	//this->getFreeTowerSpot() = new (this->purchaseMenu.selection);
-}
-
-void Game::placeTower(float xCenter, float yCenter)
-{
-	this->placeTower({ xCenter,yCenter });
+	int id = this->getFreeTowerSpotId();
+	if (id != -1) {
+		switch (M.selection.type)
+		{
+		case Type_Tower::BASIC:
+			this->towers[id] = new Basic;
+			break;
+		case Type_Tower::QUICK:
+			this->towers[id] = new Quick;
+			break;
+		case Type_Tower::EXPLOSIVE:
+			this->towers[id] = new Explosive;
+			break;
+		case Type_Tower::SLOW:
+			this->towers[id] = new Slow;
+			break;
+		case Type_Tower::NONE: // shoudn't happen
+		default:
+			this->towers[id] = new Tower;
+			break;
+		}
+		this->towers[id]->setPos(s->getPosCenter());
+		s->canHaveTower = false;
+	}
 }
 
 void Game::mUpdateEnemies()
@@ -107,9 +113,7 @@ void Game::mUpdateMenu()
 	ImVec2 mouse = ImGui::GetMousePos();
 	if (!M.hasSelected && ImGui::IsMouseClicked(ImGuiMouseButton_Left))
 		for (int i = 0; i < 4; i++)
-			if (M.hasSelected == false &&
-				(M.tow[i]->pos.x - (float)H_TOWER_SIZE <= mouse.x && mouse.x <= M.tow[i]->pos.x + (float)H_TOWER_SIZE) &&
-				(M.tow[i]->pos.y - (float)H_TOWER_SIZE <= mouse.y && mouse.y <= M.tow[i]->pos.y + (float)H_TOWER_SIZE)) {
+			if (M.hasSelected == false && M.tow[i]->isMouseOverTower()) {
 				M.selection = *M.tow[i];
 				M.hasSelected = true;
 			}
@@ -117,8 +121,11 @@ void Game::mUpdateMenu()
 		M.selection.setPos(mouse.x, mouse.y);
 	if (M.hasSelected && ImGui::IsMouseReleased(ImGuiMouseButton_Left)) {
 		M.hasSelected = false;
-		if (this->canPlaceTower(M.selection, this->grid.getSquare(M.selection.pos))) // TODO
-			printf("place\n");
+		Square* s = this->grid.getSquare(M.selection.pos);
+		if (s->canPlaceTower()) {
+			this->placeTower(s);
+			printf("placed\n");
+		}
 	}
 }
 
@@ -144,7 +151,7 @@ void Game::mDrawMenu()// SQ : 20 16 to SQ : 21 23
 		WHITE, 5.f);
 	for (int i = 0; i < 4; i++) {
 		M.tow[i]->draw(0);
-		bgDrawlist->AddText({ this->grid.square[21][16 + 2 * i].pos.x, this->grid.square[21][16 + 2 * i].pos.y }, BLACK, M.tow[i]->getType());
+		bgDrawlist->AddText({ this->grid.square[21][16 + 2 * i].pos.x, this->grid.square[21][16 + 2 * i].pos.y }, BLACK, M.tow[i]->getTypeName());
 		char price[20];
 		sprintf(price, "-%d c", M.tow[i]->price);
 		bgDrawlist->AddText({ this->grid.square[21][16 + 2 * i].pos.x, this->grid.square[21][16 + 2 * i].pos.y + H_SQUARE_SIZE }, BLACK, price);
@@ -153,18 +160,18 @@ void Game::mDrawMenu()// SQ : 20 16 to SQ : 21 23
 		M.selection.draw();
 }
 
-Enemy* Game::getFreeEnemySpot()
+int Game::getFreeEnemySpotId()
 {
 	for (int i = 0; i < MAX_NB_ENEMIES; i++)
-		if (!this->enemies[i])
-			return this->enemies[i];
-	return nullptr;
+		if (!this->enemies[i] || this->enemies[i] == nullptr)
+			return i;
+	return -1;
 }
 
-Tower* Game::getFreeTowerSpot()
+int Game::getFreeTowerSpotId()
 {
 	for (int i = 0; i < MAX_NB_TOWERS; i++)
-		if (!this->towers[i])
-			return this->towers[i];
-	return nullptr;
+		if (!this->towers[i] || this->towers[i] == nullptr)
+			return i;
+	return -1;
 }

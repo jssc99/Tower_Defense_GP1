@@ -1,7 +1,9 @@
 #pragma once
 
 #include "grid.hpp"
-#include "entities/enemy.hpp"
+#include "entities/enemies/healer.hpp"
+#include "entities/enemies/knight.hpp"
+#include "entities/enemies/soldier.hpp"
 #include "entities/towers/slow_tower.hpp"
 #include "entities/towers/basic_tower.hpp"
 #include "entities/towers/quick_tower.hpp"
@@ -35,9 +37,7 @@ public:
 	void draw();
 	void drawDebug();
 
-	bool canPlaceTower(Tower t, Square* s);
-	void placeTower(float2 pos);
-	void placeTower(float x, float y);
+	void placeTower(Square* s);
 
 private:
 	void mUpdateEnemies();
@@ -48,6 +48,6 @@ private:
 	void mDrawTowers();
 	void mDrawMenu();
 
-	Enemy* getFreeEnemySpot();
-	Tower* getFreeTowerSpot();
+	int getFreeEnemySpotId();
+	int getFreeTowerSpotId();
 };

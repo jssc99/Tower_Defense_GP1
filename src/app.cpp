@@ -42,6 +42,7 @@ App::App()
 	}
 	// tower test
 	{
+		/*// do not use
 		G.towers[0] = new Basic;
 		G.towers[0]->setPos(G.grid.square[10][8].getPosCenter());
 		G.towers[1] = new Explosive;
@@ -52,7 +53,7 @@ App::App()
 		G.towers[3]->setPos(G.grid.square[6][28].getPosCenter());
 		G.towers[4] = new Slow;
 		G.towers[4]->setPos(G.grid.square[3][28].getPosCenter());
-
+		*/
 		G.enemies[0] = new Enemy;
 		G.enemies[0]->pos = G.grid.square[12][7].pos;
 	}

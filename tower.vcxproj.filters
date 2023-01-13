@@ -100,5 +100,8 @@
     <ClInclude Include="src\entities\towers\quick_tower.hpp" />
     <ClInclude Include="src\entities\towers\slow_tower.hpp" />
     <ClInclude Include="src\game.hpp" />
+    <ClInclude Include="src\entities\enemies\healer.hpp" />
+    <ClInclude Include="src\entities\enemies\knight.hpp" />
+    <ClInclude Include="src\entities\enemies\soldier.hpp" />
   </ItemGroup>
 </Project>

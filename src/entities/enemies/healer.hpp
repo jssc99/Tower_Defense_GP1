@@ -13,9 +13,9 @@ Healer::Healer()
 {
 	this->color = CYAN;
 	this->attackDmg = 5;
-	this->moveSpeed = 1.5;
-	this->loot = 5 ;
-	this->maxHealth = 30;
+	this->moveSpeed = 1.5f;
+	this->loot = 5;
+	this->health.maxHealth = 30;
 }
 
 Healer::~Healer()

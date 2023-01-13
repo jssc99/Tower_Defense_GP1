@@ -8,6 +8,6 @@ public:
 	int maxHealth;
 	int health;
 
-	HealthSystem() {};
+	HealthSystem() { maxHealth = 0; health = 0; };
 	~HealthSystem() {};
 };

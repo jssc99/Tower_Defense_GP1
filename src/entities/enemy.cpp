@@ -12,7 +12,6 @@ Enemy::Enemy()
 	this->checkId = 1;
 }
 
-
 void Enemy::setPos(float2 pos)
 {
 	this->pos = pos;

@@ -3,7 +3,7 @@
 
 Square::Square()
 {
-	this->type = Type::NONE;
+	this->type = Type_Square::NONE;
 	this->color = WHITE;
 	this->canHaveTower = false;
 }
@@ -12,45 +12,45 @@ std::string Square::getType() const
 {
 	switch (this->type)
 	{
-	case Type::NONE:
+	case Type_Square::NONE:
 		return "None";
-	case Type::BACKGROUND:
+	case Type_Square::BACKGROUND:
 		return "Decor";
-	case Type::GRASS:
+	case Type_Square::GRASS:
 		return "Grass";
-	case Type::PATH:
+	case Type_Square::PATH:
 		return "Path";
-	case Type::CASTLE:
+	case Type_Square::CASTLE:
 		return "Castle";
-	case Type::SPAWN:
+	case Type_Square::SPAWN:
 		return "Spawn";
 	default:
 		return "error";
 	}
 }
 
-void Square::setType(Type type)
+void Square::setType(Type_Square type)
 {
 	this->type = type;
 	switch (type)
 	{
-	case Type::NONE:
+	case Type_Square::NONE:
 		this->color = BLACK;
 		break;
-	case Type::BACKGROUND:
+	case Type_Square::BACKGROUND:
 		this->color = RED;
 		break;
-	case Type::GRASS:
+	case Type_Square::GRASS:
 		this->canHaveTower = true;
 		this->color = GREEN;
 		break;
-	case Type::PATH:
+	case Type_Square::PATH:
 		this->color = ORANGE;
 		break;
-	case Type::CASTLE:
+	case Type_Square::CASTLE:
 		this->color = VIOLET;
 		break;
-	case Type::SPAWN:
+	case Type_Square::SPAWN:
 		this->color = BLUE;
 		break;
 	default:
@@ -63,11 +63,19 @@ float2 Square::getPosCenter() const
 	return this->pos + H_SQUARE_SIZE;
 }
 
+bool Square::canPlaceTower()
+{
+	if (this->type == Type_Square::GRASS && this->canHaveTower)
+		return true;
+	else
+		return false;
+}
+
 void Square::draw()
 {
 	switch (type)
 	{
-	case Type::NONE:
+	case Type_Square::NONE:
 		ImGui::GetBackgroundDrawList()->AddRect({ this->pos.x, this->pos.y }, { this->pos.x + SQUARE_SIZE, this->pos.y + SQUARE_SIZE }, this->color);
 		break;
 
