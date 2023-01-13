@@ -1,18 +1,24 @@
 #pragma once
 
-#include "../entity.hpp"
-#include "../checkpoint.hpp"
+#include "castle.hpp"
+#include "../grid.hpp"
 
-class Enemy : public Entity
+class Enemy : public Entity, public HealthSystem
 {
 public:
 	int attackDmg;
 	float moveSpeed;
 	int loot;
 	float2 direction;
+	int checkId;
 
-	Enemy() {}
+	Enemy();
 	~Enemy() {}
 
-	void drawEntity() override;
+	void setPos(float2 pos);
+	void update(Grid* grid, Castle* castle, int nbEnemies);
+	void draw() override;
+
+private:
+	void mMove(Grid* grid, Castle* castle, int nbEnemies);
 };
