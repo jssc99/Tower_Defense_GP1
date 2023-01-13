@@ -8,7 +8,7 @@ public:
 	int maxHealth;
 	int health;
 
-	HealthSystem();
+	inline HealthSystem();
 	~HealthSystem() {};
 };
 

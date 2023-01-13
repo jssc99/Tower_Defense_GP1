@@ -2,6 +2,8 @@
 
 #include "enemy.hpp"
 #include "../calc.hpp"
+#include "../game.hpp"
+
 
 Enemy::Enemy()
 {
@@ -15,8 +17,8 @@ Enemy::Enemy()
 
 void Enemy::update(Checkpoint* listCheckpoint, int nbCheckpoint, Castle* castle)
 {
-	if (this->checkId + 1 != nbCheckpoint)
-		this->mMove(listCheckpoint, nbCheckpoint);
+	if (this->checkId -1 != nbCheckpoint)
+		this->move(listCheckpoint, nbCheckpoint);
 	else
 		castle->healthSystem.health -= this->attackDmg;
 }
@@ -32,7 +34,7 @@ void Enemy::spawn(Grid* grid)
 	this->pos = grid->getSpawnPoint();
 }
 
-void Enemy::mMove(Checkpoint* listCheckpoint, int nbCheckpoint)
+void Enemy::move(Checkpoint* listCheckpoint, int nbCheckpoint)
 {
 	//checkpoints change direction
 	for (int i = 0; i < nbCheckpoint; ++i)
@@ -49,9 +51,4 @@ void Enemy::mMove(Checkpoint* listCheckpoint, int nbCheckpoint)
 			else
 				this->pos += this->direction * this->moveSpeed;
 	}
-}/*
-			//castle test
-			if (i + 1 == grid->nbCheckpoints)//==last checkpoint(castle)
-			{
-				castle->healthSystem.health -= this->attackDmg;
-			}*/
+}

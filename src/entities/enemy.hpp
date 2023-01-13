@@ -21,5 +21,5 @@ public:
 	void draw() override;
 
 private:
-	void mMove(Checkpoint* listCheckpoint, int nbCheckpoint);
+	void move(Checkpoint* listCheckpoint, int nbCheckpoint);
 };

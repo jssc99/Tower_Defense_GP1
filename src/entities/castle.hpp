@@ -8,7 +8,7 @@ class Castle : public Entity
 public:
 	HealthSystem healthSystem;
 
-	Castle();
+	inline Castle();
 	~Castle() {};
 };
 
