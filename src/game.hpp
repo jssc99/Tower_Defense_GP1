@@ -1,7 +1,9 @@
 #pragma once
 
 #include "grid.hpp"
-#include "entities/enemy.hpp"
+#include "entities/enemies/healer.hpp"
+#include "entities/enemies/knight.hpp"
+#include "entities/enemies/soldier.hpp"
 #include "entities/towers/slow_tower.hpp"
 #include "entities/towers/basic_tower.hpp"
 #include "entities/towers/quick_tower.hpp"
@@ -18,8 +20,9 @@ class Game
 {
 public:
 	Grid grid;
-	Tower* towers[50];
-	Enemy* enemies[50];
+	Tower* towers[MAX_NB_TOWERS];
+	Enemy* enemies[MAX_NB_ENEMIES];
+	Castle castle;
 
 	purchaseMenu purchaseMenu;
 
@@ -35,19 +38,17 @@ public:
 	void draw();
 	void drawDebug();
 
-	bool canPlaceTower(Tower t, Square* s);
-	void placeTower(float2 pos);
-	void placeTower(float x, float y);
-
 private:
-	void mUpdateEnemies();
-	void mUpdateTowers();
-	void mUpdateMenu();
+	void updateEnemies();
+	void updateTowers();
+	void updateMenu();
 
-	void mDrawEnemies();
-	void mDrawTowers();
-	void mDrawMenu();
+	void drawEnemies();
+	void drawTowers();
+	void drawMenu();
 
-	Enemy* getFreeEnemySpot();
-	Tower* getFreeTowerSpot();
+	void placeTower(Square* s);
+
+	int getFreeEnemySpotId();
+	int getFreeTowerSpotId();
 };
