@@ -8,17 +8,18 @@ public:
 	inline Basic();
 	inline ~Basic() {};
 
-	inline char* getType() const;
+	inline char* getTypeName() const;
 };
 
 Basic::Basic()
 {
+	this->type = Type_Tower::BASIC;
 	this->color = BLUE;
 	this->price = 20;
 	this->setAttackStats(100.f, 4.f, 5);
 }
 
-char* Basic::getType() const
+char* Basic::getTypeName() const
 {
 	return (char*)"Basic";
 }

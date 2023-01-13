@@ -8,25 +8,24 @@ public:
 	inline Slow();
 	inline ~Slow() {};
 
-	inline char* getType() const;
-
-private:
-	void mAttack() override;
+	inline char* getTypeName() const;
+	void attack() override;
 };
 
 Slow::Slow()
 {
+	this->type = Type_Tower::SLOW;
 	this->color = CYAN;
 	this->price = 30;
 	this->setAttackStats(50.f, 0.f, 0);
 }
 
-char* Slow::getType() const
+char* Slow::getTypeName() const
 {
 	return (char*)"Slow";
 }
 
-inline void Slow::mAttack()
+inline void Slow::attack()
 {
-	this->current_target; // TODO slow it down
+	this->current_target; // TODO slow target down
 }
