@@ -2,15 +2,18 @@
 
 #include "grid.hpp"
 #include "entities/enemy.hpp"
+#include "entities/castle.hpp"
 #include "entities/towers/slow_tower.hpp"
 #include "entities/towers/basic_tower.hpp"
 #include "entities/towers/quick_tower.hpp"
 #include "entities/towers/explosive_tower.hpp"
 
+
 class Game
 {
 public:
 	Grid grid;
+	Castle castle;
 	Tower* towers[50];
 	Enemy* enemies[50];
 

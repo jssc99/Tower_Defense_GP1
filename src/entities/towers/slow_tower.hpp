@@ -11,6 +11,7 @@ public:
 
 Slow::Slow()
 {
+	
 	this->color = CYAN;
 	this->price = 30;
 	this->actionRadius = 50.f;

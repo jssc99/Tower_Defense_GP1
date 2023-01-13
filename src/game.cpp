@@ -42,7 +42,8 @@ void Game::mUpdateEnemies()
 {
 	for (int i = 0; i < MAX_NB_ENEMIES; i++)
 		if (this->enemies[i])
-			this->enemies[i]; // TODO add update();
+			this->enemies[i]->update(&this->grid, &this->castle, MAX_NB_ENEMIES); // TODO add update();
+
 }
 
 void Game::mUpdateTowers()

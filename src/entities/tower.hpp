@@ -2,7 +2,7 @@
 
 #include "../entity.hpp"
 #include "projectile.hpp"
-#include "enemy.hpp"
+#include "../game.hpp"
 
 class Tower : public Entity
 {

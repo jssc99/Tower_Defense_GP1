@@ -1,6 +1,7 @@
 #include "tower.hpp"
 
 #include "../calc.hpp"
+#include "enemy.hpp"
 
 Tower::Tower()
 {
