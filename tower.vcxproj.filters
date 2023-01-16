@@ -1,15 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="src\app.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="src\imgui_utils.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="src\main.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
     <ClCompile Include="externals\src\imgui.cpp">
       <Filter>externals</Filter>
     </ClCompile>
@@ -34,38 +25,38 @@
     <ClCompile Include="externals\src\stb_image.cpp">
       <Filter>externals</Filter>
     </ClCompile>
+    <ClCompile Include="src\app.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\grid.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\imgui_utils.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\main.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
     <ClCompile Include="src\entities\square.cpp" />
     <ClCompile Include="src\grid.cpp" />
     <ClCompile Include="src\entities\enemy.cpp" />
-    <ClCompile Include="src\entities\tower.cpp" />
     <ClCompile Include="src\game.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="src\app.hpp">
+    <ClCompile Include="src\entities\tower.cpp" />
+    <ClCompile Include="src\game.cpp">
       <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="src\imgui_utils.hpp">
+    </ClCompile>
+    <ClCompile Include="src\menu.cpp">
       <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="src\calc.hpp" />
-    <ClInclude Include="src\entities\castle.hpp" />
-    <ClInclude Include="src\entities\checkpoint.hpp" />
-    <ClInclude Include="src\entities\enemy.hpp" />
-    <ClInclude Include="src\entity.hpp" />
-    <ClInclude Include="src\grid.hpp" />
-    <ClInclude Include="src\entities\square.hpp" />
-    <ClInclude Include="src\entities\health_system.hpp" />
-    <ClInclude Include="src\entities\tower.hpp" />
-    <ClInclude Include="src\types.hpp" />
-    <ClInclude Include="src\entities\projectile.hpp" />
-    <ClInclude Include="src\game.hpp" />
-    <ClInclude Include="src\entities\enemies\soldier.hpp" />
-    <ClInclude Include="src\entities\enemies\knight.hpp" />
-    <ClInclude Include="src\entities\enemies\healer.hpp" />
-    <ClInclude Include="src\entities\towers\slow_tower.hpp" />
-    <ClInclude Include="src\entities\towers\basic_tower.hpp" />
-    <ClInclude Include="src\entities\towers\explosive_tower.hpp" />
-    <ClInclude Include="src\entities\towers\quick_tower.hpp" />
+    </ClCompile>
+    <ClCompile Include="src\entities\enemy.cpp">
+      <Filter>src\entities</Filter>
+    </ClCompile>
+    <ClCompile Include="src\entities\square.cpp">
+      <Filter>src\entities</Filter>
+    </ClCompile>
+    <ClCompile Include="src\entities\tower.cpp">
+      <Filter>src\entities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -74,5 +65,700 @@
     <Filter Include="externals">
       <UniqueIdentifier>{adcf2b31-4982-46f4-b41b-28e85e73017e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\entities">
+      <UniqueIdentifier>{cb4082ec-4aff-43cd-ba93-ac442d7ba5c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\entities\towers">
+      <UniqueIdentifier>{1e3f6975-aafe-4c92-93c8-e919654b7ebc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\entities\enemies">
+      <UniqueIdentifier>{a57ac5ab-8bb6-4c6b-bd8f-58f126e0f953}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="assets">
+      <UniqueIdentifier>{2530529a-6af2-484a-8ffa-42dafe0cbca8}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\app.hpp">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\calc.hpp">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\entity.hpp">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\grid.hpp">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\imgui_utils.hpp">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\entities\castle.hpp">
+      <Filter>src\entities</Filter>
+    </ClInclude>
+    <ClInclude Include="src\entities\enemy.hpp">
+      <Filter>src\entities</Filter>
+    </ClInclude>
+    <ClInclude Include="src\entities\square.hpp">
+      <Filter>src\entities</Filter>
+    </ClInclude>
+    <ClInclude Include="src\entities\checkpoint.hpp">
+      <Filter>src\entities</Filter>
+    </ClInclude>
+    <ClInclude Include="src\game.hpp">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\entities\enemies\healer.hpp">
+      <Filter>src\entities\enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="src\entities\health_system.hpp">
+      <Filter>src\entities</Filter>
+    </ClInclude>
+    <ClInclude Include="src\entities\enemies\knight.hpp">
+      <Filter>src\entities\enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="src\entities\projectile.hpp">
+      <Filter>src\entities</Filter>
+    </ClInclude>
+    <ClInclude Include="src\entities\enemies\soldier.hpp">
+      <Filter>src\entities\enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="src\types.hpp">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\menu.hpp">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\entities\towers\basic_tower.hpp">
+      <Filter>src\entities\towers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\entities\towers\explosive_tower.hpp">
+      <Filter>src\entities\towers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\entities\towers\quick_tower.hpp">
+      <Filter>src\entities\towers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\entities\towers\slow_tower.hpp">
+      <Filter>src\entities\towers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\entities\tower.hpp">
+      <Filter>src\entities</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\calc.hpp" />
+    <ClInclude Include="src\entities\castle.hpp" />
+    <ClInclude Include="src\entities\checkpoint.hpp" />
+    <ClInclude Include="src\entities\enemy.hpp" />
+    <ClInclude Include="src\entity.hpp" />
+    <ClInclude Include="src\grid.hpp" />
+    <ClInclude Include="src\entities\square.hpp" />
+    <ClInclude Include="src\entities\tower.hpp" />
+    <ClInclude Include="src\types.hpp" />
+    <ClInclude Include="src\entities\towers\basic_tower.hpp" />
+    <ClInclude Include="src\entities\towers\explosive_tower.hpp" />
+    <ClInclude Include="src\entities\towers\quick_tower.hpp" />
+    <ClInclude Include="src\entities\towers\slow_tower.hpp" />
+    <ClInclude Include="src\game.hpp" />
+    <ClInclude Include="src\entities\projectile.hpp" />
+    <ClInclude Include="src\entities\enemies\healer.hpp" />
+    <ClInclude Include="src\entities\enemies\knight.hpp" />
+    <ClInclude Include="src\entities\enemies\soldier.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="assets\EvilEmpire-4BBVK.ttf">
+      <Filter>assets</Filter>
+    </Font>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="assets\towerDefense_tile001.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile002.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile003.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile004.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile010.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile011.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile012.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile013.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile014.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile015.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile016.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile017.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile018.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile019.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile020.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile021.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile022.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile023.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile024.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile025.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile026.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile027.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile033.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile034.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile035.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile036.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile037.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile038.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile039.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile040.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile041.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile042.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile043.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile044.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile045.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile046.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile047.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile048.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile049.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile050.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile055.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile056.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile057.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile058.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile059.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile060.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile061.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile062.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile063.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile064.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile065.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile066.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile067.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile068.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile069.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile070.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile071.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile072.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile073.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile079.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile080.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile081.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile082.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile083.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile084.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile085.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile086.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile087.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile088.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile089.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile090.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile091.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile092.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile093.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile094.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile095.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile096.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile102.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile103.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile104.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile105.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile106.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile115.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile116.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile117.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile118.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile119.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile124.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile125.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile126.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile127.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile128.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile129.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile130.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile131.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile132.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile133.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile134.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile135.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile136.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile137.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile153.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile154.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile155.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile157.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile158.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile159.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile162.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile167.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile172.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile176.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile177.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile178.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile180.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile181.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile182.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile183.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile199.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile200.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile201.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile203.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile204.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile205.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile206.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile207.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile208.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile209.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile210.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile211.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile212.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile213.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile214.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile215.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile216.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile222.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile223.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile224.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile226.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile227.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile228.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile229.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile230.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile231.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile232.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile233.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile234.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile235.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile236.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile237.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile238.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile239.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile245.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile246.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile247.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile248.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile249.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile250.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile253.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile254.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile255.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile256.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile257.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile258.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile259.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile260.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile261.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile262.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile267.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile268.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile269.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile272.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile273.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile274.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile275.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile276.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile277.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile278.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile279.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile280.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile281.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile282.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile283.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile284.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile285.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile286.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile287.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile288.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile289.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile290.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile291.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile292.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile295.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile296.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile297.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile298.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\towerDefense_tile299.png">
+      <Filter>assets</Filter>
+    </Image>
   </ItemGroup>
 </Project>

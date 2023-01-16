@@ -22,7 +22,7 @@ public:
 	bool canHaveTower;
 
 	Square();
-	~Square() {};
+	inline ~Square() {};
 
 	std::string getType() const;
 	void setType(Type_Square type);

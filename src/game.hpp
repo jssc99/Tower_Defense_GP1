@@ -1,45 +1,39 @@
 #pragma once
 
-#include "grid.hpp"
-#include "entities/enemies/healer.hpp"
-#include "entities/enemies/knight.hpp"
-#include "entities/enemies/soldier.hpp"
-#include "entities/towers/slow_tower.hpp"
-#include "entities/towers/basic_tower.hpp"
-#include "entities/towers/quick_tower.hpp"
-#include "entities/towers/explosive_tower.hpp"
+#include "menu.hpp"
 
-struct purchaseMenu
+struct level
 {
-	Tower* tow[4];
-	Tower selection;
-	bool hasSelected;
+	int id;
+	std::string seed;
+	int nbCheckpoints;
+	Checkpoint checkpointList[MAX_NB_CHECKPOINTS];
 };
 
 class Game
 {
 public:
+	Menu menu;
 	Grid grid;
 	Tower* towers[MAX_NB_TOWERS];
 	Enemy* enemies[MAX_NB_ENEMIES];
 	Castle castle;
 
-	purchaseMenu purchaseMenu;
-
-	int level;
+	level lvl[NB_LEVELS];
 	int money;
 	int wave;
 
 	Game();
 	~Game();
 
-	void load(std::string seed, Checkpoint* checkpointList, int nbCheckpoint);
+	void loadLvl(int lvl);
 	void update();
 	void draw();
 	void drawDebug();
 
 	int getFreeEnemySpotId();
 	int getFreeTowerSpotId();
+
 private:
 	void updateEnemies();
 	void updateTowers();

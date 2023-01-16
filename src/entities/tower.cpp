@@ -10,8 +10,13 @@ Tower::Tower()
 	this->mAttackSpeed = 0.f;
 	this->mAttackCooldown = 0.f;
 	this->mUpgradeLvl = 0;
+	this->turret.angle = 0;
 	this->current_target = nullptr;
 	this->type = Type_Tower::NONE;
+}
+
+Tower::~Tower()
+{
 }
 
 void Tower::setPos(float2 pos)
@@ -40,7 +45,7 @@ void Tower::setAttackStats(float attackRadius, float attackSpeed, int attackDmg)
 
 void Tower::update(Enemy** en, int nbEnemies)
 {
-	if (nbEnemies) {
+	if (nbEnemies) { // enemy.isDead()? TODO
 		if (this->current_target == nullptr || this->current_target->healthSystem.health <= 0 || !(this->isEnemyInsideRange(this->current_target)))
 			this->getTarget(en, nbEnemies);
 		if (this->current_target != nullptr)
@@ -53,8 +58,8 @@ void Tower::draw(bool drawRadius)
 	ImDrawList* bgDrawList = ImGui::GetBackgroundDrawList();
 	if (drawRadius && this->isMouseOverTower())
 		bgDrawList->AddCircle({ this->pos.x, this->pos.y }, this->mAttackRadius, SHY_LIGHT_BLUE, 0, 2.f);
-	bgDrawList->AddRectFilled({ this->pos.x - H_TOWER_SIZE , this->pos.y - H_TOWER_SIZE },
-												 { this->pos.x + H_TOWER_SIZE, this->pos.y + H_TOWER_SIZE }, this->color);
+	ImGuiUtils::DrawTextureEx(*bgDrawList, this->sprite, { this->pos.x, this->pos.y }, { 0.5f,0.5f });
+	ImGuiUtils::DrawTextureEx(*bgDrawList, this->turret.sprite, { this->pos.x, this->pos.y }, { 0.4f,0.4f }, this->turret.angle);
 }
 
 void Tower::upgrade()
@@ -64,7 +69,7 @@ void Tower::upgrade()
 }
 
 bool Tower::isEnemyInsideRange(Enemy* en) // SS collision
-{																																// 10 == enemy radius TODO
+{																																// 10 == enemy.size TODO
 	return (pow(en->pos.x - this->pos.x, 2.f) + pow(en->pos.y - this->pos.y, 2.f) < pow(10 + this->mAttackRadius, 2.f));
 }
 
@@ -101,5 +106,5 @@ void Tower::attackTarget()
 
 void Tower::attack()
 {
-	this->current_target; // TODO gets dmg
+	this->current_target; // TODO .getDamage(this->attackTruc);
 }

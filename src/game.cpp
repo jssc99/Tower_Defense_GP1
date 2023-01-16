@@ -13,17 +13,9 @@ Game::Game()
 	this->level = 0;
 	this->money = 0;
 	this->wave = 0;
-
-	// menu is hard placed
-	{
-		M.tow[0] = new Basic;
-		M.tow[1] = new Quick;
-		M.tow[2] = new Slow;
-		M.tow[3] = new Explosive;
-		for (int i = 0; i < 4; i++)
-			M.tow[i]->pos = { this->grid.square[20][16 + 2 * i].pos.x + H_SQUARE_SIZE, this->grid.square[20][16 + 2 * i].pos.y + H_SQUARE_SIZE };
-		M.hasSelected = false;
-	}
+	this->menu.loadPurchaseMenu(&this->grid);
+	this->menu.load(Type_Menu::LOADING);
+}
 }
 
 Game::~Game()
@@ -39,15 +31,24 @@ Game::~Game()
 			delete M.tow[i];
 }
 
-void Game::load(std::string seed, Checkpoint* checkpointList, int nbCheckpoint)
+void Game::loadLvl(int lvl)
 {
-	this->grid.loadGrid(seed);
-	this->grid.loadCheckpoints(checkpointList, nbCheckpoint);
+	this->grid.loadGrid(this->lvl[(lvl - 1)].seed, &this->castle);
+	this->grid.loadCheckpoints(this->lvl[(lvl - 1)].checkpointList, this->lvl[(lvl - 1)].nbCheckpoints);
+	this->grid.makePathLookGood();
+	this->money = 100;
+	this->wave = 0;
+	this->menu.load(Type_Menu::IN_GAME);
 }
 
 void Game::update()
 {
-	this->updateMenu();
+	if (this->menu.update())
+	{
+		Square* s = this->grid.getSquare(this->menu.purchaseMenu.selection.pos);
+		if ((this->money - this->menu.purchaseMenu.selection.price) > -1 && s->canPlaceTower())
+			this->placeTower(s);
+	}
 	this->updateEnemies();
 	this->updateTowers();
 }
@@ -57,8 +58,8 @@ void Game::draw()
 	this->grid.draw();
 	this->drawTowers();
 	this->drawEnemies();
-	this->drawCastle();
-	this->drawMenu();
+	this->menu.draw(&this->grid);
+	this->castle.drawHealth();
 }
 
 void Game::drawDebug()
@@ -99,8 +100,13 @@ void Game::placeTower(Square* s)
 void Game::updateEnemies()
 {
 	for (int i = 0; i < MAX_NB_ENEMIES; i++)
-		if (this->enemies[i])
+		if (this->enemies[i]) {
 			this->enemies[i]->update(this->grid.chkpList, this->grid.nbCheckpoints, &this->castle);
+			if (this->enemies[i]->healthSystem.health <= 0)
+			{
+				this->enemies[i] = nullptr;
+			}
+		}
 }
 
 void Game::updateTowers()
@@ -133,8 +139,7 @@ void Game::updateMenu()
 void Game::drawEnemies()
 {
 	for (int i = 0; i < MAX_NB_ENEMIES; i++)
-		if (this->enemies[i])
-		{
+		if (this->enemies[i]) {
 			this->enemies[i]->draw();
 			this->enemies[i]->drawHealth();
 		}
@@ -147,23 +152,32 @@ void Game::drawTowers()
 			this->towers[i]->draw();
 }
 
-void Game::drawCastle()
+void Game::placeTower(Square* s)
 {
-	this->castle.drawHealth();
-}
-
-void Game::drawMenu()// SQ : 20 16 to SQ : 21 23
-{
-	ImDrawList* bgDrawlist = ImGui::GetBackgroundDrawList();
-	bgDrawlist->AddRectFilled({ this->grid.square[20][16].pos.x, this->grid.square[20][16].pos.y },
-		{ this->grid.square[21][23].pos.x + SQUARE_SIZE, this->grid.square[21][23].pos.y + SQUARE_SIZE },
-		WHITE, 5.f);
-	for (int i = 0; i < 4; i++) {
-		M.tow[i]->draw(0);
-		bgDrawlist->AddText({ this->grid.square[21][16 + 2 * i].pos.x, this->grid.square[21][16 + 2 * i].pos.y }, BLACK, M.tow[i]->getTypeName());
-		char price[20];
-		sprintf(price, "-%d c", M.tow[i]->price);
-		bgDrawlist->AddText({ this->grid.square[21][16 + 2 * i].pos.x, this->grid.square[21][16 + 2 * i].pos.y + H_SQUARE_SIZE }, BLACK, price);
+	int id = this->getFreeTowerSpotId();
+	if (id != -1) {
+		switch (this->menu.purchaseMenu.selection.type)
+		{
+		case Type_Tower::BASIC:
+			this->towers[id] = new Basic;
+			break;
+		case Type_Tower::QUICK:
+			this->towers[id] = new Quick;
+			break;
+		case Type_Tower::EXPLOSIVE:
+			this->towers[id] = new Explosive;
+			break;
+		case Type_Tower::SLOW:
+			this->towers[id] = new Slow;
+			break;
+		case Type_Tower::NONE: // shoudn't happen
+		default:
+			this->towers[id] = new Tower;
+			break;
+		}
+		this->towers[id]->setPos(s->getPosCenter());
+		this->money -= this->towers[id]->price;
+		s->canHaveTower = false;
 	}
 	if (M.hasSelected)
 		M.selection.draw();

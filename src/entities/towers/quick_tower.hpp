@@ -14,7 +14,9 @@ public:
 Quick::Quick()
 {
 	this->type = Type_Tower::QUICK;
-	this->color = DARK_GREEN;
+	//this->color = DARK_GREEN;
+	this->sprite = ImGuiUtils::LoadTexture("assets/towerDefense_tile183.png");
+	this->turret.sprite = ImGuiUtils::LoadTexture("assets/towerDefense_tile229.png");
 	this->price = 15;
 	this->setAttackStats(150.f, 2.f, 1);
 }
