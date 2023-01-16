@@ -45,8 +45,8 @@ void Tower::setAttackStats(float attackRadius, float attackSpeed, int attackDmg)
 
 void Tower::update(Enemy** en, int nbEnemies)
 {
-	if (nbEnemies) { // enemy.isDead()?
-		if (this->current_target == nullptr || this->current_target->health.health <= 0 || !(this->isEnemyInsideRange(this->current_target)))
+	if (nbEnemies) { // enemy.isDead()? TODO
+		if (this->current_target == nullptr || this->current_target->healthSystem.health <= 0 || !(this->isEnemyInsideRange(this->current_target)))
 			this->getTarget(en, nbEnemies);
 		if (this->current_target != nullptr)
 			this->attackTarget();
@@ -59,7 +59,7 @@ void Tower::draw(bool drawRadius)
 	if (drawRadius && this->isMouseOverTower())
 		bgDrawList->AddCircle({ this->pos.x, this->pos.y }, this->mAttackRadius, SHY_LIGHT_BLUE, 0, 2.f);
 	ImGuiUtils::DrawTextureEx(*bgDrawList, this->sprite, { this->pos.x, this->pos.y }, { 0.5f,0.5f });
-	ImGuiUtils::DrawTextureEx(*bgDrawList, this->turret.texture, { this->pos.x, this->pos.y }, { 0.4f,0.4f }, this->turret.angle);
+	ImGuiUtils::DrawTextureEx(*bgDrawList, this->turret.sprite, { this->pos.x, this->pos.y }, { 0.4f,0.4f }, this->turret.angle);
 }
 
 void Tower::upgrade()

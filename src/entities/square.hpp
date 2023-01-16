@@ -22,7 +22,7 @@ public:
 	bool canHaveTower;
 
 	Square();
-	~Square() {};
+	inline ~Square() {};
 
 	void setType(Type_Square type);
 

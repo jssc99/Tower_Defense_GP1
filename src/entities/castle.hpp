@@ -9,7 +9,7 @@ public:
 	HealthSystem healthSystem;
 
 	inline Castle();
-	~Castle() {};
+	inline ~Castle() {};
 
 	inline void drawHealth();
 };
@@ -22,6 +22,6 @@ Castle::Castle()
 
 void Castle::drawHealth()
 {
-	ImDrawList* fgDrawlist = ImGui::GetForegroundDrawList();
-	fgDrawlist->AddRectFilled({ this->pos.x-(healthSystem.health * L_HEALTH_SIZE/2) / healthSystem.maxHealth, this->pos.y - 50 }, { this->pos.x + (healthSystem.health*L_HEALTH_SIZE/2)/healthSystem.maxHealth, this->pos.y - H_HEALTH_SIZE-50 }, BLACK);
+	ImGui::GetForegroundDrawList()->AddRectFilled({ this->pos.x-(healthSystem.health * L_HEALTH_SIZE/2) / healthSystem.maxHealth, this->pos.y - 50 },
+															{ this->pos.x + (healthSystem.health*L_HEALTH_SIZE/2)/healthSystem.maxHealth, this->pos.y - H_HEALTH_SIZE-50 }, BLACK);
 };

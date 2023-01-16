@@ -86,24 +86,22 @@
     <ClCompile Include="externals\src\imgui_tables.cpp" />
     <ClCompile Include="externals\src\imgui_widgets.cpp" />
     <ClCompile Include="externals\src\stb_image.cpp" />
+    <ClCompile Include="src\entities\enemy.cpp" />
+    <ClCompile Include="src\entities\square.cpp" />
+    <ClCompile Include="src\entities\tower.cpp" />
     <ClCompile Include="src\game.cpp" />
     <ClCompile Include="src\app.cpp" />
-    <ClCompile Include="src\entities\enemy.cpp" />
-    <ClCompile Include="src\entities\square.cpp" />
-    <ClCompile Include="src\entities\tower.cpp" />
-    <ClCompile Include="src\entities\enemy.cpp" />
-    <ClCompile Include="src\entities\tower.cpp" />
-    <ClCompile Include="src\game.cpp" />
     <ClCompile Include="src\grid.cpp" />
-    <ClCompile Include="src\entities\square.cpp" />
     <ClCompile Include="src\imgui_utils.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\menu.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\entities\enemies\healer.hpp" />
-    <ClInclude Include="src\entities\enemies\knight.hpp" />
-    <ClInclude Include="src\entities\enemies\soldier.hpp" />
+    <ClInclude Include="src\entities\tower.hpp" />
+    <ClInclude Include="src\entities\towers\basic_tower.hpp" />
+    <ClInclude Include="src\entities\towers\explosive_tower.hpp" />
+    <ClInclude Include="src\entities\towers\quick_tower.hpp" />
+    <ClInclude Include="src\entities\towers\slow_tower.hpp" />
     <ClInclude Include="src\game.hpp" />
     <ClInclude Include="src\app.hpp" />
     <ClInclude Include="src\calc.hpp" />
@@ -114,12 +112,7 @@
     <ClInclude Include="src\entities\enemies\soldier.hpp" />
     <ClInclude Include="src\entities\enemy.hpp" />
     <ClInclude Include="src\entities\projectile.hpp" />
-    <ClInclude Include="src\entities\towers\basic_tower.hpp" />
-    <ClInclude Include="src\entities\towers\explosive_tower.hpp" />
-    <ClInclude Include="src\entities\towers\quick_tower.hpp" />
-    <ClInclude Include="src\entities\towers\slow_tower.hpp" />
     <ClInclude Include="src\entity.hpp" />
-    <ClInclude Include="src\game.hpp" />
     <ClInclude Include="src\grid.hpp" />
     <ClInclude Include="src\entities\square.hpp" />
     <ClInclude Include="src\entities\health_system.hpp" />
@@ -128,15 +121,13 @@
     <ClInclude Include="src\types.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <Font Include="assets\EvilEmpire-4BBVK.ttf" />
+  </ItemGroup>
+  <ItemGroup>
     <Image Include="assets\towerDefense_tile001.png" />
     <Image Include="assets\towerDefense_tile002.png" />
     <Image Include="assets\towerDefense_tile003.png" />
     <Image Include="assets\towerDefense_tile004.png" />
-    <Image Include="assets\towerDefense_tile005.png" />
-    <Image Include="assets\towerDefense_tile006.png" />
-    <Image Include="assets\towerDefense_tile007.png" />
-    <Image Include="assets\towerDefense_tile008.png" />
-    <Image Include="assets\towerDefense_tile009.png" />
     <Image Include="assets\towerDefense_tile010.png" />
     <Image Include="assets\towerDefense_tile011.png" />
     <Image Include="assets\towerDefense_tile012.png" />
@@ -155,11 +146,6 @@
     <Image Include="assets\towerDefense_tile025.png" />
     <Image Include="assets\towerDefense_tile026.png" />
     <Image Include="assets\towerDefense_tile027.png" />
-    <Image Include="assets\towerDefense_tile028.png" />
-    <Image Include="assets\towerDefense_tile029.png" />
-    <Image Include="assets\towerDefense_tile030.png" />
-    <Image Include="assets\towerDefense_tile031.png" />
-    <Image Include="assets\towerDefense_tile032.png" />
     <Image Include="assets\towerDefense_tile033.png" />
     <Image Include="assets\towerDefense_tile034.png" />
     <Image Include="assets\towerDefense_tile035.png" />
@@ -334,10 +320,6 @@
     <Image Include="assets\towerDefense_tile297.png" />
     <Image Include="assets\towerDefense_tile298.png" />
     <Image Include="assets\towerDefense_tile299.png" />
-    <Image Include="assets\towerDefense_tilesheet.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Font Include="assets\EvilEmpire-4BBVK.ttf" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

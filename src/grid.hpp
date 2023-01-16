@@ -1,6 +1,7 @@
 #pragma once
 
 #include "entities/square.hpp"
+#include "entities/castle.hpp"
 
 class Grid
 {
@@ -12,7 +13,7 @@ public:
 	Grid();
 	~Grid() {};
 
-	void loadGrid(std::string seed);
+	void loadGrid(std::string seed, Castle *castle);
 	void loadCheckpoints(Checkpoint* checkpointList, int nbCheckpoint);
 	void makePathLookGood();
 

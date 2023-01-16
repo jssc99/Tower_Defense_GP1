@@ -26,7 +26,7 @@ Game::~Game()
 
 void Game::loadLvl(int lvl)
 {
-	this->grid.loadGrid(this->lvl[(lvl - 1)].seed);
+	this->grid.loadGrid(this->lvl[(lvl - 1)].seed, &this->castle);
 	this->grid.loadCheckpoints(this->lvl[(lvl - 1)].checkpointList, this->lvl[(lvl - 1)].nbCheckpoints);
 	this->grid.makePathLookGood();
 	this->money = 100;
@@ -43,7 +43,6 @@ void Game::update()
 			this->placeTower(s);
 	}
 	this->updateEnemies();
-	//enemies dead ? TODO
 	this->updateTowers();
 }
 
@@ -53,8 +52,7 @@ void Game::draw()
 	this->drawTowers();
 	this->drawEnemies();
 	this->menu.draw(&this->grid);
-	this->drawCastle();
-	this->drawMenu();
+	this->castle.drawHealth();
 }
 
 void Game::drawDebug()
@@ -66,8 +64,13 @@ void Game::drawDebug()
 void Game::updateEnemies()
 {
 	for (int i = 0; i < MAX_NB_ENEMIES; i++)
-		if (this->enemies[i])
+		if (this->enemies[i]) {
 			this->enemies[i]->update(this->grid.chkpList, this->grid.nbCheckpoints, &this->castle);
+			if (this->enemies[i]->healthSystem.health <= 0)
+			{
+				this->enemies[i] = nullptr;
+			}
+		}
 }
 
 void Game::updateTowers()
@@ -80,8 +83,10 @@ void Game::updateTowers()
 void Game::drawEnemies()
 {
 	for (int i = 0; i < MAX_NB_ENEMIES; i++)
-		if (this->enemies[i])
+		if (this->enemies[i]) {
 			this->enemies[i]->draw();
+			this->enemies[i]->drawHealth();
+		}
 }
 
 void Game::drawTowers()
@@ -92,15 +97,10 @@ void Game::drawTowers()
 }
 
 void Game::placeTower(Square* s)
-void Game::drawCastle()
 {
 	int id = this->getFreeTowerSpotId();
 	if (id != -1) {
 		switch (this->menu.purchaseMenu.selection.type)
-	this->castle.drawHealth();
-}
-
-void Game::drawMenu()// SQ : 20 16 to SQ : 21 23
 		{
 		case Type_Tower::BASIC:
 			this->towers[id] = new Basic;

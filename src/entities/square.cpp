@@ -4,7 +4,6 @@
 Square::Square()
 {
 	this->type = Type_Square::NONE;
-	this->color = WHITE;
 	this->canHaveTower = false;
 	//this->color = WHITE;
 	this->sprite = ImGuiUtils::LoadTexture("assets/towerDefense_tile015.png");

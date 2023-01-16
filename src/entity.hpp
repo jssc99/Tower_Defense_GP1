@@ -36,7 +36,10 @@ constexpr auto NB_SQUARES_ROW = 22;
 constexpr auto MAX_NB_CHECKPOINTS = 22;
 constexpr auto MAX_NB_TOWERS = 50;
 constexpr auto MAX_NB_ENEMIES = 100;
-constexpr auto NB_LEVELS = 1;
+constexpr auto NB_LEVELS = 10;
+
+constexpr auto L_HEALTH_SIZE = 40;
+constexpr auto H_HEALTH_SIZE = 5;
 
 class Entity
 {

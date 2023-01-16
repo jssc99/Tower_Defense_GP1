@@ -11,13 +11,16 @@ Grid::Grid()
 			this->square[i][j].pos = { (float)j * SQUARE_SIZE, (float)i * SQUARE_SIZE };
 }
 
-void Grid::loadGrid(std::string seed)
+void Grid::loadGrid(std::string seed, Castle *castle)
 {
 	int id = 0;
 	for (int i = 0; i < NB_SQUARES_ROW; i++)
 		for (int j = 0; j < NB_SQUARES_COL; j++)
-			if (seed[id])
+			if (seed[id]) {
+				if (seed[id] == 'c')
+					castle->pos = this->square[i][j].pos;
 				this->square[i][j].setType((Type_Square)seed[id++]);
+			}
 			else id++;
 }
 
@@ -66,7 +69,7 @@ float2 Grid::getSpawnPoint() const
 	for (int i = 0; i < NB_SQUARES_ROW; i++)
 		for (int j = 0; j < NB_SQUARES_COL; j++)
 			if (this->square[i][j].type == Type_Square::SPAWN)
-				return this->square[i][j].pos;
+				return { this->square[i][j].pos.x,this->square[i][j].pos.y + SQUARE_SIZE };
 	return { 0,0 };
 }
 

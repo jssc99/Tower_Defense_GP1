@@ -65,25 +65,27 @@ void App::Update()
 			}
 		if (ImGui::Button("load lvl1"))
 			G.loadLvl(1);
-		ImGui::Checkbox("Draw Grid", &this->debug);
 		if (ImGui::Button("Soldier"))
 		{
+			int id = this->game.getFreeEnemySpotId();
+			//G.enemies[id]->spawn(Type_Enemy type, G>grid.getSpwn());
 			G.enemies[id] = new Soldier;
 			G.enemies[id]->pos = G.grid.getSpawnPoint();
 		}
 		if (ImGui::Button("Healer"))
 		{
+			int id = this->game.getFreeEnemySpotId();
 			G.enemies[id] = new Healer;
 			G.enemies[id]->pos = G.grid.getSpawnPoint();
 		}
 		if (ImGui::Button("Knight"))
 		{
+			int id = this->game.getFreeEnemySpotId();
 			G.enemies[id] = new Knight;
 			G.enemies[id]->pos = G.grid.getSpawnPoint();
 		}
 		ImGui::Text("Castle health and max health: %d, %d", G.castle.healthSystem.health, G.castle.healthSystem.maxHealth);
 		ImGui::Text("Castle pos = %f, %f", G.castle.pos.x, G.castle.pos.y);
-		ImGui::Text("mouse: %f, %f", mouse.x, mouse.y);
 		ImGui::End();
 	}
 	G.update();

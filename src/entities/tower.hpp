@@ -16,7 +16,7 @@ enum class Type_Tower : char
 struct Turret
 {
 	float angle;
-	Texture texture;
+	Texture sprite;
 };
 
 class Tower : public Entity
