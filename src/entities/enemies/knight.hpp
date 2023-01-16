@@ -15,6 +15,8 @@ Knight::Knight()
 	this->attackDmg = 50;
 	this->moveSpeed = 0.7f;
 	this->loot = 30;
+	this->healthSystem.maxHealth = 300;
+	this->healthSystem.health = this->healthSystem.maxHealth;
 }
 
 Knight::~Knight()

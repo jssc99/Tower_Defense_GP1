@@ -113,7 +113,7 @@
     <ClInclude Include="src\game.hpp" />
     <ClInclude Include="src\grid.hpp" />
     <ClInclude Include="src\entities\square.hpp" />
-    <ClInclude Include="src\entities\healthSystem.hpp" />
+    <ClInclude Include="src\entities\health_system.hpp" />
     <ClInclude Include="src\imgui_utils.hpp" />
     <ClInclude Include="src\entities\tower.hpp" />
     <ClInclude Include="src\types.hpp" />

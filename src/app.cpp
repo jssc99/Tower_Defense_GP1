@@ -42,6 +42,7 @@ App::App()
 		{++id, { 4,21 }, STOP}
 	};
 	G.load(lvl1, list, id);
+	G.castle.pos = list[8].pos;
 	this->debug = false;
 	G.money += 100;
 }
@@ -53,28 +54,27 @@ App::~App()
 void App::Update()
 {
 	ImVec2 mouse = ImGui::GetMousePos();
+	int id = G.getFreeEnemySpotId();
 	{
 		ImGui::Begin("Tower");
 		ImGui::Checkbox("Draw Grid", &this->debug);
 		if (ImGui::Button("Soldier"))
 		{
-			int id = G.getFreeEnemySpotId();
 			G.enemies[id] = new Soldier;
 			G.enemies[id]->pos = G.grid.getSpawnPoint();
 		}
 		if (ImGui::Button("Healer"))
 		{
-			int id = G.getFreeEnemySpotId();
 			G.enemies[id] = new Healer;
 			G.enemies[id]->pos = G.grid.getSpawnPoint();
 		}
 		if (ImGui::Button("Knight"))
 		{
-			int id = G.getFreeEnemySpotId();
 			G.enemies[id] = new Knight;
 			G.enemies[id]->pos = G.grid.getSpawnPoint();
 		}
 		ImGui::Text("Castle health and max health: %d, %d", G.castle.healthSystem.health, G.castle.healthSystem.maxHealth);
+		ImGui::Text("Castle pos = %f, %f", G.castle.pos.x, G.castle.pos.y);
 		ImGui::Text("mouse: %f, %f", mouse.x, mouse.y);
 		ImGui::End();
 	}
