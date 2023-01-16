@@ -27,6 +27,8 @@ constexpr auto SQUARE_SIZE = 32;
 constexpr auto H_SQUARE_SIZE = 16;
 constexpr auto TOWER_SIZE = 24;
 constexpr auto H_TOWER_SIZE = 12;
+constexpr auto H_HEALTH_SIZE = 5;
+constexpr auto L_HEALTH_SIZE = 40;
 
 constexpr auto NB_SQUARES_COL = 40;
 constexpr auto NB_SQUARES_ROW = 22;

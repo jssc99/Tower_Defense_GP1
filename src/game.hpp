@@ -47,6 +47,7 @@ private:
 
 	void drawEnemies();
 	void drawTowers();
+	void drawCastle();
 	void drawMenu();
 
 	void placeTower(Square* s);

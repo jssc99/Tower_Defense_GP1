@@ -2,16 +2,18 @@
 
 #include "castle.hpp"
 #include "../grid.hpp"
+#include "health_system.hpp"
 
-class Enemy : public Entity 
+class Enemy : public Entity
 {
 public:
-	HealthSystem health;
 	int attackDmg;
 	float moveSpeed;
 	int loot;
 	float2 direction;
 	int checkId;
+	HealthSystem healthSystem;
+	//inital ms: TODO
 
 	Enemy();
 	~Enemy() {}
@@ -19,7 +21,9 @@ public:
 	void update(Checkpoint* listCheckpoint, int nbCheckpoint, Castle* castle);
 	void spawn(Grid* grid);
 	void draw() override;
+	void drawHealth();
 
 private:
 	void move(Checkpoint* listCheckpoint, int nbCheckpoint);
+	void die();
 };

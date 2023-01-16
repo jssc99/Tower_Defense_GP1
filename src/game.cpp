@@ -57,6 +57,7 @@ void Game::draw()
 	this->grid.draw();
 	this->drawTowers();
 	this->drawEnemies();
+	this->drawCastle();
 	this->drawMenu();
 }
 
@@ -133,7 +134,10 @@ void Game::drawEnemies()
 {
 	for (int i = 0; i < MAX_NB_ENEMIES; i++)
 		if (this->enemies[i])
+		{
 			this->enemies[i]->draw();
+			this->enemies[i]->drawHealth();
+		}
 }
 
 void Game::drawTowers()
@@ -141,6 +145,11 @@ void Game::drawTowers()
 	for (int i = 0; i < MAX_NB_TOWERS; i++)
 		if (this->towers[i])
 			this->towers[i]->draw();
+}
+
+void Game::drawCastle()
+{
+	this->castle.drawHealth();
 }
 
 void Game::drawMenu()// SQ : 20 16 to SQ : 21 23

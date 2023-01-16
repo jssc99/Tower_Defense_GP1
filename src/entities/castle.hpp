@@ -10,6 +10,8 @@ public:
 
 	inline Castle();
 	~Castle() {};
+
+	inline void drawHealth();
 };
 
 Castle::Castle()
@@ -18,10 +20,8 @@ Castle::Castle()
 	healthSystem.health = healthSystem.maxHealth;
 };
 
-/*
-	void drawHealth()
-	{
-		ImDrawList* fgDrawlist = ImGui::GetForegroundDrawList();
-		fgDrawlist->AddRectFilled({ this->pos.x, this->pos.y + 50 }, { this->pos.x + 200, this->pos.y + 100 }, GREEN);
-	};
-	*/
+void Castle::drawHealth()
+{
+	ImDrawList* fgDrawlist = ImGui::GetForegroundDrawList();
+	fgDrawlist->AddRectFilled({ this->pos.x-(healthSystem.health * L_HEALTH_SIZE/2) / healthSystem.maxHealth, this->pos.y - 50 }, { this->pos.x + (healthSystem.health*L_HEALTH_SIZE/2)/healthSystem.maxHealth, this->pos.y - H_HEALTH_SIZE-50 }, BLACK);
+};
