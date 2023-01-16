@@ -37,12 +37,9 @@ public:
 private:
 	void updateEnemies();
 	void updateTowers();
-	void updateMenu();
 
 	void drawEnemies();
 	void drawTowers();
-	void drawCastle();
-	void drawMenu();
 
 	void placeTower(Square* s);
 

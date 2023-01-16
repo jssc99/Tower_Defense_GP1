@@ -1,8 +1,12 @@
 #pragma once
 
+#include <imgui.h>
+
 struct float2
 {
 	float x, y;
+
+	operator ImVec2() { return { x, y }; };
 };
 
 constexpr float2 UP = { 0, -1 };

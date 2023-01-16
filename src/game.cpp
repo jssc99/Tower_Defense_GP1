@@ -2,20 +2,16 @@
 
 #include "calc.hpp"
 
-#define M this->purchaseMenu
-
 Game::Game()
 {
 	for (int i = 0; i < MAX_NB_ENEMIES; i++)
 		this->enemies[i] = nullptr;
 	for (int i = 0; i < MAX_NB_TOWERS; i++)
 		this->towers[i] = nullptr;
-	this->level = 0;
 	this->money = 0;
 	this->wave = 0;
 	this->menu.loadPurchaseMenu(&this->grid);
 	this->menu.load(Type_Menu::LOADING);
-}
 }
 
 Game::~Game()
@@ -26,9 +22,6 @@ Game::~Game()
 	for (int i = 0; i < MAX_NB_TOWERS; i++)
 		if (this->towers[i])
 			delete this->towers[i];
-	for (int i = 0; i < 4; i++)
-		if (M.tow[i])
-			delete M.tow[i];
 }
 
 void Game::loadLvl(int lvl)
@@ -68,41 +61,12 @@ void Game::drawDebug()
 	this->grid.drawGrid();
 }
 
-void Game::placeTower(Square* s)
-{
-	int id = this->getFreeTowerSpotId();
-	if (id != -1) {
-		switch (M.selection.type)
-		{
-		case Type_Tower::BASIC:
-			this->towers[id] = new Basic;
-			break;
-		case Type_Tower::QUICK:
-			this->towers[id] = new Quick;
-			break;
-		case Type_Tower::EXPLOSIVE:
-			this->towers[id] = new Explosive;
-			break;
-		case Type_Tower::SLOW:
-			this->towers[id] = new Slow;
-			break;
-		case Type_Tower::NONE: // shoudn't happen
-		default:
-			this->towers[id] = new Tower;
-			break;
-		}
-		this->towers[id]->setPos(s->getPosCenter());
-		this->money -= this->towers[id]->price;
-		s->canHaveTower = false;
-	}
-}
-
 void Game::updateEnemies()
 {
 	for (int i = 0; i < MAX_NB_ENEMIES; i++)
 		if (this->enemies[i]) {
 			this->enemies[i]->update(this->grid.chkpList, this->grid.nbCheckpoints, &this->castle);
-			if (this->enemies[i]->healthSystem.health <= 0)
+			if (this->enemies[i]->health.life <= 0)
 			{
 				this->enemies[i] = nullptr;
 			}
@@ -114,26 +78,6 @@ void Game::updateTowers()
 	for (int i = 0; i < MAX_NB_TOWERS; i++)
 		if (this->towers[i])
 			this->towers[i]->update(this->enemies, MAX_NB_ENEMIES);
-}
-
-void Game::updateMenu()
-{
-	if (!M.hasSelected && ImGui::IsMouseClicked(ImGuiMouseButton_Left))
-		for (int i = 0; i < 4; i++)
-			if (M.hasSelected == false && M.tow[i]->isMouseOverTower()) {
-				M.selection = *M.tow[i];
-				M.hasSelected = true;
-			}
-	if (M.hasSelected && ImGui::IsMouseDragging(ImGuiMouseButton_Left)) {
-		ImVec2 mouse = ImGui::GetMousePos();
-		M.selection.setPos(mouse.x, mouse.y);
-	}
-	if (M.hasSelected && ImGui::IsMouseReleased(ImGuiMouseButton_Left)) {
-		M.hasSelected = false;
-		Square* s = this->grid.getSquare(M.selection.pos);
-		if ((this->money - M.selection.price) > -1 && s->canPlaceTower())
-			this->placeTower(s);
-	}
 }
 
 void Game::drawEnemies()
@@ -179,8 +123,6 @@ void Game::placeTower(Square* s)
 		this->money -= this->towers[id]->price;
 		s->canHaveTower = false;
 	}
-	if (M.hasSelected)
-		M.selection.draw();
 }
 
 // returns -1 if no spot found

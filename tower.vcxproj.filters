@@ -112,7 +112,7 @@
     <ClInclude Include="src\entities\enemies\healer.hpp">
       <Filter>src\entities\enemies</Filter>
     </ClInclude>
-    <ClInclude Include="src\entities\health_system.hpp">
+    <ClInclude Include="src\entities\health.hpp">
       <Filter>src\entities</Filter>
     </ClInclude>
     <ClInclude Include="src\entities\enemies\knight.hpp">

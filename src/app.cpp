@@ -31,7 +31,7 @@ App::App()
 												   "bbbbggggggggggggggbbbbggggggggggggbbbbbb" +
 												   "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb" +
 												   "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb" };
-		int id = 0;	
+		int id = 0;
 		int _id = 0;
 		G.lvl[0].checkpointList[_id++] = { ++id, { 6,7 }, DOWN };
 		G.lvl[0].checkpointList[_id++] = { ++id, { 16,7 }, RIGHT };
@@ -85,7 +85,7 @@ void App::Update()
 			G.enemies[id] = new Knight;
 			G.enemies[id]->pos = G.grid.getSpawnPoint();
 		}
-		ImGui::Text("Castle health and max health: %d, %d", G.castle.healthSystem.health, G.castle.healthSystem.maxHealth);
+		ImGui::Text("Castle health and max health: %d, %d", G.castle.health.life, G.castle.health.maxLife);
 		ImGui::Text("Castle pos = %f, %f", G.castle.pos.x, G.castle.pos.y);
 		ImGui::End();
 	}

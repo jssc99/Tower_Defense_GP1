@@ -46,7 +46,7 @@ void Tower::setAttackStats(float attackRadius, float attackSpeed, int attackDmg)
 void Tower::update(Enemy** en, int nbEnemies)
 {
 	if (nbEnemies) { // enemy.isDead()? TODO
-		if (this->current_target == nullptr || this->current_target->healthSystem.health <= 0 || !(this->isEnemyInsideRange(this->current_target)))
+		if (this->current_target == nullptr || this->current_target->health.life <= 0 || !(this->isEnemyInsideRange(this->current_target)))
 			this->getTarget(en, nbEnemies);
 		if (this->current_target != nullptr)
 			this->attackTarget();

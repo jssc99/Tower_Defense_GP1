@@ -11,12 +11,14 @@ public:
 
 Knight::Knight()
 {
-	this->color = BLACK;
+	//this->color = BLACK;
+	this->type = Type_Enemy::KNIGHT;
+	this->enemy_t.sprite = ImGuiUtils::LoadTexture("assets/towerDefense_tile246.png");
 	this->attackDmg = 50;
 	this->moveSpeed = 0.7f;
 	this->loot = 30;
-	this->healthSystem.maxHealth = 300;
-	this->healthSystem.health = this->healthSystem.maxHealth;
+	this->health.maxLife = 300;
+	this->health.life = this->health.maxLife;
 }
 
 Knight::~Knight()

@@ -115,7 +115,7 @@
     <ClInclude Include="src\entity.hpp" />
     <ClInclude Include="src\grid.hpp" />
     <ClInclude Include="src\entities\square.hpp" />
-    <ClInclude Include="src\entities\health_system.hpp" />
+    <ClInclude Include="src\entities\health.hpp" />
     <ClInclude Include="src\imgui_utils.hpp" />
     <ClInclude Include="src\menu.hpp" />
     <ClInclude Include="src\types.hpp" />
