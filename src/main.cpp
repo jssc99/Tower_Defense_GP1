@@ -10,77 +10,78 @@
 
 int main(int argc, char* argv[])
 {
-    // Setup GLFW
-    glfwSetErrorCallback(
-        [](int error, const char* description)
-        {
-            fprintf(stderr, "GLFW error %d: %s\n", error, description);
-        }
-    );
+	// Setup GLFW
+	glfwSetErrorCallback(
+		[](int error, const char* description)
+		{
+			fprintf(stderr, "GLFW error %d: %s\n", error, description);
+		}
+	);
 
-    if (!glfwInit())
-        return 1;
+	if (!glfwInit())
+		return 1;
 
-    // GL 3.0 + GLSL 130
-    const char* glslVersion = "#version 130";
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
+	// GL 3.0 + GLSL 130
+	const char* glslVersion = "#version 130";
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
 
-    // Create window with graphics context
-    GLFWwindow* window = glfwCreateWindow(WIDTH, HEIGHT, "Tower Defense", NULL, NULL);
-    if (window == NULL)
-        return 1;
+	// Create window with graphics context
+	GLFWwindow* window = glfwCreateWindow(WIDTH, HEIGHT, "Tower Defense", NULL, NULL);
+	if (window == NULL)
+		return 1;
 
-    glfwSetWindowSizeLimits(window, WIDTH, HEIGHT, WIDTH, HEIGHT);
-    glfwMakeContextCurrent(window);
-    glfwSwapInterval(1); // Enable vsync
+	glfwSetWindowSizeLimits(window, WIDTH, HEIGHT, WIDTH, HEIGHT);
+	glfwMakeContextCurrent(window);
+	glfwSwapInterval(1); // Enable vsync
 
-    // Setup Dear ImGui context
-    IMGUI_CHECKVERSION();
-    ImGui::CreateContext();
-    ImGuiIO& io = ImGui::GetIO(); (void)io;
-    io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard; // Enable Keyboard Controls
-    io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;     // Enable Docking
+	// Setup Dear ImGui context
+	IMGUI_CHECKVERSION();
+	ImGui::CreateContext();
+	ImGui::GetIO().Fonts->AddFontDefault();
+	ImGuiIO& io = ImGui::GetIO(); (void)io;
+	io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard; // Enable Keyboard Controls
+	io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;     // Enable Docking
 
-    ImGui::StyleColorsDark();
-    ImGui_ImplGlfw_InitForOpenGL(window, true);
-    ImGui_ImplOpenGL3_Init(glslVersion);
+	ImGui::StyleColorsDark();
+	ImGui_ImplGlfw_InitForOpenGL(window, true);
+	ImGui_ImplOpenGL3_Init(glslVersion);
 
-    App* app = new App();
+	App* app = new App();
 
-    // Main loop
-    while (!glfwWindowShouldClose(window))
-    {
-        glfwPollEvents();
+	// Main loop
+	while (!glfwWindowShouldClose(window))
+	{
+		glfwPollEvents();
 
-        // Start the Dear ImGui frame
-        ImGui_ImplOpenGL3_NewFrame();
-        ImGui_ImplGlfw_NewFrame();
-        ImGui::NewFrame();
-        
-        app->Update();
+		// Start the Dear ImGui frame
+		ImGui_ImplOpenGL3_NewFrame();
+		ImGui_ImplGlfw_NewFrame();
+		ImGui::NewFrame();
 
-        // Rendering
-        ImGui::Render();
-        int display_w, display_h;
-        glfwGetFramebufferSize(window, &display_w, &display_h);
-        glViewport(0, 0, display_w, display_h);
-        glClearColor(0.45f, 0.55f, 0.60f, 1.00f);
-        glClear(GL_COLOR_BUFFER_BIT);
-        ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+		app->Update();
 
-        glfwSwapBuffers(window);
-    }
+		// Rendering
+		ImGui::Render();
+		int display_w, display_h;
+		glfwGetFramebufferSize(window, &display_w, &display_h);
+		glViewport(0, 0, display_w, display_h);
+		glClearColor(0.45f, 0.55f, 0.60f, 1.00f);
+		glClear(GL_COLOR_BUFFER_BIT);
+		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
-    delete app;
+		glfwSwapBuffers(window);
+	}
 
-    // Cleanup
-    ImGui_ImplOpenGL3_Shutdown();
-    ImGui_ImplGlfw_Shutdown();
-    ImGui::DestroyContext();
+	delete app;
 
-    glfwDestroyWindow(window);
-    glfwTerminate();
+	// Cleanup
+	ImGui_ImplOpenGL3_Shutdown();
+	ImGui_ImplGlfw_Shutdown();
+	ImGui::DestroyContext();
 
-    return 0;
+	glfwDestroyWindow(window);
+	glfwTerminate();
+
+	return 0;
 }

@@ -14,11 +14,12 @@ public:
 
 	void loadGrid(std::string seed);
 	void loadCheckpoints(Checkpoint* checkpointList, int nbCheckpoint);
+	void makePathLookGood();
 
 	void draw();
 	void drawGrid();
 	void drawCheckpoints();
 
 	float2 getSpawnPoint() const;
-	Square *getSquare(float2 point);
+	Square* getSquare(float2 point);
 };

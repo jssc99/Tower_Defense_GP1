@@ -13,16 +13,23 @@ enum class Type_Tower : char
 	SLOW = 's'
 };
 
+struct Turret
+{
+	float angle;
+	Texture texture;
+};
+
 class Tower : public Entity
 {
 public:
 	int price;
+	Turret turret;
 	Type_Tower type;
 	Enemy* current_target;
 	//Projectile projectile; //not used for now
 
 	Tower();
-	~Tower() {};
+	~Tower();
 
 	void setPos(float2 pos);
 	void setPos(float x, float y);

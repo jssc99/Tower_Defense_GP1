@@ -18,6 +18,7 @@ void Grid::loadGrid(std::string seed)
 		for (int j = 0; j < NB_SQUARES_COL; j++)
 			if (seed[id])
 				this->square[i][j].setType((Type_Square)seed[id++]);
+			else id++;
 }
 
 void Grid::loadCheckpoints(Checkpoint* checkpointList, int nbCheckpoints)
@@ -69,7 +70,7 @@ float2 Grid::getSpawnPoint() const
 	return { 0,0 };
 }
 
-Square *Grid::getSquare(float2 point)
+Square* Grid::getSquare(float2 point)
 {
 	for (int i = 0; i < NB_SQUARES_ROW; i++)
 		for (int j = 0; j < NB_SQUARES_COL; j++)
@@ -77,4 +78,34 @@ Square *Grid::getSquare(float2 point)
 				(this->square[i][j].pos.y <= point.y && point.y <= this->square[i][j].pos.y + (float)SQUARE_SIZE))
 				return &this->square[i][j];
 	return nullptr;
+}
+
+void Grid::makePathLookGood()
+{
+	int id = 0;
+	for (int i = 0; i < NB_SQUARES_ROW; i++)
+		for (int j = 0; j < NB_SQUARES_COL; j++){
+			if (this->square[i][j].type == Type_Square::SPAWN)
+				this->square[i][j].sprite = ImGuiUtils::LoadTexture("assets/towerDefense_tile047.png");
+			else if (this->square[i][j].type == Type_Square::PATH) {
+				if (this->square[(i + 1) % NB_SQUARES_ROW][j].type == Type_Square::GRASS) { // DOWN IS GRASS
+					if (this->square[i][(j + 1) % NB_SQUARES_COL].type == Type_Square::GRASS) // DOWN & RIGHT IS GRASS
+						this->square[i][j].sprite = ImGuiUtils::LoadTexture("assets/towerDefense_tile027.png");
+					else if (this->square[i][(j - 1) % NB_SQUARES_COL].type == Type_Square::GRASS) // DOWN & LEFT IS GRASS
+						this->square[i][j].sprite = ImGuiUtils::LoadTexture("assets/towerDefense_tile026.png");
+					else this->square[i][j].sprite = ImGuiUtils::LoadTexture("assets/towerDefense_tile001.png");
+				}
+				else if (this->square[(i - 1) % NB_SQUARES_ROW][j].type == Type_Square::GRASS) { // UP IS GRASS
+					if (this->square[i][(j + 1) % NB_SQUARES_COL].type == Type_Square::GRASS) // UP & RIGHT IS GRASS
+						this->square[i][j].sprite = ImGuiUtils::LoadTexture("assets/towerDefense_tile004.png");
+					else if (this->square[i][(j - 1) % NB_SQUARES_COL].type == Type_Square::GRASS) // UP & LEFT IS GRASS
+						this->square[i][j].sprite = ImGuiUtils::LoadTexture("assets/towerDefense_tile003.png");
+					else this->square[i][j].sprite = ImGuiUtils::LoadTexture("assets/towerDefense_tile047.png");
+				}
+				else if (this->square[i][(j + 1) % NB_SQUARES_COL].type == Type_Square::GRASS) // RIGHT IS GRASS
+					this->square[i][j].sprite = ImGuiUtils::LoadTexture("assets/towerDefense_tile023.png");
+				else if (this->square[i][(j - 1) % NB_SQUARES_COL].type == Type_Square::GRASS) // LEFT IS GRASS
+					this->square[i][j].sprite = ImGuiUtils::LoadTexture("assets/towerDefense_tile025.png");
+			}
+		}
 }

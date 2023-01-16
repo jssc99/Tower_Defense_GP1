@@ -63,9 +63,9 @@ void Enemy::move(Checkpoint* listCheckpoint, int nbCheckpoint)
 			}
 			else
 				this->pos += this->direction * this->moveSpeed;
+			}
+			}
 		}
-	}
-}
 
 void Enemy::die()
 {
