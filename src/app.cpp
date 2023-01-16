@@ -69,6 +69,7 @@ void App::Update()
 		{
 			int id = this->game.getFreeEnemySpotId();
 			//G.enemies[id]->spawn(Type_Enemy type, G>grid.getSpwn());
+			//if (id > -1)
 			G.enemies[id] = new Soldier;
 			G.enemies[id]->pos = G.grid.getSpawnPoint();
 		}
