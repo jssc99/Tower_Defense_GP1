@@ -8,37 +8,37 @@ App::App()
 {
 	// grid test
 	{
-		std::string lvl[1] = { std::string("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb") +
-														"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb" +
-														"bbbbggggggggggbbbbbbbbgggggggggggbbbbbbb" +
-														"bbbbggggggggggbbbbbbbbgggggggggggbbbbbbb" +
-														"ggggggggggggggggbbbbccppppppppppggggggbb" +
-														"ggggggggggggggggbbbbccppppppppppggggggbb" +
-														"spppppppppppggggggggggggggggggppggggggbb" +
-														"ppppppppppppggggggggggggggggggppggggggbb" +
-														"ggppggppggggggggbbggggggggggggppggggggbb" +
-														"ggppggppggggggggbbggggggggggggppggggggbb" +
-														"ggppppppggggggggbbggggggggggggppggggggbb" +
-														"ggppppppggggggggbbbbggggggggggppggggggbb" +
-														"ggggggppppppggggbbbbggggggggggppggggggbb" +
-														"ggggggppppppggggbbbbggggggggggppggggggbb" +
-														"ggggggppggppggggggbbbbggggggggppggggggbb" +
-														"ggggggppggppggggggbbbbggggggggppggggggbb" +
-														"bbggppppppppppppppppppppppppppppggggggbb" +
-														"bbggppppppppppppppppppppppppppppggggggbb" +
-														"bbbbggggggggggggggbbbbggggggggggggbbbbbb" +
-														"bbbbggggggggggggggbbbbggggggggggggbbbbbb" +
-														"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb" +
-														"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb" };
-		int id = 0;
-		Checkpoint list[12] = {
-			{++id, { 6,7 }, DOWN },
-			{++id, { 16,7 }, RIGHT},
-			{++id, { 16,31 }, UP},
-			{++id, { 4,31 }, LEFT},
-			{++id, { 4,21 }, STOP} };
-
-		G.load(lvl[G.level], list, id);
+		G.lvl[0].id = 1;
+		G.lvl[0].seed = { std::string("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb") +
+												   "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb" +
+												   "bbbbggggggggggbbbbbbbbgggggggggggbbbbbbb" +
+												   "bbbbggggggggggbbbbbbbbgggggggggggbbbbbbb" +
+												   "ggggggggggggggggbbbbccppppppppppggggbbbb" +
+												   "ggggggggggggggggbbbbccppppppppppggggbbbb" +
+												   "spppppppggggggggbbggggggggggggppggggbbbb" +
+												   "ppppppppggggggggbbggggggggggggppggggbbbb" +
+												   "ggggggppggggggggbbggggggggggggppggggbbbb" +
+												   "ggggggppggggggggbbggggggggggggppggggbbbb" +
+												   "ggggggppggggggggbbggggggggggggppggggbbbb" +
+												   "ggggggppggggggggbbbbggggggggggppggggbbbb" +
+												   "ggggggppggggggggbbbbggggggggggppggggbbbb" +
+												   "ggggggppggggggggbbbbggggggggggppggggbbbb" +
+												   "ggggggppggggggggggbbbbggggggggppggggbbbb" +
+												   "ggggggppggggggggggbbbbggggggggppggggbbbb" +
+												   "bbggggppppppppppppppppppppppppppggggbbbb" +
+												   "bbggggppppppppppppppppppppppppppggggbbbb" +
+												   "bbbbggggggggggggggbbbbggggggggggggbbbbbb" +
+												   "bbbbggggggggggggggbbbbggggggggggggbbbbbb" +
+												   "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb" +
+												   "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb" };
+		int id = 0;	
+		int _id = 0;
+		G.lvl[0].checkpointList[_id++] = { ++id, { 6,7 }, DOWN };
+		G.lvl[0].checkpointList[_id++] = { ++id, { 16,7 }, RIGHT };
+		G.lvl[0].checkpointList[_id++] = { ++id, { 16,31 }, UP };
+		G.lvl[0].checkpointList[_id++] = { ++id, { 4,31 }, LEFT };
+		G.lvl[0].checkpointList[_id++] = { ++id, { 4,21 }, STOP };
+		G.lvl[0].nbCheckpoints = id;
 	}
 	this->debug = false;
 }
@@ -49,7 +49,6 @@ App::~App()
 
 void App::Update()
 {
-	ImVec2 mouse = ImGui::GetMousePos();
 	{
 		ImGui::Begin("Tower");
 		ImGui::Checkbox("Draw Grid", &this->debug);
@@ -62,8 +61,10 @@ void App::Update()
 			if (G.towers[i]) {
 				char name[20] = "";
 				sprintf(name, "angle tower #%d", i);
-				ImGui::SliderAngle(name, &G.towers[i]->angle, 0.f, 360.f);
+				ImGui::SliderAngle(name, &G.towers[i]->turret.angle, 0.f, 360.f);
 			}
+		if (ImGui::Button("load lvl1"))
+			G.loadLvl(1);
 		ImGui::End();
 	}
 	G.update();

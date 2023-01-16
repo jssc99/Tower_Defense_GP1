@@ -13,12 +13,17 @@ enum class Type_Tower : char
 	SLOW = 's'
 };
 
+struct Turret
+{
+	float angle;
+	Texture texture;
+};
+
 class Tower : public Entity
 {
 public:
 	int price;
-	float angle;
-	Texture turret;
+	Turret turret;
 	Type_Tower type;
 	Enemy* current_target;
 	//Projectile projectile; //not used for now

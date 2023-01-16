@@ -45,6 +45,7 @@
     </ClCompile>
     <ClCompile Include="src\entities\tower.cpp" />
     <ClCompile Include="src\game.cpp" />
+    <ClCompile Include="src\menu.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -103,6 +104,7 @@
     <ClInclude Include="src\entities\enemies\healer.hpp" />
     <ClInclude Include="src\entities\enemies\knight.hpp" />
     <ClInclude Include="src\entities\enemies\soldier.hpp" />
+    <ClInclude Include="src\menu.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="assets\towerDefense_tilesheet.png" />
@@ -156,10 +158,6 @@
     <Image Include="assets\towerDefense_tile048.png" />
     <Image Include="assets\towerDefense_tile049.png" />
     <Image Include="assets\towerDefense_tile050.png" />
-    <Image Include="assets\towerDefense_tile051.png" />
-    <Image Include="assets\towerDefense_tile052.png" />
-    <Image Include="assets\towerDefense_tile053.png" />
-    <Image Include="assets\towerDefense_tile054.png" />
     <Image Include="assets\towerDefense_tile055.png" />
     <Image Include="assets\towerDefense_tile056.png" />
     <Image Include="assets\towerDefense_tile057.png" />
@@ -179,11 +177,6 @@
     <Image Include="assets\towerDefense_tile071.png" />
     <Image Include="assets\towerDefense_tile072.png" />
     <Image Include="assets\towerDefense_tile073.png" />
-    <Image Include="assets\towerDefense_tile074.png" />
-    <Image Include="assets\towerDefense_tile075.png" />
-    <Image Include="assets\towerDefense_tile076.png" />
-    <Image Include="assets\towerDefense_tile077.png" />
-    <Image Include="assets\towerDefense_tile078.png" />
     <Image Include="assets\towerDefense_tile079.png" />
     <Image Include="assets\towerDefense_tile080.png" />
     <Image Include="assets\towerDefense_tile081.png" />
@@ -202,33 +195,16 @@
     <Image Include="assets\towerDefense_tile094.png" />
     <Image Include="assets\towerDefense_tile095.png" />
     <Image Include="assets\towerDefense_tile096.png" />
-    <Image Include="assets\towerDefense_tile097.png" />
-    <Image Include="assets\towerDefense_tile098.png" />
-    <Image Include="assets\towerDefense_tile099.png" />
-    <Image Include="assets\towerDefense_tile100.png" />
-    <Image Include="assets\towerDefense_tile101.png" />
     <Image Include="assets\towerDefense_tile102.png" />
     <Image Include="assets\towerDefense_tile103.png" />
     <Image Include="assets\towerDefense_tile104.png" />
     <Image Include="assets\towerDefense_tile105.png" />
     <Image Include="assets\towerDefense_tile106.png" />
-    <Image Include="assets\towerDefense_tile107.png" />
-    <Image Include="assets\towerDefense_tile108.png" />
-    <Image Include="assets\towerDefense_tile109.png" />
-    <Image Include="assets\towerDefense_tile110.png" />
-    <Image Include="assets\towerDefense_tile111.png" />
-    <Image Include="assets\towerDefense_tile112.png" />
-    <Image Include="assets\towerDefense_tile113.png" />
-    <Image Include="assets\towerDefense_tile114.png" />
     <Image Include="assets\towerDefense_tile115.png" />
     <Image Include="assets\towerDefense_tile116.png" />
     <Image Include="assets\towerDefense_tile117.png" />
     <Image Include="assets\towerDefense_tile118.png" />
     <Image Include="assets\towerDefense_tile119.png" />
-    <Image Include="assets\towerDefense_tile120.png" />
-    <Image Include="assets\towerDefense_tile121.png" />
-    <Image Include="assets\towerDefense_tile122.png" />
-    <Image Include="assets\towerDefense_tile123.png" />
     <Image Include="assets\towerDefense_tile124.png" />
     <Image Include="assets\towerDefense_tile125.png" />
     <Image Include="assets\towerDefense_tile126.png" />
@@ -243,71 +219,25 @@
     <Image Include="assets\towerDefense_tile135.png" />
     <Image Include="assets\towerDefense_tile136.png" />
     <Image Include="assets\towerDefense_tile137.png" />
-    <Image Include="assets\towerDefense_tile138.png" />
-    <Image Include="assets\towerDefense_tile139.png" />
-    <Image Include="assets\towerDefense_tile140.png" />
-    <Image Include="assets\towerDefense_tile141.png" />
-    <Image Include="assets\towerDefense_tile142.png" />
-    <Image Include="assets\towerDefense_tile143.png" />
-    <Image Include="assets\towerDefense_tile144.png" />
-    <Image Include="assets\towerDefense_tile145.png" />
-    <Image Include="assets\towerDefense_tile146.png" />
-    <Image Include="assets\towerDefense_tile147.png" />
-    <Image Include="assets\towerDefense_tile148.png" />
-    <Image Include="assets\towerDefense_tile149.png" />
-    <Image Include="assets\towerDefense_tile150.png" />
-    <Image Include="assets\towerDefense_tile151.png" />
-    <Image Include="assets\towerDefense_tile152.png" />
     <Image Include="assets\towerDefense_tile153.png" />
     <Image Include="assets\towerDefense_tile154.png" />
     <Image Include="assets\towerDefense_tile155.png" />
-    <Image Include="assets\towerDefense_tile156.png" />
     <Image Include="assets\towerDefense_tile157.png" />
     <Image Include="assets\towerDefense_tile158.png" />
     <Image Include="assets\towerDefense_tile159.png" />
-    <Image Include="assets\towerDefense_tile160.png" />
-    <Image Include="assets\towerDefense_tile161.png" />
     <Image Include="assets\towerDefense_tile162.png" />
-    <Image Include="assets\towerDefense_tile163.png" />
-    <Image Include="assets\towerDefense_tile164.png" />
-    <Image Include="assets\towerDefense_tile165.png" />
-    <Image Include="assets\towerDefense_tile166.png" />
     <Image Include="assets\towerDefense_tile167.png" />
-    <Image Include="assets\towerDefense_tile168.png" />
-    <Image Include="assets\towerDefense_tile169.png" />
-    <Image Include="assets\towerDefense_tile170.png" />
-    <Image Include="assets\towerDefense_tile171.png" />
     <Image Include="assets\towerDefense_tile172.png" />
-    <Image Include="assets\towerDefense_tile173.png" />
-    <Image Include="assets\towerDefense_tile174.png" />
-    <Image Include="assets\towerDefense_tile175.png" />
     <Image Include="assets\towerDefense_tile176.png" />
     <Image Include="assets\towerDefense_tile177.png" />
     <Image Include="assets\towerDefense_tile178.png" />
-    <Image Include="assets\towerDefense_tile179.png" />
     <Image Include="assets\towerDefense_tile180.png" />
     <Image Include="assets\towerDefense_tile181.png" />
     <Image Include="assets\towerDefense_tile182.png" />
     <Image Include="assets\towerDefense_tile183.png" />
-    <Image Include="assets\towerDefense_tile184.png" />
-    <Image Include="assets\towerDefense_tile185.png" />
-    <Image Include="assets\towerDefense_tile186.png" />
-    <Image Include="assets\towerDefense_tile187.png" />
-    <Image Include="assets\towerDefense_tile188.png" />
-    <Image Include="assets\towerDefense_tile189.png" />
-    <Image Include="assets\towerDefense_tile190.png" />
-    <Image Include="assets\towerDefense_tile191.png" />
-    <Image Include="assets\towerDefense_tile192.png" />
-    <Image Include="assets\towerDefense_tile193.png" />
-    <Image Include="assets\towerDefense_tile194.png" />
-    <Image Include="assets\towerDefense_tile195.png" />
-    <Image Include="assets\towerDefense_tile196.png" />
-    <Image Include="assets\towerDefense_tile197.png" />
-    <Image Include="assets\towerDefense_tile198.png" />
     <Image Include="assets\towerDefense_tile199.png" />
     <Image Include="assets\towerDefense_tile200.png" />
     <Image Include="assets\towerDefense_tile201.png" />
-    <Image Include="assets\towerDefense_tile202.png" />
     <Image Include="assets\towerDefense_tile203.png" />
     <Image Include="assets\towerDefense_tile204.png" />
     <Image Include="assets\towerDefense_tile205.png" />
@@ -322,15 +252,9 @@
     <Image Include="assets\towerDefense_tile214.png" />
     <Image Include="assets\towerDefense_tile215.png" />
     <Image Include="assets\towerDefense_tile216.png" />
-    <Image Include="assets\towerDefense_tile217.png" />
-    <Image Include="assets\towerDefense_tile218.png" />
-    <Image Include="assets\towerDefense_tile219.png" />
-    <Image Include="assets\towerDefense_tile220.png" />
-    <Image Include="assets\towerDefense_tile221.png" />
     <Image Include="assets\towerDefense_tile222.png" />
     <Image Include="assets\towerDefense_tile223.png" />
     <Image Include="assets\towerDefense_tile224.png" />
-    <Image Include="assets\towerDefense_tile225.png" />
     <Image Include="assets\towerDefense_tile226.png" />
     <Image Include="assets\towerDefense_tile227.png" />
     <Image Include="assets\towerDefense_tile228.png" />
@@ -345,11 +269,6 @@
     <Image Include="assets\towerDefense_tile237.png" />
     <Image Include="assets\towerDefense_tile238.png" />
     <Image Include="assets\towerDefense_tile239.png" />
-    <Image Include="assets\towerDefense_tile240.png" />
-    <Image Include="assets\towerDefense_tile241.png" />
-    <Image Include="assets\towerDefense_tile242.png" />
-    <Image Include="assets\towerDefense_tile243.png" />
-    <Image Include="assets\towerDefense_tile244.png" />
     <Image Include="assets\towerDefense_tile245.png" />
     <Image Include="assets\towerDefense_tile246.png" />
     <Image Include="assets\towerDefense_tile247.png" />
@@ -366,10 +285,6 @@
     <Image Include="assets\towerDefense_tile260.png" />
     <Image Include="assets\towerDefense_tile261.png" />
     <Image Include="assets\towerDefense_tile262.png" />
-    <Image Include="assets\towerDefense_tile263.png" />
-    <Image Include="assets\towerDefense_tile264.png" />
-    <Image Include="assets\towerDefense_tile265.png" />
-    <Image Include="assets\towerDefense_tile266.png" />
     <Image Include="assets\towerDefense_tile267.png" />
     <Image Include="assets\towerDefense_tile268.png" />
     <Image Include="assets\towerDefense_tile269.png" />
@@ -399,5 +314,8 @@
     <Image Include="assets\towerDefense_tile297.png" />
     <Image Include="assets\towerDefense_tile298.png" />
     <Image Include="assets\towerDefense_tile299.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="assets\EvilEmpire-4BBVK.ttf" />
   </ItemGroup>
 </Project>

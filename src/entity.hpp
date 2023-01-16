@@ -23,6 +23,9 @@
 #define SHY_BLUE ImColor(0.f, 0.f, 1.f, 0.5f)
 #define SHY_LIGHT_BLUE ImColor(0.f, 0.3f, 0.8f, 0.5f)
 
+constexpr auto WIDTH = 1280;
+constexpr auto HEIGHT = 704;
+
 constexpr auto SQUARE_SIZE = 32;
 constexpr auto H_SQUARE_SIZE = 16;
 constexpr auto TOWER_SIZE = 24;
@@ -33,6 +36,7 @@ constexpr auto NB_SQUARES_ROW = 22;
 constexpr auto MAX_NB_CHECKPOINTS = 22;
 constexpr auto MAX_NB_TOWERS = 50;
 constexpr auto MAX_NB_ENEMIES = 100;
+constexpr auto NB_LEVELS = 1;
 
 class Entity
 {

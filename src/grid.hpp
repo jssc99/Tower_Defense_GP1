@@ -14,6 +14,7 @@ public:
 
 	void loadGrid(std::string seed);
 	void loadCheckpoints(Checkpoint* checkpointList, int nbCheckpoint);
+	void makePathLookGood();
 
 	void draw();
 	void drawGrid();
@@ -21,7 +22,4 @@ public:
 
 	float2 getSpawnPoint() const;
 	Square* getSquare(float2 point);
-
-private:
-	void makePathLookGood();
 };

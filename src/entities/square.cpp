@@ -37,7 +37,8 @@ void Square::setType(Type_Square type)
 		break;
 	case Type_Square::PATH:
 		//this->color = ORANGE;
-		this->sprite = ImGuiUtils::LoadTexture("assets/towerDefense_tile158.png");
+		//this->sprite = ImGuiUtils::LoadTexture("assets/towerDefense_tile158.png");
+		this->sprite = ImGuiUtils::LoadTexture("assets/towerDefense_tile060.png");
 		break;
 	case Type_Square::CASTLE:
 		//this->color = VIOLET;
