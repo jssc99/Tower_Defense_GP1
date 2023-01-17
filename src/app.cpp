@@ -10,24 +10,24 @@ App::App()
 		G.lvl[0].id = 1;
 		G.lvl[0].seed = { std::string("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb") +
 									  "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb" +
+									  "bbbbbggggggbbbbbbbbbbbbbggggggggbbbbbbbb" +
 									  "bbbbggggggggggbbbbbbbbgggggggggggbbbbbbb" +
-									  "bbbbggggggggggbbbbbbbbgggggggggggbbbbbbb" +
-									  "ggggggggggggggggbbbbccppppppppppggggbbbb" +
-									  "ggggggggggggggggbbbbccppppppppppggggbbbb" +
-									  "spppppppggggggggbbggggggggggggppggggbbbb" +
-									  "ppppppppggggggggbbggggggggggggppggggbbbb" +
-									  "ggggggppggggggggbbggggggggggggppggggbbbb" +
-									  "ggggggppggggggggbbggggggggggggppggggbbbb" +
-									  "ggggggppggggggggbbggggggggggggppggggbbbb" +
-									  "ggggggppggggggggbbbbggggggggggppggggbbbb" +
-									  "ggggggppggggggggbbbbggggggggggppggggbbbb" +
-									  "ggggggppggggggggbbbbggggggggggppggggbbbb" +
-									  "ggggggppggggggggggbbbbggggggggppggggbbbb" +
-									  "ggggggppggggggggggbbbbggggggggppggggbbbb" +
-									  "bbggggppppppppppppppppppppppppppggggbbbb" +
-									  "bbggggppppppppppppppppppppppppppggggbbbb" +
+									  "bbgggggggggggggbbbbbccppppppppppggbbbbbb" +
+									  "bbgggggggggggggbbbbbccppppppppppggbbbbbb" +
+									  "spppppppgggggggbbbbbggggggggggppgggbbbbb" +
+									  "ppppppppggggggbbbbbgggggggggggppggggbbbb" +
+									  "ggggggppgggggbbbbbggggggggggggppggggbbbb" +
+									  "ggggggppgggggbbbbbggggggggggggppggggbbbb" +
+									  "ggggggppgggggbbbbbbgggggggggggppggggbbbb" +
+									  "ggggggppggggggbbbbbbggggggggggppggggbbbb" +
+									  "bgggggppgggggggbbbbbbgggggggggppggggbbbb" +
+									  "bgggggppggggggggbbbbbgggggggggppggggbbbb" +
+									  "bbggggppgggggggggbbbbbggggggggppggggbbbb" +
+									  "bbggggppggggggggggbbbbggggggggppggggbbbb" +
+									  "bbggggppppppppppppppppppppppppppgggbbbbb" +
+									  "bbbgggppppppppppppppppppppppppppgggbbbbb" +
 									  "bbbbggggggggggggggbbbbggggggggggggbbbbbb" +
-									  "bbbbggggggggggggggbbbbggggggggggggbbbbbb" +
+									  "bbbbbbbbbbggggggbbbbbbbbggggggbbbbbbbbbb" +
 									  "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb" +
 									  "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb" };
 		int id = 0;
@@ -51,8 +51,8 @@ App::App()
 									  "bbbbbbbbbbbbbbbbbbbbbbbbbbbbppbbbbbbbbbb" +
 									  "bbbgggppppppppppppppppppppppppppppccbbbb" +
 									  "bbbgggppppppppppppppppppppppppppppccbbbb" +
-									  "bbggggppggggggggggggggggggggppgggggbbbbb" +
-									  "bbggggppggggggggggggggggggggppgggggbbbbb" +
+									  "bbggggppggggggggggggggggggbbppbbgggbbbbb" +
+									  "bbggggppggggggggggggggggggbbppbbgggbbbbb" +
 									  "bbggggppggggggggggggggggggggppgggggbbbbb" +
 									  "bbggggppggggggggggggggggggggppgggggbbbbb" +
 									  "bbbgggppppppppppppppppppppppppgggggbbbbb" +

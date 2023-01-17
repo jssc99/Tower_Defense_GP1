@@ -58,11 +58,11 @@ int Menu::update()
 			this->mMenu = Type_Menu::LOADING;
 			return 11;
 		}
-		if (this->isButtonPressed(MAIN_BUT_TWO_TOP, MAIN_BUT_TWO_BOT)) {// lvl 2 button
+		else if (this->isButtonPressed(MAIN_BUT_TWO_TOP, MAIN_BUT_TWO_BOT)) {// lvl 2 button
 			this->mMenu = Type_Menu::LOADING;
 			return 12;
 		}
-		if (this->isButtonPressed(MAIN_BUT_EXIT_TOP, MAIN_BUT_EXIT_BOT)) // exit button
+		else if (this->isButtonPressed(MAIN_BUT_EXIT_TOP, MAIN_BUT_EXIT_BOT)) // exit button
 			return 2;
 		break;
 	case Type_Menu::IN_GAME:
@@ -78,6 +78,8 @@ int Menu::update()
 			M.hasSelected = false;
 			return 1;
 		}
+		if (ImGui::IsKeyPressed(ImGuiKey_Escape, false) || ImGui::IsKeyPressed(ImGuiKey_Space, false))
+			this->mMenu = Type_Menu::PAUSE;
 		break;
 	default:
 		break;
@@ -146,7 +148,7 @@ void Menu::drawInGame(int currentLevel, int currentWave, int money, int towerPla
 	sprintf(tmp, "cash %d", money);
 	dl->AddText(this->font, 20.f, { H_WIDTH - 7 * SQUARE_SIZE + 2.f, HEIGHT - SQUARE_SIZE + H_SQUARE_SIZE / 2 + 4.f }, BLACK, tmp);
 	//other side
-	dl->AddText(this->font, 20.f, { H_WIDTH + 4 * SQUARE_SIZE + 10.f, HEIGHT - 2 * SQUARE_SIZE + 4.f }, BLACK, "castle life");
+	dl->AddText(this->font, 20.f, { H_WIDTH + 4 * SQUARE_SIZE + 10.f, HEIGHT - 2 * SQUARE_SIZE + 4.f }, BLACK, "castles life");
 	// castle's life should draw here
 	sprintf(tmp, "%d / %d", towerPlaced, MAX_NB_TOWERS);
 	dl->AddText(this->font, 20.f, { H_WIDTH + 9 * H_SQUARE_SIZE + 10.f, HEIGHT - SQUARE_SIZE + 6.f }, BLACK, tmp);

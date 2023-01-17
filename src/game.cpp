@@ -126,7 +126,7 @@ void Game::drawTowers() const
 void Game::placeTower(Square* s)
 {
 	int id = this->getFreeTowerSpotId();
-	if (id != -1) {
+	if (!(id < 0)) {
 		switch (this->menu.purchaseMenu.selection.type)
 		{
 		case Type_Tower::BASIC:
