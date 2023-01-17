@@ -33,12 +33,8 @@ void Grid::loadCheckpoints(Checkpoint* checkpointList, int nbCheckpoints, Castle
 	this->nbCheckpoints = nbCheckpoints;
 	for (int i = 0; i < nbCheckpoints; i++) {
 		this->chkpList[i] = checkpointList[i];
-		if (i + 1 == nbCheckpoints) {
-			this->square[(int)(checkpointList[i].pos.x)][(int)(checkpointList[i].pos.y)].setType(Type_Square::CASTLE);
+		if (i + 1 == nbCheckpoints) 
 			castle->pos = this->square[(int)(checkpointList[i].pos.x)][(int)(checkpointList[i].pos.y)].pos;
-		}
-		else
-			this->square[(int)(checkpointList[i].pos.x)][(int)(checkpointList[i].pos.y)].setType(Type_Square::PATH);
 		this->chkpList[i].pos = this->square[(int)(checkpointList[i].pos.x)][(int)(checkpointList[i].pos.y)].pos;
 		this->chkpList[i].pos.y += SQUARE_SIZE;
 	}

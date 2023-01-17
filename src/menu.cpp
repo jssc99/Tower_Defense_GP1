@@ -6,6 +6,7 @@
 
 Menu::Menu()
 {
+	for (int i = 0; i < 4; i++) this->purchaseMenu.tow[i];
 	//this->font = ImGui::GetIO().Fonts->AddFontFromFileTTF("assets/EvilEmpire-4BBVK.ttf", 80);
 	//this->font = ImGui::GetIO().Fonts->AddFontFromFileTTF("assets/Arneson-g3w6.ttf", 80);
 	this->font = ImGui::GetIO().Fonts->AddFontFromFileTTF("assets/GlueGun-GW8Z.ttf", 80);

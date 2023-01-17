@@ -65,7 +65,7 @@ void Game::update()
 		break;
 
 	case 12:// load lvl 2
-		//this->loadLvl(2);
+		this->loadLvl(2);
 		break;
 	
 	default:

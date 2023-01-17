@@ -6,8 +6,7 @@
 
 App::App()
 {
-	// grid test
-	{
+	{ // level 1
 		G.lvl[0].id = 1;
 		G.lvl[0].seed = { std::string("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb") +
 									  "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb" +
@@ -38,6 +37,38 @@ App::App()
 		G.lvl[0].checkpointList[id++] = { id + 1, { 4,31 }, LEFT };
 		G.lvl[0].checkpointList[id++] = { id + 1, { 4,21 }, STOP };
 		G.lvl[0].nbCheckpoints = id;
+	}
+	{ // level 2
+		G.lvl[1].id = 2;
+		G.lvl[1].seed = { std::string("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb") +
+									  "bbbbbgggggggbbbbbbbbbbbggggggggbbbbbbbbb" +
+									  "bbbbggggggggggbbbbbbbbgggggggggggbbbbbbb" +
+									  "bggggggggggggggggggggggggggggggggggbbbbb" +
+									  "gggggggggggggggggggggggggggggggggggbbbbb" +
+									  "spppppppppppppppppppppppppppppggggggbbbb" +
+									  "ppppppppppppppppppppppppppppppggggggbbbb" +
+									  "bbbbbbbbbbbbbbbbbbbbbbbbbbbbppbbbbbbbbbb" +
+									  "bbbbbbbbbbbbbbbbbbbbbbbbbbbbppbbbbbbbbbb" +
+									  "bbbgggppppppppppppppppppppppppppppccbbbb" +
+									  "bbbgggppppppppppppppppppppppppppppccbbbb" +
+									  "bbggggppggggggggggggggggggggppgggggbbbbb" +
+									  "bbggggppggggggggggggggggggggppgggggbbbbb" +
+									  "bbggggppggggggggggggggggggggppgggggbbbbb" +
+									  "bbggggppggggggggggggggggggggppgggggbbbbb" +
+									  "bbbgggppppppppppppppppppppppppgggggbbbbb" +
+									  "bbbgggppppppppppppppppppppppppgggggbbbbb" +
+									  "bbbbggggggggggggggggggggggggggggggbbbbbb" +
+									  "bbbbbbbbbbbbbbbbbbbbbbgggggggggbbbbbbbbb" +
+									  "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb" +
+									  "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb" +
+									  "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb" };
+		int id = 0;
+		G.lvl[1].checkpointList[id++] = { id + 1, { 5,29 }, DOWN };
+		G.lvl[1].checkpointList[id++] = { id + 1, { 15,29 }, LEFT };
+		G.lvl[1].checkpointList[id++] = { id + 1, { 15,7 }, UP };
+		G.lvl[1].checkpointList[id++] = { id + 1, { 9,7 }, RIGHT };
+		G.lvl[1].checkpointList[id++] = { id + 1, { 9,35 }, STOP };
+		G.lvl[1].nbCheckpoints = id;
 	}
 }
 
