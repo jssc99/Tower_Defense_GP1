@@ -6,7 +6,8 @@ class App
 {
 public:
 	Game game;
-	bool debug;
+	bool debug = false;
+	bool closeApp = false;
 
 	App();
 	~App();

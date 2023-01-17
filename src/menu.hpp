@@ -25,7 +25,7 @@ struct purchaseMenu
 {
 	Tower* tow[4];
 	Tower selection;
-	bool hasSelected;
+	bool hasSelected = false;
 };
 
 class Menu
@@ -38,11 +38,16 @@ public:
 	~Menu();
 
 	void load(Type_Menu menu);
-	void loadPurchaseMenu(Grid* g);
+	void loadPurchaseMenu(const Grid* g);
+
+	bool isButtonPressed(const float2 x, const float2 y) const;
 
 	int update();
-	void draw(Grid *g = nullptr);
+	void draw(int currentLevel = 0, int currentWave = 0, int money = 0);
 
 private:
-	Type_Menu mMenu;
+	Type_Menu mMenu = Type_Menu::NONE;
+
+	void drawMain() const;
+	void drawInGame(int currentLevel, int currentWave, int money) const;
 };

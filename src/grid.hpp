@@ -8,13 +8,14 @@ class Grid
 public:
 	Square square[NB_SQUARES_ROW][NB_SQUARES_COL];
 	Checkpoint chkpList[MAX_NB_CHECKPOINTS];
-	int nbCheckpoints;
+	int nbCheckpoints = 0;
 
 	Grid();
 	~Grid() {};
 
-	void loadGrid(std::string seed, Castle *castle);
-	void loadCheckpoints(Checkpoint* checkpointList, int nbCheckpoint);
+	void loadGrid(std::string seed);
+	void unloadGrid();
+	void loadCheckpoints(Checkpoint* checkpointList, int nbCheckpoint, Castle* castle);
 	void makePathLookGood();
 
 	void draw();
