@@ -37,6 +37,7 @@ App::App()
 		G.lvl[0].checkpointList[id++] = { id + 1, { 4,31 }, LEFT };
 		G.lvl[0].checkpointList[id++] = { id + 1, { 4,21 }, STOP };
 		G.lvl[0].nbCheckpoints = id;
+
 	}
 	{ // level 2
 		G.lvl[1].id = 2;
@@ -92,7 +93,7 @@ void App::Update()
 			}*/
 		if (ImGui::Button("load lvl1"))
 			G.loadLvl(1);
-		if (ImGui::Button("unload lvl1")) {
+		if (ImGui::Button("unload lvl")) {
 			G.unloadLvl();
 			G.menu.load(Type_Menu::MAIN);
 		}
@@ -117,12 +118,20 @@ void App::Update()
 			G.enemies[id]->pos = G.grid.getSpawnPoint();
 		}
 		if (G.castle) {
-		ImGui::Text("Castle health and max health: %d, %d", G.castle->healthSystem.health, G.castle->healthSystem.maxHealth);
-		ImGui::Text("Castle pos = %f, %f", G.castle->pos.x, G.castle->pos.y); }
+		ImGui::Text("Castle health and max health: %d, %d", G.castle->health.life, G.castle->health.maxLife);
+		ImGui::Text("Castle pos = %f, %f", G.castle->pos.x, G.castle->pos.y);
+		}
 		ImGui::End();
 	}
 	G.update();
 	G.draw();
+	G.enSpwTimer += ImGui::GetIO().DeltaTime;
+	if (G.enSpwTimer > 300 * ImGui::GetIO().DeltaTime)
+	{
+		G.enSpwTimer = 0;
+		G.spawnEnemy(Type_Enemy::HEALER);
+		//TODO: spawn enemies
+	}
 	if (this->debug) G.drawDebug();
 	this->closeApp = G.closeGame;
 }

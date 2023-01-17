@@ -10,9 +10,9 @@ Tower::Tower()
 
 Tower::~Tower()
 {
-	if (hasTexture) {
-	this->unloadTexture();
-	ImGuiUtils::UnloadTexture(this->turret.sprite);
+	if (this->hasTexture) {
+		this->unloadTexture();
+		ImGuiUtils::UnloadTexture(this->turret.sprite);
 	}
 }
 
@@ -26,9 +26,9 @@ void Tower::setPos(float x, float y)
 	this->pos = { x,y };
 }
 
-char* Tower::getTypeName() const
+const char* Tower::getTypeName() const
 {
-	return (char*)"None";
+	return "None";
 }
 
 void Tower::setAttackStats(float attackRadius, float attackSpeed, int attackDmg)
@@ -42,8 +42,8 @@ void Tower::setAttackStats(float attackRadius, float attackSpeed, int attackDmg)
 
 void Tower::update(Enemy** en, int nbEnemies)
 {
-	if (nbEnemies) { // enemy.isDead()? TODO
-		if (this->current_target == nullptr || this->current_target->healthSystem.health <= 0 || !(this->isEnemyInsideRange(this->current_target)))
+	if (nbEnemies) {
+		if (this->current_target == nullptr || this->current_target->isDead() || !(this->isEnemyInsideRange(this->current_target)))
 			this->getTarget(en, nbEnemies);
 		if (this->current_target != nullptr)
 			this->attackTarget();
@@ -103,5 +103,5 @@ void Tower::attackTarget()
 
 void Tower::attack()
 {
-	this->current_target; // TODO .getDamage(this->attackTruc);
+	this->current_target->getDamage(this->mAttackDmg);
 }

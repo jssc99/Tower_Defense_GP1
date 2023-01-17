@@ -19,6 +19,8 @@ public:
 	Enemy* enemies[MAX_NB_ENEMIES];
 	Castle* castle = nullptr;
 
+	float enSpwTimer = 0.f;
+
 	level lvl[NB_LEVELS];
 	int money = 0;
 	int wave = 0;
@@ -37,6 +39,8 @@ public:
 
 	int getFreeEnemySpotId() const;
 	int getFreeTowerSpotId() const;
+
+	void spawnEnemy(Type_Enemy type);
 
 private:
 	int mCurrentLevelId = 0;

@@ -29,6 +29,7 @@ namespace calc
 {
 	static const float GRAVITY = 9.80665f;
 	static const float TAU = 6.28318530717958f;
+	static const float PI = 3.14159265359f;
 
 	static inline float sign(float x) { return (x < 0.f) ? -1.f : 1.f; }
 

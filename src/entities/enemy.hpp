@@ -1,29 +1,38 @@
 #pragma once
 
-#include "castle.hpp"
 #include "../grid.hpp"
-#include "health_system.hpp"
+#include "../health.hpp"
+
+enum class Type_Enemy : char
+{
+	NONE = 'n',
+	SOLDIER = 's',
+	KNIGHT = 'k',
+	HEALER = 'h'
+};
 
 class Enemy : public Entity
 {
 public:
-	int attackDmg;
-	float moveSpeed;
-	int loot;
-	float2 direction;
-	int checkId;
-	HealthSystem healthSystem;
-	//inital ms: TODO
+	int attackDmg = 0;
+	float initMS = 1.f;
+	float moveSpeed = 1.f;
+	float angle = 0.f;
+	int loot = 0;
+	float2 direction = RIGHT;
+	int checkId = 1;
+	Health health;
+	Type_Enemy type = Type_Enemy::NONE;
 
 	Enemy();
-	~Enemy() {}
+	~Enemy();
 
 	void update(Checkpoint* listCheckpoint, int nbCheckpoint, Castle* castle);
-	void spawn(Grid* grid);
+	void spawn(float2 spawnPoint);
 	void draw() override;
-	void drawHealth();
+	bool isDead();
+	void getDamage(int damage);
 
 private:
 	void move(Checkpoint* listCheckpoint, int nbCheckpoint);
-	void die();
 };

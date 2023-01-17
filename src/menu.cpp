@@ -6,7 +6,7 @@
 
 Menu::Menu()
 {
-	for (int i = 0; i < 4; i++) this->purchaseMenu.tow[i];
+	for (int i = 0; i < 4; i++) this->purchaseMenu.tow[i] = nullptr;
 	//this->font = ImGui::GetIO().Fonts->AddFontFromFileTTF("assets/EvilEmpire-4BBVK.ttf", 80);
 	//this->font = ImGui::GetIO().Fonts->AddFontFromFileTTF("assets/Arneson-g3w6.ttf", 80);
 	this->font = ImGui::GetIO().Fonts->AddFontFromFileTTF("assets/GlueGun-GW8Z.ttf", 80);
@@ -20,7 +20,7 @@ Menu::~Menu()
 
 void Menu::load(Type_Menu menu)
 {
-	this->mMenu = menu;
+	this->menu = menu;
 }
 
 void Menu::loadPurchaseMenu(const Grid* g)
@@ -51,15 +51,15 @@ bool Menu::isButtonPressed(const float2 x, const float2 y) const
 // returns 12 if lvl 2 etc
 int Menu::update()
 {
-	switch (this->mMenu)
+	switch (this->menu)
 	{
 	case Type_Menu::MAIN:
 		if (this->isButtonPressed(MAIN_BUT_ONE_TOP, MAIN_BUT_ONE_BOT)) {// lvl 1 button
-			this->mMenu = Type_Menu::LOADING;
+			this->menu = Type_Menu::LOADING;
 			return 11;
 		}
 		else if (this->isButtonPressed(MAIN_BUT_TWO_TOP, MAIN_BUT_TWO_BOT)) {// lvl 2 button
-			this->mMenu = Type_Menu::LOADING;
+			this->menu = Type_Menu::LOADING;
 			return 12;
 		}
 		else if (this->isButtonPressed(MAIN_BUT_EXIT_TOP, MAIN_BUT_EXIT_BOT)) // exit button
@@ -79,7 +79,7 @@ int Menu::update()
 			return 1;
 		}
 		if (ImGui::IsKeyPressed(ImGuiKey_Escape, false) || ImGui::IsKeyPressed(ImGuiKey_Space, false))
-			this->mMenu = Type_Menu::PAUSE;
+			this->menu = Type_Menu::PAUSE;
 		break;
 	default:
 		break;
@@ -89,7 +89,7 @@ int Menu::update()
 
 void Menu::draw(int currentLevel, int currentWave, int money, int towerPlaced)
 {
-	switch (this->mMenu)
+	switch (this->menu)
 	{
 	case Type_Menu::LOADING:
 		ImGui::GetBackgroundDrawList()->AddRectFilled({ 0,0 }, { WIDTH,HEIGHT }, SHY_LIGHT_BLUE);

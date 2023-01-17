@@ -66,16 +66,6 @@ bool Square::canPlaceTower() const
 void Square::draw()
 {
 	ImGuiUtils::DrawTextureEx(*ImGui::GetBackgroundDrawList(), this->sprite, this->pos + H_SQUARE_SIZE, { 0.5f,0.5f });
-	/*
-	switch (type)
-	{
-	case Type_Square::NONE:
-		ImGui::GetBackgroundDrawList()->AddRect({ this->pos.x, this->pos.y }, { this->pos.x + SQUARE_SIZE, this->pos.y + SQUARE_SIZE }, this->color);
-		break;
-	default:
-		ImGui::GetBackgroundDrawList()->AddRectFilled({ this->pos.x, this->pos.y }, { this->pos.x + SQUARE_SIZE, this->pos.y + SQUARE_SIZE }, this->color);
-		break;
-	}*/
 }
 
 void Square::drawPos()

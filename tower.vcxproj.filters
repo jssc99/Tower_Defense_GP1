@@ -65,6 +65,12 @@
     <ClCompile Include="src\entities\tower.cpp">
       <Filter>src\entities</Filter>
     </ClCompile>
+    <ClCompile Include="src\entities\sub_enemies.cpp">
+      <Filter>src\entities</Filter>
+    </ClCompile>
+    <ClCompile Include="src\entities\sub_towers.cpp">
+      <Filter>src\entities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -75,12 +81,6 @@
     </Filter>
     <Filter Include="src\entities">
       <UniqueIdentifier>{cb4082ec-4aff-43cd-ba93-ac442d7ba5c9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\entities\towers">
-      <UniqueIdentifier>{1e3f6975-aafe-4c92-93c8-e919654b7ebc}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\entities\enemies">
-      <UniqueIdentifier>{a57ac5ab-8bb6-4c6b-bd8f-58f126e0f953}</UniqueIdentifier>
     </Filter>
     <Filter Include="assets">
       <UniqueIdentifier>{2530529a-6af2-484a-8ffa-42dafe0cbca8}</UniqueIdentifier>
@@ -117,20 +117,8 @@
     <ClInclude Include="src\game.hpp">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="src\entities\enemies\healer.hpp">
-      <Filter>src\entities\enemies</Filter>
-    </ClInclude>
-    <ClInclude Include="src\entities\health_system.hpp">
-      <Filter>src\entities</Filter>
-    </ClInclude>
-    <ClInclude Include="src\entities\enemies\knight.hpp">
-      <Filter>src\entities\enemies</Filter>
-    </ClInclude>
     <ClInclude Include="src\entities\projectile.hpp">
       <Filter>src\entities</Filter>
-    </ClInclude>
-    <ClInclude Include="src\entities\enemies\soldier.hpp">
-      <Filter>src\entities\enemies</Filter>
     </ClInclude>
     <ClInclude Include="src\types.hpp">
       <Filter>src</Filter>
@@ -138,20 +126,17 @@
     <ClInclude Include="src\menu.hpp">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="src\entities\towers\basic_tower.hpp">
-      <Filter>src\entities\towers</Filter>
-    </ClInclude>
-    <ClInclude Include="src\entities\towers\explosive_tower.hpp">
-      <Filter>src\entities\towers</Filter>
-    </ClInclude>
-    <ClInclude Include="src\entities\towers\quick_tower.hpp">
-      <Filter>src\entities\towers</Filter>
-    </ClInclude>
-    <ClInclude Include="src\entities\towers\slow_tower.hpp">
-      <Filter>src\entities\towers</Filter>
-    </ClInclude>
     <ClInclude Include="src\entities\tower.hpp">
       <Filter>src\entities</Filter>
+    </ClInclude>
+    <ClInclude Include="src\entities\sub_towers.hpp">
+      <Filter>src\entities</Filter>
+    </ClInclude>
+    <ClInclude Include="src\entities\sub_enemies.hpp">
+      <Filter>src\entities</Filter>
+    </ClInclude>
+    <ClInclude Include="src\health.hpp">
+      <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

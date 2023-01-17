@@ -34,7 +34,7 @@ public:
 	void setPos(float2 pos);
 	void setPos(float x, float y);
 
-	virtual char* getTypeName() const;
+	virtual const char* getTypeName() const;
 
 	void update(Enemy** en, int nbEnemies = 0);
 	void draw(bool drawRadius = true);

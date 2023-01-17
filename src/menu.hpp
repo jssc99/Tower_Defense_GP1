@@ -1,13 +1,8 @@
 #pragma once
 
 #include "grid.hpp"
-#include "entities/enemies/healer.hpp"
-#include "entities/enemies/knight.hpp"
-#include "entities/enemies/soldier.hpp"
-#include "entities/towers/slow_tower.hpp"
-#include "entities/towers/basic_tower.hpp"
-#include "entities/towers/quick_tower.hpp"
-#include "entities/towers/explosive_tower.hpp"
+#include "entities/sub_enemies.hpp"
+#include "entities/sub_towers.hpp"
 
 #define MAIN_BUT_ONE_TOP { H_WIDTH - 100, 250 }
 #define MAIN_BUT_ONE_BOT { H_WIDTH + 100, 300 }
@@ -40,6 +35,7 @@ class Menu
 public:
 	ImFont* font;
 	purchaseMenu purchaseMenu;
+	Type_Menu menu = Type_Menu::NONE;
 
 	Menu();
 	~Menu();
@@ -53,7 +49,6 @@ public:
 	void draw(int currentLevel = 0, int currentWave = 0, int money = 0, int towerPlaced = 0);
 
 private:
-	Type_Menu mMenu = Type_Menu::NONE;
 
 	void drawMain() const;
 	void drawInGame(int currentLevel, int currentWave, int money, int towerPlaced) const;

@@ -5,7 +5,7 @@
 
 #define WHITE ImColor(1.f, 1.f, 1.f, 1.f)
 #define BLACK ImColor(0.f, 0.f, 0.f, 1.f)
-#define RED ImColor(1.f, 0.f, 0.f, 1.f);
+#define RED ImColor(1.f, 0.f, 0.f, 1.f)
 #define GREEN ImColor(0.f, 1.f, 0.f, 1.f)
 #define DARK_GREEN ImColor(0.f, 0.5f, 0.f, 1.f)
 #define ORANGE ImColor(1.f, 0.5f, 0.f, 1.f)
@@ -17,7 +17,7 @@
 
 #define SHY_WHITE ImColor(1.f, 1.f, 1.f, 0.5f)
 #define SHY_BLACK ImColor(0.f, 0.f, 0.f, 0.5f)
-#define SHY_RED ImColor(1.f, 0.f, 0.f, 0.5f);
+#define SHY_RED ImColor(1.f, 0.f, 0.f, 0.5f)
 #define SHY_GREEN ImColor(0.f, 1.f, 0.f, 0.5f)
 #define SHY_ORANGE ImColor(1.f, 0.5f, 0.f, 0.5f)
 #define SHY_VIOLET ImColor(0.5f, 0.f, 1.f, 0.5f)
@@ -49,18 +49,17 @@ class Entity
 {
 public:
 	float2 pos = { 0,0 };
-	ImGuiCol color = WHITE;
 	Texture sprite;
 	bool hasTexture = false;
 
-	inline Entity() { this->sprite = ImGuiUtils::LoadTexture("assets/towerDefense_tile298.png"); };
-	inline virtual ~Entity() { ImGuiUtils::UnloadTexture(this->sprite); };
+	inline Entity() { this->loadTexture("assets/towerDefense_tile298.png"); };
+	inline virtual ~Entity() { this->unloadTexture(); };
 	 
 	inline virtual void draw() { ImGuiUtils::DrawTextureEx(*ImGui::GetForegroundDrawList(), this->sprite, this->pos); };
 
 	inline void loadTexture(const char* path) {
 		if (this->hasTexture)
-			ImGuiUtils::UnloadTexture(this->sprite);
+			this->unloadTexture();
 		this->sprite = ImGuiUtils::LoadTexture(path);
 		this->hasTexture = true;
 	};

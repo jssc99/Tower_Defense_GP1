@@ -45,6 +45,7 @@ void Game::unloadLvl()
 			this->towers[i] = nullptr;
 	this->castle = nullptr;
 	this->grid.unloadGrid();
+	this->enSpwTimer = 0.f;
 }
 
 void Game::update()
@@ -67,21 +68,26 @@ void Game::update()
 	case 12:// load lvl 2
 		this->loadLvl(2);
 		break;
-	
+
 	default:
 		break;
 	}
-	this->updateEnemies();
-	this->updateTowers();
+	if (this->menu.menu == Type_Menu::IN_GAME) {
+		this->updateEnemies();
+		this->updateTowers();
+	}
 }
 
 void Game::draw()
 {
 	this->grid.draw();
-	this->drawTowers();
-	this->drawEnemies();
-	this->menu.draw(this->mCurrentLevelId + 1, this->wave, this->money, this->towerPlaced);
-	if (this->castle) this->castle->drawHealth();
+	if (this->menu.menu == Type_Menu::IN_GAME) {
+		this->drawTowers();
+		this->drawEnemies();
+	this->menu.draw(this->mCurrentLevelId + 1, this->wave, this->money, this->towerPlaced); 
+	this->castle->health.draw();
+	}
+	else this->menu.draw();
 }
 
 void Game::drawDebug()
@@ -93,9 +99,9 @@ void Game::drawDebug()
 void Game::updateEnemies()
 {
 	for (int i = 0; i < MAX_NB_ENEMIES; i++)
-		if (this->enemies[i] || this->enemies[i] != nullptr) {
+		if (this->enemies[i] != nullptr) {
 			this->enemies[i]->update(this->grid.chkpList, this->grid.nbCheckpoints, this->castle);
-			if (this->enemies[i]->healthSystem.health <= 0)
+			if (this->enemies[i]->isDead())
 				this->enemies[i] = nullptr;
 		}
 }
@@ -103,7 +109,7 @@ void Game::updateEnemies()
 void Game::updateTowers()
 {
 	for (int i = 0; i < MAX_NB_TOWERS; i++)
-		if (this->towers[i] || this->towers[i] != nullptr)
+		if (this->towers[i] != nullptr)
 			this->towers[i]->update(this->enemies, MAX_NB_ENEMIES);
 }
 
@@ -112,7 +118,6 @@ void Game::drawEnemies() const
 	for (int i = 0; i < MAX_NB_ENEMIES; i++)
 		if (this->enemies[i]) {
 			this->enemies[i]->draw();
-			this->enemies[i]->drawHealth();
 		}
 }
 
@@ -150,6 +155,31 @@ void Game::placeTower(Square* s)
 		this->money -= this->towers[id]->price;
 		s->canHaveTower = false;
 		this->towerPlaced++;
+	}
+}
+
+void Game::spawnEnemy(Type_Enemy type)
+{
+	int id = this->getFreeEnemySpotId();
+	if (!(id < 0))
+	{
+		switch (type)
+		{
+		case Type_Enemy::SOLDIER:
+			this->enemies[id] = new Soldier;
+			break;
+		case Type_Enemy::KNIGHT:
+			this->enemies[id] = new Knight;
+			break;
+		case Type_Enemy::HEALER:
+			this->enemies[id] = new Healer;
+			break;
+		case Type_Enemy::NONE: // shoudn't happen
+		default:
+			this->enemies[id] = new Enemy;
+			break;
+		}
+		this->enemies[id]->spawn(this->grid.getSpawnPoint());
 	}
 }
 
