@@ -18,6 +18,7 @@ public:
 	Tower* towers[MAX_NB_TOWERS];
 	Enemy* enemies[MAX_NB_ENEMIES];
 	Castle castle;
+	float enSpwTimer = 0;
 
 	level lvl[NB_LEVELS];
 	int money;
@@ -33,6 +34,8 @@ public:
 
 	int getFreeEnemySpotId();
 	int getFreeTowerSpotId();
+
+	void spawnEnemy(Type_Enemy type);
 
 private:
 	void updateEnemies();

@@ -39,6 +39,7 @@ App::App()
 		G.lvl[0].checkpointList[_id++] = { ++id, { 4,31 }, LEFT };
 		G.lvl[0].checkpointList[_id++] = { ++id, { 4,21 }, STOP };
 		G.lvl[0].nbCheckpoints = id;
+
 	}
 	this->debug = false;
 }
@@ -65,32 +66,22 @@ void App::Update()
 			}
 		if (ImGui::Button("load lvl1"))
 			G.loadLvl(1);
-		if (ImGui::Button("Soldier"))
-		{
-			int id = this->game.getFreeEnemySpotId();
-			//G.enemies[id]->spawn(Type_Enemy type, G>grid.getSpwn());
-			//if (id > -1)
-			G.enemies[id] = new Soldier;
-			G.enemies[id]->pos = G.grid.getSpawnPoint();
-		}
-		if (ImGui::Button("Healer"))
-		{
-			int id = this->game.getFreeEnemySpotId();
-			G.enemies[id] = new Healer;
-			G.enemies[id]->pos = G.grid.getSpawnPoint();
-		}
-		if (ImGui::Button("Knight"))
-		{
-			int id = this->game.getFreeEnemySpotId();
-			G.enemies[id] = new Knight;
-			G.enemies[id]->pos = G.grid.getSpawnPoint();
-		}
+
 		ImGui::Text("Castle health and max health: %d, %d", G.castle.health.life, G.castle.health.maxLife);
 		ImGui::Text("Castle pos = %f, %f", G.castle.pos.x, G.castle.pos.y);
+		ImGui::Text("enSpwTimer = %f", G.enSpwTimer);
+
 		ImGui::End();
 	}
 	G.update();
 	G.draw();
+	G.enSpwTimer += ImGui::GetIO().DeltaTime;
+	if (G.enSpwTimer > 300 * ImGui::GetIO().DeltaTime)
+	{
+		G.enSpwTimer = 0;
+		G.spawnEnemy(Type_Enemy::HEALER);
+		//TODO: spawn enemies
+	}
 	if (this->debug)
 		G.drawDebug();
 }

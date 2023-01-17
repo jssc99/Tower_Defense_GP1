@@ -29,9 +29,9 @@ void Tower::setPos(float x, float y)
 	this->pos = { x,y };
 }
 
-char* Tower::getTypeName() const
+const char* Tower::getTypeName() const
 {
-	return (char*)"None";
+	return "None";
 }
 
 void Tower::setAttackStats(float attackRadius, float attackSpeed, int attackDmg)
@@ -106,5 +106,5 @@ void Tower::attackTarget()
 
 void Tower::attack()
 {
-	this->current_target; // TODO .getDamage(this->attackTruc);
+	this->current_target->getDamage(this->mAttackDmg);
 }

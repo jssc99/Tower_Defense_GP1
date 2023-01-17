@@ -88,7 +88,9 @@
     <ClCompile Include="externals\src\stb_image.cpp" />
     <ClCompile Include="src\entities\enemy.cpp" />
     <ClCompile Include="src\entities\square.cpp" />
+    <ClCompile Include="src\entities\sub_enemies.cpp" />
     <ClCompile Include="src\entities\tower.cpp" />
+    <ClCompile Include="src\entities\sub_towers.cpp" />
     <ClCompile Include="src\game.cpp" />
     <ClCompile Include="src\app.cpp" />
     <ClCompile Include="src\grid.cpp" />
@@ -97,19 +99,14 @@
     <ClCompile Include="src\menu.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\entities\sub_enemies.hpp" />
     <ClInclude Include="src\entities\tower.hpp" />
-    <ClInclude Include="src\entities\towers\basic_tower.hpp" />
-    <ClInclude Include="src\entities\towers\explosive_tower.hpp" />
-    <ClInclude Include="src\entities\towers\quick_tower.hpp" />
-    <ClInclude Include="src\entities\towers\slow_tower.hpp" />
+    <ClInclude Include="src\entities\sub_towers.hpp" />
     <ClInclude Include="src\game.hpp" />
     <ClInclude Include="src\app.hpp" />
     <ClInclude Include="src\calc.hpp" />
     <ClInclude Include="src\entities\castle.hpp" />
     <ClInclude Include="src\entities\checkpoint.hpp" />
-    <ClInclude Include="src\entities\enemies\healer.hpp" />
-    <ClInclude Include="src\entities\enemies\knight.hpp" />
-    <ClInclude Include="src\entities\enemies\soldier.hpp" />
     <ClInclude Include="src\entities\enemy.hpp" />
     <ClInclude Include="src\entities\projectile.hpp" />
     <ClInclude Include="src\entity.hpp" />

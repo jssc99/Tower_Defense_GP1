@@ -1,13 +1,8 @@
 #pragma once
 
 #include "grid.hpp"
-#include "entities/enemies/healer.hpp"
-#include "entities/enemies/knight.hpp"
-#include "entities/enemies/soldier.hpp"
-#include "entities/towers/slow_tower.hpp"
-#include "entities/towers/basic_tower.hpp"
-#include "entities/towers/quick_tower.hpp"
-#include "entities/towers/explosive_tower.hpp"
+#include "entities/sub_enemies.hpp"
+#include "entities/sub_towers.hpp"
 
 enum class Type_Menu : char
 {
