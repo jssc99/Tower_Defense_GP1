@@ -15,17 +15,17 @@ enum class Type_Tower : char
 
 struct Turret
 {
-	float angle;
+	float angle = 0.f;
 	Texture sprite;
 };
 
 class Tower : public Entity
 {
 public:
-	int price;
+	int price = 0;
 	Turret turret;
 	Type_Tower type;
-	Enemy* current_target;
+	Enemy* current_target = nullptr;
 	//Projectile projectile; //not used for now
 
 	Tower();
@@ -37,24 +37,24 @@ public:
 	virtual char* getTypeName() const;
 
 	void update(Enemy** en, int nbEnemies = 0);
-	void draw(bool drawRadius = 1);
+	void draw(bool drawRadius = true);
 
 	void upgrade();
 
-	bool isMouseOverTower();
+	bool isMouseOverTower() const;
 
 protected:
 	void setAttackStats(float attackRadius, float attackSpeed, int attackDmg);
 	virtual void attack();
 
 private:
-	float mAttackRadius;
-	float mAttackSpeed;
-	float mAttackCooldown;
-	int mAttackDmg;
-	int mUpgradeLvl;
+	float mAttackRadius = 0.f;
+	float mAttackSpeed = 0.f;
+	float mAttackCooldown = 0.f;
+	int mAttackDmg = 0;
+	int mUpgradeLvl = 0;
 
-	bool isEnemyInsideRange(Enemy* en);
+	bool isEnemyInsideRange(Enemy const* en) const;
 	void getTarget(Enemy** en, int nbEnemies);
 	void attackTarget();
 };

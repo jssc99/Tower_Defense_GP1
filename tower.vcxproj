@@ -121,7 +121,9 @@
     <ClInclude Include="src\types.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <Font Include="assets\Arneson-g3w6.ttf" />
     <Font Include="assets\EvilEmpire-4BBVK.ttf" />
+    <Font Include="assets\GlueGun-GW8Z.ttf" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="assets\towerDefense_tile001.png" />

@@ -19,16 +19,16 @@ class Square : public Entity
 {
 public:
 	Type_Square type;
-	bool canHaveTower;
+	bool canHaveTower = false;
 
 	Square();
-	inline ~Square() {};
+	~Square();
 
 	void setType(Type_Square type);
 
 	float2 getPosCenter() const;
 
-	bool canPlaceTower();
+	bool canPlaceTower() const;
 
 	void draw() override;
 	void drawPos();

@@ -6,7 +6,7 @@ class Slow : public Tower
 {
 public:
 	inline Slow();
-	inline ~Slow() {};
+	inline ~Slow() { ImGuiUtils::UnloadTexture(this->turret.sprite); };
 
 	inline char* getTypeName() const;
 	void attack() override;
@@ -16,7 +16,7 @@ Slow::Slow()
 {
 	this->type = Type_Tower::SLOW;
 	//this->color = CYAN;
-	this->sprite = ImGuiUtils::LoadTexture("assets/towerDefense_tile182.png");
+	this->loadTexture("assets/towerDefense_tile182.png");
 	this->turret.sprite = ImGuiUtils::LoadTexture("assets/towerDefense_tile203.png");
 	this->price = 30;
 	this->setAttackStats(50.f, 0.f, 0);

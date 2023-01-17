@@ -178,6 +178,12 @@
     <Font Include="assets\EvilEmpire-4BBVK.ttf">
       <Filter>assets</Filter>
     </Font>
+    <Font Include="assets\Arneson-g3w6.ttf">
+      <Filter>assets</Filter>
+    </Font>
+    <Font Include="assets\GlueGun-GW8Z.ttf">
+      <Filter>assets</Filter>
+    </Font>
   </ItemGroup>
   <ItemGroup>
     <Image Include="assets\towerDefense_tile001.png">

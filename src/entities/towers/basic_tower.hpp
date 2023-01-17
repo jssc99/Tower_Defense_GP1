@@ -6,7 +6,7 @@ class Basic : public Tower
 {
 public:
 	inline Basic();
-	inline ~Basic() {};
+	inline ~Basic() { ImGuiUtils::UnloadTexture(this->turret.sprite); };
 
 	inline char* getTypeName() const;
 };
@@ -15,7 +15,7 @@ Basic::Basic()
 {
 	this->type = Type_Tower::BASIC;
 	//this->color = BLUE;
-	this->sprite = ImGuiUtils::LoadTexture("assets/towerDefense_tile181.png");
+	this->loadTexture("assets/towerDefense_tile181.png");
 	this->turret.sprite = ImGuiUtils::LoadTexture("assets/towerDefense_tile228.png");
 	this->price = 20;
 	this->setAttackStats(100.f, 4.f, 5);
