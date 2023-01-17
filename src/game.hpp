@@ -22,6 +22,7 @@ public:
 	level lvl[NB_LEVELS];
 	int money = 0;
 	int wave = 0;
+	int towerPlaced = 0;
 
 	bool closeGame = false;
 

@@ -51,7 +51,21 @@ bool Menu::isButtonPressed(const float2 x, const float2 y) const
 // returns 12 if lvl 2 etc
 int Menu::update()
 {
-	if (this->mMenu == Type_Menu::IN_GAME) {
+	switch (this->mMenu)
+	{
+	case Type_Menu::MAIN:
+		if (this->isButtonPressed(MAIN_BUT_ONE_TOP, MAIN_BUT_ONE_BOT)) {// lvl 1 button
+			this->mMenu = Type_Menu::LOADING;
+			return 11;
+		}
+		if (this->isButtonPressed(MAIN_BUT_TWO_TOP, MAIN_BUT_TWO_BOT)) {// lvl 2 button
+			this->mMenu = Type_Menu::LOADING;
+			return 12;
+		}
+		if (this->isButtonPressed(MAIN_BUT_EXIT_TOP, MAIN_BUT_EXIT_BOT)) // exit button
+			return 2;
+		break;
+	case Type_Menu::IN_GAME:
 		if (!M.hasSelected && ImGui::IsMouseClicked(ImGuiMouseButton_Left))
 			for (int i = 0; i < 4; i++)
 				if (!M.hasSelected && M.tow[i]->isMouseOverTower()) {
@@ -64,24 +78,14 @@ int Menu::update()
 			M.hasSelected = false;
 			return 1;
 		}
-	}
-	else if (this->mMenu == Type_Menu::MAIN)
-	{
-		if (this->isButtonPressed({ H_WIDTH - 100, 250 }, { H_WIDTH + 100, 300 })) {// lvl 1 button
-			this->mMenu = Type_Menu::LOADING;
-			return 11;
-		}
-		if (this->isButtonPressed({ H_WIDTH - 100, 310 }, { H_WIDTH + 100, 355 })) {// lvl 2 button
-			this->mMenu = Type_Menu::LOADING;
-			return 12;
-		}
-		if (this->isButtonPressed({ H_WIDTH - 100, HEIGHT - 260 }, { H_WIDTH + 100, HEIGHT - 215 })) // exit button
-			return 2;
+		break;
+	default:
+		break;
 	}
 	return 0;
 }
 
-void Menu::draw(int currentLevel, int currentWave, int money)
+void Menu::draw(int currentLevel, int currentWave, int money, int towerPlaced)
 {
 	switch (this->mMenu)
 	{
@@ -93,7 +97,7 @@ void Menu::draw(int currentLevel, int currentWave, int money)
 		this->drawMain();
 		break;
 	case Type_Menu::IN_GAME:
-		this->drawInGame(currentLevel, currentWave, money);
+		this->drawInGame(currentLevel, currentWave, money, towerPlaced);
 		if (M.hasSelected) M.selection.draw();
 		break;
 	case Type_Menu::PAUSE:
@@ -115,15 +119,15 @@ void Menu::drawMain() const
 	ImDrawList* dl = ImGui::GetBackgroundDrawList();
 	dl->AddRectFilled({ 0,0 }, { WIDTH,HEIGHT }, SHY_LIGHT_BLUE);
 	dl->AddText(this->font, 60.f, { H_WIDTH - 150, 150 }, WHITE, "TOWER DEFENSE");
-	dl->AddRectFilled({ H_WIDTH - 100, 250 }, { H_WIDTH + 100, 300 }, WHITE, 3.f);
+	dl->AddRectFilled(MAIN_BUT_ONE_TOP, MAIN_BUT_ONE_BOT, WHITE, 3.f);
 	dl->AddText(this->font, 40.f, { H_WIDTH - 60, 255 }, BLACK, "LEVEL N 1");
-	dl->AddRectFilled({ H_WIDTH - 100, 310 }, { H_WIDTH + 100, 355 }, WHITE, 3.f);
+	dl->AddRectFilled(MAIN_BUT_TWO_TOP, MAIN_BUT_TWO_BOT, WHITE, 3.f);
 	dl->AddText(this->font, 40.f, { H_WIDTH - 60, 315 }, BLACK, "LEVEL N 2");
-	dl->AddRectFilled({ H_WIDTH - 100, HEIGHT - 260 }, { H_WIDTH + 100, HEIGHT - 215 }, WHITE, 3.f);
+	dl->AddRectFilled(MAIN_BUT_EXIT_TOP, MAIN_BUT_EXIT_BOT, WHITE, 3.f);
 	dl->AddText(this->font, 40.f, { H_WIDTH - 65, HEIGHT - 255 }, BLACK, "EXIT GAME");
 }
 
-void Menu::drawInGame(int currentLevel, int currentWave, int money) const
+void Menu::drawInGame(int currentLevel, int currentWave, int money, int towerPlaced) const
 {
 	char tmp[50];
 	ImDrawList* dl = ImGui::GetBackgroundDrawList();
@@ -134,12 +138,16 @@ void Menu::drawInGame(int currentLevel, int currentWave, int money) const
 		sprintf(tmp, "-%d c", M.tow[i]->price);
 		dl->AddText(this->font, 18.f, { (float)H_WIDTH + (2.f * (float)i - 4.f) * SQUARE_SIZE, (float)HEIGHT - H_SQUARE_SIZE }, BLACK, tmp);
 	}
-	sprintf(tmp, "Level %d", currentLevel);
+	// left side
+	sprintf(tmp, "level %d", currentLevel);
 	dl->AddText(this->font, 20.f, { H_WIDTH - 7 * SQUARE_SIZE + 2.f, HEIGHT - 2 * SQUARE_SIZE + 4.f }, BLACK, tmp);
-	sprintf(tmp, "Wave %d", currentWave);
+	sprintf(tmp, "wave %d", currentWave);
 	dl->AddText(this->font, 20.f, { H_WIDTH - 7 * SQUARE_SIZE + 2.f, HEIGHT - SQUARE_SIZE - H_SQUARE_SIZE / 2 }, BLACK, tmp);
-	sprintf(tmp, "Cash %d", money);
+	sprintf(tmp, "cash %d", money);
 	dl->AddText(this->font, 20.f, { H_WIDTH - 7 * SQUARE_SIZE + 2.f, HEIGHT - SQUARE_SIZE + H_SQUARE_SIZE / 2 + 4.f }, BLACK, tmp);
-	dl->AddText(this->font, 20.f, { H_WIDTH + 4 * SQUARE_SIZE + 10.f, HEIGHT - 2 * SQUARE_SIZE + 4.f }, BLACK, "Castle life");
-	// castle's life should draw under this
+	//other side
+	dl->AddText(this->font, 20.f, { H_WIDTH + 4 * SQUARE_SIZE + 10.f, HEIGHT - 2 * SQUARE_SIZE + 4.f }, BLACK, "castle life");
+	// castle's life should draw here
+	sprintf(tmp, "%d / %d", towerPlaced, MAX_NB_TOWERS);
+	dl->AddText(this->font, 20.f, { H_WIDTH + 9 * H_SQUARE_SIZE + 10.f, HEIGHT - SQUARE_SIZE + 6.f }, BLACK, tmp);
 }

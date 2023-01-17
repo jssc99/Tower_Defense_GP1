@@ -29,7 +29,7 @@ void Game::loadLvl(int lvl)
 	this->castle = new Castle;
 	this->grid.loadGrid(this->lvl[(lvl - 1)].seed);
 	this->grid.loadCheckpoints(this->lvl[(lvl - 1)].checkpointList, this->lvl[(lvl - 1)].nbCheckpoints, this->castle);
-	this->grid.makePathLookGood();
+	//this->grid.makePathLookGood();
 	this->money = 100;
 	this->wave = 0;
 	this->menu.load(Type_Menu::IN_GAME);
@@ -80,7 +80,7 @@ void Game::draw()
 	this->grid.draw();
 	this->drawTowers();
 	this->drawEnemies();
-	this->menu.draw(this->mCurrentLevelId + 1, this->wave, this->money);
+	this->menu.draw(this->mCurrentLevelId + 1, this->wave, this->money, this->towerPlaced);
 	if (this->castle) this->castle->drawHealth();
 }
 
@@ -149,6 +149,7 @@ void Game::placeTower(Square* s)
 		this->towers[id]->setPos(s->getPosCenter());
 		this->money -= this->towers[id]->price;
 		s->canHaveTower = false;
+		this->towerPlaced++;
 	}
 }
 
