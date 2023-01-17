@@ -4,9 +4,31 @@
 Square::Square()
 {
 	this->type = Type_Square::NONE;
+	this->color = WHITE;
 	this->canHaveTower = false;
 	//this->color = WHITE;
 	this->sprite = ImGuiUtils::LoadTexture("assets/towerDefense_tile015.png");
+}
+
+std::string Square::getType() const
+{
+	switch (this->type)
+	{
+	case Type_Square::NONE:
+		return "None";
+	case Type_Square::BACKGROUND:
+		return "Decor";
+	case Type_Square::GRASS:
+		return "Grass";
+	case Type_Square::PATH:
+		return "Path";
+	case Type_Square::CASTLE:
+		return "Castle";
+	case Type_Square::SPAWN:
+		return "Spawn";
+	default:
+		return "error";
+	}
 }
 
 void Square::setType(Type_Square type)

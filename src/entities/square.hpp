@@ -24,6 +24,7 @@ public:
 	Square();
 	inline ~Square() {};
 
+	std::string getType() const;
 	void setType(Type_Square type);
 
 	float2 getPosCenter() const;

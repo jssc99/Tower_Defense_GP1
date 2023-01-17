@@ -36,6 +36,7 @@ void Game::loadLvl(int lvl)
 
 void Game::update()
 {
+
 	if (this->menu.update())
 	{
 		Square* s = this->grid.getSquare(this->menu.purchaseMenu.selection.pos);
@@ -52,7 +53,7 @@ void Game::draw()
 	this->drawTowers();
 	this->drawEnemies();
 	this->menu.draw(&this->grid);
-	this->castle.drawHealth();
+	//this->castle.drawHealth(); TODO
 }
 
 void Game::drawDebug()
@@ -66,7 +67,7 @@ void Game::updateEnemies()
 	for (int i = 0; i < MAX_NB_ENEMIES; i++)
 		if (this->enemies[i]) {
 			this->enemies[i]->update(this->grid.chkpList, this->grid.nbCheckpoints, &this->castle);
-			if (this->enemies[i]->healthSystem.health <= 0)
+			if (this->enemies[i]->health.life <= 0)
 			{
 				this->enemies[i] = nullptr;
 			}
@@ -85,7 +86,6 @@ void Game::drawEnemies()
 	for (int i = 0; i < MAX_NB_ENEMIES; i++)
 		if (this->enemies[i]) {
 			this->enemies[i]->draw();
-			this->enemies[i]->drawHealth();
 		}
 }
 
@@ -122,6 +122,31 @@ void Game::placeTower(Square* s)
 		this->towers[id]->setPos(s->getPosCenter());
 		this->money -= this->towers[id]->price;
 		s->canHaveTower = false;
+	}
+}
+
+void Game::spawnEnemy(Type_Enemy type)
+{
+	int id = this->getFreeEnemySpotId();
+	if (id != -1)
+	{
+		switch (type)
+		{
+		case Type_Enemy::SOLDIER:
+			this->enemies[id] = new Soldier;
+			break;
+		case Type_Enemy::KNIGHT:
+			this->enemies[id] = new Knight;
+			break;
+		case Type_Enemy::HEALER:
+			this->enemies[id] = new Healer;
+			break;
+		case Type_Enemy::NONE: // shoudn't happen
+		default:
+			this->enemies[id] = new Enemy;
+			break;
+		}
+		this->enemies[id]->spawn(&grid);
 	}
 }
 
