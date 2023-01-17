@@ -32,6 +32,7 @@ void Game::loadLvl(int lvl)
 	//this->grid.makePathLookGood();
 	this->money = 100;
 	this->wave = 0;
+	this->enSpwTimer = 0.f;
 	this->menu.load(Type_Menu::IN_GAME);
 }
 
@@ -81,7 +82,7 @@ void Game::update()
 void Game::draw()
 {
 	this->grid.draw();
-	if (this->menu.menu == Type_Menu::IN_GAME) {
+	if (this->menu.menu == Type_Menu::IN_GAME || this->menu.menu == Type_Menu::PAUSE) {
 		this->drawTowers();
 		this->drawEnemies();
 	this->menu.draw(this->mCurrentLevelId + 1, this->wave, this->money, this->towerPlaced); 
@@ -101,8 +102,10 @@ void Game::updateEnemies()
 	for (int i = 0; i < MAX_NB_ENEMIES; i++)
 		if (this->enemies[i] != nullptr) {
 			this->enemies[i]->update(this->grid.chkpList, this->grid.nbCheckpoints, this->castle);
-			if (this->enemies[i]->isDead())
+			if (this->enemies[i]->isDead()) {
+				this->money += this->enemies[i]->loot;
 				this->enemies[i] = nullptr;
+			}
 		}
 }
 

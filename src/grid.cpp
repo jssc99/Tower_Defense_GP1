@@ -66,13 +66,15 @@ void Grid::drawCheckpoints()
 		this->chkpList[i].draw();
 }
 
-float2 Grid::getSpawnPoint() const
+float2 Grid::getSpawnPoint()
 {
-	for (int i = 0; i < NB_SQUARES_ROW; i++)
-		for (int j = 0; j < NB_SQUARES_COL; j++)
-			if (this->square[i][j].type == Type_Square::SPAWN)
-				return { this->square[i][j].pos.x,this->square[i][j].pos.y + SQUARE_SIZE };
-	return { 0,0 };
+	if (this->spawnP == STOP) {
+		for (int i = 0; i < NB_SQUARES_ROW; i++)
+			for (int j = 0; j < NB_SQUARES_COL; j++)
+				if (this->square[i][j].type == Type_Square::SPAWN)
+					this->spawnP = { this->square[i][j].pos.x,this->square[i][j].pos.y + SQUARE_SIZE };
+	}
+	return this->spawnP;
 }
 
 Square* Grid::getSquare(float2 point)

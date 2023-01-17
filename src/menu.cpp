@@ -81,6 +81,8 @@ int Menu::update()
 		if (ImGui::IsKeyPressed(ImGuiKey_Escape, false) || ImGui::IsKeyPressed(ImGuiKey_Space, false))
 			this->menu = Type_Menu::PAUSE;
 		break;
+	case Type_Menu::PAUSE:
+		break;
 	default:
 		break;
 	}

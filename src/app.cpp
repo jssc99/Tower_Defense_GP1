@@ -48,12 +48,12 @@ App::App()
 									  "gggggggggggggggggggggggggggggggggggbbbbb" +
 									  "spppppppppppppppppppppppppppppggggggbbbb" +
 									  "ppppppppppppppppppppppppppppppggggggbbbb" +
-									  "bbbbbbbbbbbbbbbbbbbbbbbbbbbbppbbbbbbbbbb" +
-									  "bbbbbbbbbbbbbbbbbbbbbbbbbbbbppbbbbbbbbbb" +
+									  "bbbgggbbbbbbbbbbbbbbbbbbbbbbppbbbbbbbbbb" +
+									  "bbbgggbbbbbbbbbbbbbbbbbbbbbbppbbbbbbbbbb" +
 									  "bbbgggppppppppppppppppppppppppppppccbbbb" +
 									  "bbbgggppppppppppppppppppppppppppppccbbbb" +
-									  "bbggggppggggggggggggggggggbbppbbgggbbbbb" +
-									  "bbggggppggggggggggggggggggbbppbbgggbbbbb" +
+									  "bbggggppggggggggggggggggggbbppbggggbbbbb" +
+									  "bbggggppgggggggggggggggggggbppgggggbbbbb" +
 									  "bbggggppggggggggggggggggggggppgggggbbbbb" +
 									  "bbggggppggggggggggggggggggggppgggggbbbbb" +
 									  "bbbgggppppppppppppppppppppppppgggggbbbbb" +
@@ -91,35 +91,19 @@ void App::Update()
 				sprintf(name, "angle tower #%d", i);
 				ImGui::SliderAngle(name, &G.towers[i]->turret.angle, 0.f, 360.f);
 			}*/
-		if (ImGui::Button("load lvl1"))
-			G.loadLvl(1);
 		if (ImGui::Button("unload lvl")) {
 			G.unloadLvl();
 			G.menu.load(Type_Menu::MAIN);
 		}
 		if (ImGui::Button("Soldier"))
-		{
-			int id = this->game.getFreeEnemySpotId();
-			//G.enemies[id]->spawn(Type_Enemy type, G>grid.getSpwn());
-			//if (id > -1)
-			G.enemies[id] = new Soldier;
-			G.enemies[id]->pos = G.grid.getSpawnPoint();
-		}
+			G.spawnEnemy(Type_Enemy::SOLDIER);
 		if (ImGui::Button("Healer"))
-		{
-			int id = this->game.getFreeEnemySpotId();
-			G.enemies[id] = new Healer;
-			G.enemies[id]->pos = G.grid.getSpawnPoint();
-		}
+			G.spawnEnemy(Type_Enemy::HEALER);
 		if (ImGui::Button("Knight"))
-		{
-			int id = this->game.getFreeEnemySpotId();
-			G.enemies[id] = new Knight;
-			G.enemies[id]->pos = G.grid.getSpawnPoint();
-		}
+			G.spawnEnemy(Type_Enemy::KNIGHT);
 		if (G.castle) {
-		ImGui::Text("Castle health and max health: %d, %d", G.castle->health.life, G.castle->health.maxLife);
-		ImGui::Text("Castle pos = %f, %f", G.castle->pos.x, G.castle->pos.y);
+			ImGui::Text("Castle health and max health: %d, %d", G.castle->health.life, G.castle->health.maxLife);
+			ImGui::Text("Castle pos = %f, %f", G.castle->pos.x, G.castle->pos.y);
 		}
 		ImGui::End();
 	}
@@ -128,7 +112,7 @@ void App::Update()
 	G.enSpwTimer += ImGui::GetIO().DeltaTime;
 	if (G.enSpwTimer > 300 * ImGui::GetIO().DeltaTime)
 	{
-		G.enSpwTimer = 0;
+		G.enSpwTimer = 0.f;
 		G.spawnEnemy(Type_Enemy::HEALER);
 		//TODO: spawn enemies
 	}
