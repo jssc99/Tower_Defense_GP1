@@ -11,6 +11,8 @@
 #define MAIN_BUT_EXIT_TOP { H_WIDTH - 100, HEIGHT - 260 }
 #define MAIN_BUT_EXIT_BOT { H_WIDTH + 100, HEIGHT - 215 }
 
+#define CASTLE_LIFE_POS { H_WIDTH + 180, HEIGHT /*- 30 + 30*/ } // (+30, off center health bar)
+
 enum class Type_Menu : char
 {
 	NONE = 'n',
@@ -19,8 +21,8 @@ enum class Type_Menu : char
 	IN_GAME = 'g',
 	PAUSE = 'p',
 	VICTORY = 'v',
-	LOSE = 'l',
-	QUIT = 'q'
+	LOSE = 'l'
+	//QUIT = 'q'
 };
 
 struct purchaseMenu
@@ -49,7 +51,10 @@ public:
 	void draw(int currentLevel = 0, int currentWave = 0, int money = 0, int towerPlaced = 0);
 
 private:
-
 	void drawMain() const;
 	void drawInGame(int currentLevel, int currentWave, int money, int towerPlaced) const;
+	void drawPause() const;
+	void drawEnd(bool victory) const;
+
+	void drawExitButton(ImDrawList* dl, bool mainMenu) const;
 };

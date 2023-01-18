@@ -26,6 +26,7 @@ void Grid::unloadGrid()
 		for (int j = 0; j < NB_SQUARES_COL; j++)
 			this->square[i][j].setType(Type_Square::NONE);
 	this->nbCheckpoints = 0;
+	this->spawnP = STOP;
 }
 
 void Grid::loadCheckpoints(Checkpoint* checkpointList, int nbCheckpoints, Castle* castle)

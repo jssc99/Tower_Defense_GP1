@@ -27,6 +27,7 @@ void Game::loadLvl(int lvl)
 {
 	this->mCurrentLevelId = lvl - 1;
 	this->castle = new Castle;
+	this->castle->health.posCenter = CASTLE_LIFE_POS;
 	this->grid.loadGrid(this->lvl[(lvl - 1)].seed);
 	this->grid.loadCheckpoints(this->lvl[(lvl - 1)].checkpointList, this->lvl[(lvl - 1)].nbCheckpoints, this->castle);
 	//this->grid.makePathLookGood();
@@ -45,8 +46,8 @@ void Game::unloadLvl()
 		if (this->towers[i])
 			this->towers[i] = nullptr;
 	this->castle = nullptr;
-	this->grid.unloadGrid();
 	this->enSpwTimer = 0.f;
+	this->grid.unloadGrid();
 }
 
 void Game::update()
@@ -60,6 +61,11 @@ void Game::update()
 		  break;
 	case 2:// close game
 		this->closeGame = true;
+		break;
+
+	case 3:// close lvl
+		this->unloadLvl();
+		this->menu.load(Type_Menu::MAIN);
 		break;
 
 	case 11:// load lvl 1
@@ -82,11 +88,12 @@ void Game::update()
 void Game::draw()
 {
 	this->grid.draw();
+	if (this->menu.menu == Type_Menu::IN_GAME)
+		this->castle->health.draw();
 	if (this->menu.menu == Type_Menu::IN_GAME || this->menu.menu == Type_Menu::PAUSE) {
 		this->drawTowers();
 		this->drawEnemies();
-	this->menu.draw(this->mCurrentLevelId + 1, this->wave, this->money, this->towerPlaced); 
-	this->castle->health.draw();
+		this->menu.draw(this->mCurrentLevelId + 1, this->wave, this->money, this->towerPlaced); 
 	}
 	else this->menu.draw();
 }
@@ -119,9 +126,8 @@ void Game::updateTowers()
 void Game::drawEnemies() const
 {
 	for (int i = 0; i < MAX_NB_ENEMIES; i++)
-		if (this->enemies[i]) {
+		if (this->enemies[i]) 
 			this->enemies[i]->draw();
-		}
 }
 
 void Game::drawTowers() const

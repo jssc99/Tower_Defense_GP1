@@ -47,6 +47,7 @@ bool Menu::isButtonPressed(const float2 x, const float2 y) const
 
 // returns 1 if tower needs to be placed
 // returns 2 if app is to be closed
+// returns 3 if lvl is to be closed
 // returns 11 if lvl 1 needs to be loaded
 // returns 12 if lvl 2 etc
 int Menu::update()
@@ -62,7 +63,7 @@ int Menu::update()
 			this->menu = Type_Menu::LOADING;
 			return 12;
 		}
-		else if (this->isButtonPressed(MAIN_BUT_EXIT_TOP, MAIN_BUT_EXIT_BOT)) // exit button
+		else if (this->isButtonPressed(MAIN_BUT_EXIT_TOP, MAIN_BUT_EXIT_BOT) || ImGui::IsKeyPressed(ImGuiKey_Escape, false)) // exit button
 			return 2;
 		break;
 	case Type_Menu::IN_GAME:
@@ -82,6 +83,19 @@ int Menu::update()
 			this->menu = Type_Menu::PAUSE;
 		break;
 	case Type_Menu::PAUSE:
+		if (this->isButtonPressed(MAIN_BUT_ONE_TOP, MAIN_BUT_ONE_BOT) || ImGui::IsKeyPressed(ImGuiKey_Space, false)) 
+			this->menu = Type_Menu::IN_GAME;
+		if (this->isButtonPressed(MAIN_BUT_EXIT_TOP, MAIN_BUT_EXIT_BOT) || ImGui::IsKeyPressed(ImGuiKey_Escape, false)){
+			this->menu = Type_Menu::LOADING;
+			return 3;
+		}
+		break;
+	case Type_Menu::VICTORY:
+	case Type_Menu::LOSE:
+		if (this->isButtonPressed(MAIN_BUT_EXIT_TOP, MAIN_BUT_EXIT_BOT) || ImGui::IsKeyPressed(ImGuiKey_Escape, false)) {
+			this->menu = Type_Menu::LOADING;
+			return 3;
+		}
 		break;
 	default:
 		break;
@@ -105,12 +119,13 @@ void Menu::draw(int currentLevel, int currentWave, int money, int towerPlaced)
 		if (M.hasSelected) M.selection.draw();
 		break;
 	case Type_Menu::PAUSE:
+		this->drawPause();
 		break;
 	case Type_Menu::VICTORY:
+		this->drawEnd(true);
 		break;
 	case Type_Menu::LOSE:
-		break;
-	case Type_Menu::QUIT:
+		this->drawEnd(false);
 		break;
 
 	default:
@@ -118,24 +133,31 @@ void Menu::draw(int currentLevel, int currentWave, int money, int towerPlaced)
 	}
 }
 
+void Menu::drawExitButton(ImDrawList* dl, bool mainMenu) const {
+	dl->AddRectFilled(MAIN_BUT_EXIT_TOP, MAIN_BUT_EXIT_BOT, WHITE, 3.f);
+	if (mainMenu)
+		dl->AddText(this->font, 40.f, { H_WIDTH - 65, HEIGHT - 255 }, BLACK, "MAIN MENU");
+	else
+		dl->AddText(this->font, 40.f, { H_WIDTH - 65, HEIGHT - 255 }, BLACK, "EXIT GAME");
+}
+
 void Menu::drawMain() const
 {
-	ImDrawList* dl = ImGui::GetBackgroundDrawList();
-	dl->AddRectFilled({ 0,0 }, { WIDTH,HEIGHT }, SHY_LIGHT_BLUE);
-	dl->AddText(this->font, 60.f, { H_WIDTH - 150, 150 }, WHITE, "TOWER DEFENSE");
+	ImDrawList* dl = ImGui::GetForegroundDrawList();
+	ImGui::GetBackgroundDrawList()->AddRectFilled({ 0,0 }, { WIDTH,HEIGHT }, SHY_LIGHT_BLUE);
+	dl->AddText(this->font, 80.f, { H_WIDTH - 200, 150 }, WHITE, "TOWER DEFENSE");
 	dl->AddRectFilled(MAIN_BUT_ONE_TOP, MAIN_BUT_ONE_BOT, WHITE, 3.f);
 	dl->AddText(this->font, 40.f, { H_WIDTH - 60, 255 }, BLACK, "LEVEL N 1");
 	dl->AddRectFilled(MAIN_BUT_TWO_TOP, MAIN_BUT_TWO_BOT, WHITE, 3.f);
 	dl->AddText(this->font, 40.f, { H_WIDTH - 60, 315 }, BLACK, "LEVEL N 2");
-	dl->AddRectFilled(MAIN_BUT_EXIT_TOP, MAIN_BUT_EXIT_BOT, WHITE, 3.f);
-	dl->AddText(this->font, 40.f, { H_WIDTH - 65, HEIGHT - 255 }, BLACK, "EXIT GAME");
+	this->drawExitButton(dl, false);
 }
 
 void Menu::drawInGame(int currentLevel, int currentWave, int money, int towerPlaced) const
 {
 	char tmp[50];
-	ImDrawList* dl = ImGui::GetBackgroundDrawList();
-	dl->AddRectFilled({ H_WIDTH - 7 * SQUARE_SIZE, HEIGHT - 2 * SQUARE_SIZE }, { H_WIDTH + 7 * SQUARE_SIZE, HEIGHT }, SHY_LIGHT_BLUE, 5.f);
+	ImDrawList* dl = ImGui::GetForegroundDrawList();
+	ImGui::GetBackgroundDrawList()->AddRectFilled({ H_WIDTH - 7 * SQUARE_SIZE, HEIGHT - 2 * SQUARE_SIZE }, { H_WIDTH + 7 * SQUARE_SIZE, HEIGHT }, SHY_LIGHT_BLUE, 5.f);
 	for (int i = 0; i < 4; i++) {
 		M.tow[i]->draw(false);
 		dl->AddText(this->font, 20.f, { (float)H_WIDTH + (2.f * (float)i - 4.f) * SQUARE_SIZE, (float)HEIGHT - SQUARE_SIZE }, BLACK, M.tow[i]->getTypeName());
@@ -149,9 +171,30 @@ void Menu::drawInGame(int currentLevel, int currentWave, int money, int towerPla
 	dl->AddText(this->font, 20.f, { H_WIDTH - 7 * SQUARE_SIZE + 2.f, HEIGHT - SQUARE_SIZE - H_SQUARE_SIZE / 2 }, BLACK, tmp);
 	sprintf(tmp, "cash %d", money);
 	dl->AddText(this->font, 20.f, { H_WIDTH - 7 * SQUARE_SIZE + 2.f, HEIGHT - SQUARE_SIZE + H_SQUARE_SIZE / 2 + 4.f }, BLACK, tmp);
-	//other side
+	// right side
 	dl->AddText(this->font, 20.f, { H_WIDTH + 4 * SQUARE_SIZE + 10.f, HEIGHT - 2 * SQUARE_SIZE + 4.f }, BLACK, "castles life");
 	// castle's life should draw here
 	sprintf(tmp, "%d / %d", towerPlaced, MAX_NB_TOWERS);
-	dl->AddText(this->font, 20.f, { H_WIDTH + 9 * H_SQUARE_SIZE + 10.f, HEIGHT - SQUARE_SIZE + 6.f }, BLACK, tmp);
+	dl->AddText(this->font, 20.f, { H_WIDTH + 10 * H_SQUARE_SIZE, HEIGHT - SQUARE_SIZE + 6.f }, BLACK, tmp);
+}
+
+void Menu::drawPause() const
+{
+	ImDrawList* dl = ImGui::GetForegroundDrawList();
+	ImGui::GetBackgroundDrawList()->AddRectFilled({ 0,0 }, { WIDTH,HEIGHT }, SHY_LIGHT_BLUE);
+	dl->AddText(this->font, 60.f, { H_WIDTH - 60, 150 }, WHITE, "PAUSE");
+	dl->AddRectFilled(MAIN_BUT_ONE_TOP, MAIN_BUT_ONE_BOT, WHITE, 3.f);
+	dl->AddText(this->font, 40.f, { H_WIDTH - 60, 255 }, BLACK, "UNPAUSE");
+	this->drawExitButton(dl, true);
+}
+
+void Menu::drawEnd(bool victory) const
+{
+	ImDrawList* dl = ImGui::GetForegroundDrawList();
+	ImGui::GetBackgroundDrawList()->AddRectFilled({ 0,0 }, { WIDTH,HEIGHT }, SHY_LIGHT_BLUE);
+	if (victory)
+		dl->AddText(this->font, 60.f, { H_WIDTH - 60, 150 }, WHITE, "VICTORY");
+	else
+		dl->AddText(this->font, 60.f, { H_WIDTH - 60, 150 }, WHITE, "DEFEAT");
+	this->drawExitButton(dl, true);
 }

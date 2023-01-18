@@ -55,7 +55,7 @@ public:
 	inline Entity() { this->loadTexture("assets/towerDefense_tile298.png"); };
 	inline virtual ~Entity() { this->unloadTexture(); };
 	 
-	inline virtual void draw() { ImGuiUtils::DrawTextureEx(*ImGui::GetForegroundDrawList(), this->sprite, this->pos); };
+	inline virtual void draw() { ImGuiUtils::DrawTextureEx(*ImGui::GetBackgroundDrawList(), this->sprite, this->pos); };
 
 	inline void loadTexture(const char* path) {
 		if (this->hasTexture)

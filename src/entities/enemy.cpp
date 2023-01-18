@@ -27,8 +27,8 @@ void Enemy::update(Checkpoint* listCheckpoint, int nbCheckpoint, Castle* castle)
 
 void Enemy::draw()
 {
-	ImDrawList* fgDrawlist = ImGui::GetForegroundDrawList();
-	ImGuiUtils::DrawTextureEx(*fgDrawlist, this->sprite, this->pos, { 0.5f,0.5f }, this->angle); 
+	ImDrawList* bgDrawlist = ImGui::GetBackgroundDrawList();
+	ImGuiUtils::DrawTextureEx(*bgDrawlist, this->sprite, this->pos, { 0.5f,0.5f }, this->angle); 
 	this->health.draw();
 }
 
