@@ -182,6 +182,11 @@ void Menu::drawPause() const
 {
 	ImDrawList* dl = ImGui::GetForegroundDrawList();
 	ImGui::GetBackgroundDrawList()->AddRectFilled({ 0,0 }, { WIDTH,HEIGHT }, SHY_LIGHT_BLUE);
+	dl->AddText(this->font, 30.f, { 140.f, 200.f }, BLACK, "Usefull tips:");
+	dl->AddText(this->font, 30.f, { 140.f, 250.f }, BLACK, "Double click to");
+	dl->AddText(this->font, 30.f, { 140.f, 290.f }, BLACK, "upgrade a Tower (15c).");
+	dl->AddText(this->font, 30.f, { 140.f, 330.f }, BLACK, "Max 50 Towers");
+	dl->AddText(this->font, 30.f, { 140.f, 370.f }, BLACK, "can be placed.");
 	dl->AddText(this->font, 60.f, { H_WIDTH - 60, 150 }, WHITE, "PAUSE");
 	dl->AddRectFilled(MAIN_BUT_ONE_TOP, MAIN_BUT_ONE_BOT, WHITE, 3.f);
 	dl->AddText(this->font, 40.f, { H_WIDTH - 60, 255 }, BLACK, "UNPAUSE");

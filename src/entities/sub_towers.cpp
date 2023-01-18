@@ -16,6 +16,11 @@ const char* Basic::getTypeName() const
 	return "Basic";
 }
 
+void Basic::upgrade(int *money)
+{
+	if (*money - UPGRADE_COST >= 0) { this->upgradeAttackStats(5.f, -0.1f, 1); *money -= UPGRADE_COST; }
+}
+
 // QUICK
 
 Quick::Quick()
@@ -30,6 +35,11 @@ Quick::Quick()
 const char* Quick::getTypeName() const
 {
 	return "Quick";
+}
+
+void Quick::upgrade(int* money)
+{
+	if (*money - UPGRADE_COST >= 0) { this->upgradeAttackStats(1.f, -0.02f, 2); *money -= UPGRADE_COST; }
 }
 
 // SLOW
@@ -66,6 +76,11 @@ inline void Slow::attack()
 	}
 }
 
+void Slow::upgrade(int* money)
+{
+	if (*money - UPGRADE_COST >= 0) { this->upgradeAttackStats(8.f, 0.f, 0); *money -= UPGRADE_COST; }
+}
+
 // EXPLOSIVE
 
 Explosive::Explosive()
@@ -80,4 +95,9 @@ Explosive::Explosive()
 const char* Explosive::getTypeName() const
 {
 	return "Explosive";
+}
+
+void Explosive::upgrade(int* money)
+{
+	if (*money - UPGRADE_COST >= 0) { this->upgradeAttackStats(5.f, -0.2f, 3); *money -= UPGRADE_COST; }
 }

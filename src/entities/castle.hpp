@@ -8,12 +8,11 @@ class Castle : public Entity
 public:
 	Health health;
 
-	inline Castle();
+	inline Castle() {
+		health.maxLife = 250;
+		health.life = health.maxLife;
+	};
 	inline ~Castle() {};
-};
 
-inline Castle::Castle()
-{
-	health.maxLife = 250;
-	health.life = health.maxLife;
+	inline bool isDead() { return this->health.life <= 0; };
 };

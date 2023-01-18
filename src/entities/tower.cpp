@@ -4,7 +4,7 @@
 
 Tower::Tower()
 {
-	this->turret.angle = 0;
+	this->turret.angle = 0.f;
 	this->type = Type_Tower::NONE;
 }
 
@@ -37,19 +37,27 @@ void Tower::setAttackStats(float attackRadius, float attackSpeed, int attackDmg)
 	this->mAttackSpeed = attackSpeed;
 	this->mAttackDmg = attackDmg;
 	this->mAttackCooldown = 0.f;
-	this->mUpgradeLvl = 0;
 }
 
-void Tower::update(Enemy** en, int nbEnemies)
+void Tower::upgradeAttackStats(float attackRadius, float attackSpeed, int attackDmg)
+{
+	this->mAttackRadius += attackRadius;
+	this->mAttackSpeed += attackSpeed;
+	this->mAttackDmg += attackDmg;
+}
+
+void Tower::update(Enemy** en, int nbEnemies, int *money)
 {
 	if (nbEnemies) {
 		if (this->current_target == nullptr || this->current_target->isDead() || !(this->isEnemyInsideRange(this->current_target)))
 			this->getTarget(en, nbEnemies);
 		if (this->current_target != nullptr) {
 			this->attackTarget();
-			this->turret.angle = atan2f(this->pos.y, this->current_target->pos.y);
+			this->turret.angle = atan2f(this->pos.y, this->current_target->pos.y); // TODO
 		}
 		else this->turret.angle = 0.f;
+		if (this->isMouseOverTower() && ImGui::IsMouseDoubleClicked(ImGuiMouseButton_Left))
+			this->upgrade(money);
 	}
 }
 
@@ -60,12 +68,6 @@ void Tower::draw(bool drawRadius)
 		bgDrawList->AddCircle(this->pos, this->mAttackRadius, SHY_LIGHT_BLUE, 0, 2.f);
 	ImGuiUtils::DrawTextureEx(*bgDrawList, this->sprite, this->pos, { 0.5f,0.5f });
 	ImGuiUtils::DrawTextureEx(*bgDrawList, this->turret.sprite, this->pos, { 0.4f,0.4f }, this->turret.angle);
-}
-
-void Tower::upgrade()
-{
-	this->mUpgradeLvl++;
-	// TODO
 }
 
 bool Tower::isEnemyInsideRange(Enemy const* en) const// SS collision

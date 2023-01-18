@@ -82,6 +82,10 @@ void Game::update()
 	if (this->menu.menu == Type_Menu::IN_GAME) {
 		this->updateEnemies();
 		this->updateTowers();
+		if (this->castle->isDead())
+			this->menu.menu = Type_Menu::LOSE;
+		if (0/*win contition TODO*/)
+			this->menu.menu = Type_Menu::VICTORY;
 	}
 }
 
@@ -120,7 +124,7 @@ void Game::updateTowers()
 {
 	for (int i = 0; i < MAX_NB_TOWERS; i++)
 		if (this->towers[i] != nullptr)
-			this->towers[i]->update(this->enemies, MAX_NB_ENEMIES);
+			this->towers[i]->update(this->enemies, MAX_NB_ENEMIES, &this->money);
 }
 
 void Game::drawEnemies() const

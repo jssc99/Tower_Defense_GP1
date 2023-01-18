@@ -9,6 +9,7 @@ public:
 	~Basic() {};
 
 	const char* getTypeName() const override;
+	void upgrade(int* money) override;
 };
 
 class Slow : public Tower
@@ -19,6 +20,7 @@ public:
 
 	const char* getTypeName() const override;
 	void attack() override;
+	void upgrade(int* money) override;
 };
 
 class Quick : public Tower
@@ -28,6 +30,7 @@ public:
 	~Quick() {};
 
 	const char* getTypeName() const override;
+	void upgrade(int* money) override;
 };
 
 class Explosive : public Tower
@@ -39,4 +42,5 @@ public:
 	~Explosive() {};
 
 	const char* getTypeName() const override;
+	void upgrade(int* money) override;
 };
