@@ -53,7 +53,7 @@ void Game::update()
 {
 	switch (this->menu.update())
 	{
-	case 1: {
+	case 1: { // place tower
 		Square* s = this->grid.getSquare(this->menu.purchaseMenu.selection.pos);
 		if ((this->money - this->menu.purchaseMenu.selection.price) > -1 && s->canPlaceTower())
 			this->placeTower(s); }
@@ -78,14 +78,8 @@ void Game::update()
 	default:
 		break;
 	}
-	if (this->menu.menu == Type_Menu::IN_GAME) {
-		this->updateEnemies();
-		this->updateTowers();
-		if (this->castle->isDead())
-			this->menu.menu = Type_Menu::LOSE;
-		if (this->wave == 11) // TODO win contition
-			this->menu.menu = Type_Menu::VICTORY;
-	}
+	if (this->menu.menu == Type_Menu::IN_GAME) this->updateInGame();
+	
 }
 
 void Game::draw()
@@ -105,6 +99,19 @@ void Game::drawDebug()
 {
 	this->grid.drawCheckpoints();
 	this->grid.drawGrid();
+	for (int i = 0; i < MAX_NB_TOWERS; i++)
+		if (this->towers[i] != nullptr && this->towers[i]->current_target != nullptr)
+			this->towers[i]->drawTarget();
+}
+
+void Game::updateInGame()
+{
+	this->updateEnemies();
+	this->updateTowers();
+	if (this->castle->isDead())
+		this->menu.menu = Type_Menu::LOSE;
+	if (this->wave == 11) // TODO win contition
+		this->menu.menu = Type_Menu::VICTORY;
 }
 
 void Game::updateEnemies()

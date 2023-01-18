@@ -5,6 +5,8 @@ Square::Square()
 {
 	this->type = Type_Square::NONE;
 	this->loadTexture("assets/towerDefense_tile015.png");
+	if ( hasDecor )
+		this->decor = ImGuiUtils::LoadTexture("assets/towerDefense_tile015.png");
 }
 
 Square::~Square()
@@ -47,8 +49,8 @@ void Square::setType(Type_Square type)
 			this->loadTexture("assets/towerDefense_tile231.png");
 		break;
 	case Type_Square::PATH:
-		//this->loadTexture("assets/towerDefense_tile158.png");
-		this->loadTexture("assets/towerDefense_tile060.png");
+		this->loadTexture("assets/towerDefense_tile158.png");
+		//this->loadTexture("assets/towerDefense_tile060.png"); // if makePathLookGood() is finisheds
 		break;
 	case Type_Square::CASTLE:
 		this->loadTexture("assets/towerDefense_tile090.png");

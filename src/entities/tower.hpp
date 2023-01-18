@@ -41,6 +41,7 @@ public:
 
 	void update(Enemy** en, int nbEnemies, int* money);
 	void draw(bool drawRadius = true);
+	void drawTarget();
 
 	virtual void upgrade(int* money) { /*used by subclasses*/ };
 

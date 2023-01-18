@@ -45,6 +45,7 @@ public:
 private:
 	int mCurrentLevelId = 0;
 
+	void updateInGame();
 	void updateEnemies();
 	void updateTowers();
 
