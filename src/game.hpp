@@ -8,6 +8,8 @@ struct level
 	std::string seed;
 	int nbCheckpoints = 0;
 	Checkpoint checkpointList[MAX_NB_CHECKPOINTS];
+	int nbWaves = 0;
+	std::string wave[100];
 };
 
 class Game
@@ -18,9 +20,9 @@ public:
 	Tower* towers[MAX_NB_TOWERS];
 	Enemy* enemies[MAX_NB_ENEMIES];
 	Castle* castle = nullptr;
-	float gameAccelerator = 1.f;
 
-	float enSpwTimer = 0.f;
+	float gameAccelerator = 1.f;
+	float enSpawnTimer = 0.f;
 
 	level lvl[NB_LEVELS];
 	int money = 0;
@@ -34,7 +36,9 @@ public:
 
 	void loadLvl(int lvl);
 	void unloadLvl();
+
 	void update();
+
 	void draw();
 	void drawDebug();
 
@@ -45,12 +49,18 @@ public:
 
 private:
 	int mCurrentLevelId = 0;
+	int mWaveAdvancement = 0;
+	float mWaveCooldown = 0;
 
+	void updateInGame();
+	void updateWave();
 	void updateEnemies();
 	void updateTowers();
 
 	void drawEnemies() const;
 	void drawTowers() const;
+
+	bool isWaveDead();
 
 	void placeTower(Square* s);
 };

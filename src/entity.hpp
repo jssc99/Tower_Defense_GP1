@@ -39,6 +39,7 @@ constexpr auto NB_SQUARES_ROW = 22;
 constexpr auto NB_LEVELS = 2;
 
 constexpr auto MAX_NB_CHECKPOINTS = 22;
+constexpr auto MAX_NB_WAVES = 100;
 constexpr auto MAX_NB_TOWERS = 50;
 constexpr auto MAX_NB_ENEMIES = 100;
 
@@ -54,8 +55,8 @@ public:
 
 	inline Entity() { this->loadTexture("assets/towerDefense_tile298.png"); };
 	inline virtual ~Entity() { this->unloadTexture(); };
-	 
-	inline virtual void draw() { ImGuiUtils::DrawTextureEx(*ImGui::GetForegroundDrawList(), this->sprite, this->pos); };
+
+	inline virtual void draw() { ImGuiUtils::DrawTextureEx(*ImGui::GetBackgroundDrawList(), this->sprite, this->pos); };
 
 	inline void loadTexture(const char* path) {
 		if (this->hasTexture)

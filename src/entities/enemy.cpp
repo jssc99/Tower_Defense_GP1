@@ -1,7 +1,5 @@
-
 #include "enemy.hpp"
 #include "../calc.hpp"
-
 
 Enemy::Enemy()
 {
@@ -14,12 +12,12 @@ Enemy::~Enemy()
 	this->unloadTexture();
 }
 
-void Enemy::update(Checkpoint* listCheckpoint, int nbCheckpoint, Castle* castle, float gameAcc, Enemy** en)
+void Enemy::update(const Checkpoint* listCheckpoint, int nbCheckpoint, Castle* castle, float gameAcc, Enemy** en)
 {
 	if (this->checkId -1 != nbCheckpoint)
 		this->move(listCheckpoint, nbCheckpoint ,gameAcc);
 	else
-		if(castle->health.life - this->attackDmg >= 0)
+		if (castle->health.life - this->attackDmg >= 0)
 			castle->health.life -= this->attackDmg;
 	this->health.posCenter = this->pos;
 	this->moveSpeed = initMS;
@@ -29,12 +27,10 @@ void Enemy::update(Checkpoint* listCheckpoint, int nbCheckpoint, Castle* castle,
 
 void Enemy::draw(bool drawRadius)
 {
-
 	ImDrawList* bgDrawList = ImGui::GetBackgroundDrawList();
 	if (drawRadius && this->isMouseOverEnemy())
 		bgDrawList->AddCircle(this->pos, this->radius, SHY_GREEN, 0, 2.f);
-	ImDrawList* fgDrawlist = ImGui::GetForegroundDrawList();
-	ImGuiUtils::DrawTextureEx(*fgDrawlist, this->sprite, { this->pos.x, this->pos.y }, { 0.5f,0.5f }, this->angle); 
+	ImGuiUtils::DrawTextureEx(*bgDrawList, this->sprite, { this->pos.x, this->pos.y }, { 0.5f,0.5f }, this->angle);
 	this->health.draw(L_HEALTH_SIZE, H_HEALTH_SIZE);
 }
 
@@ -43,7 +39,7 @@ void Enemy::spawn(float2 spawnPoint)
 	this->pos = spawnPoint;
 }
 
-void Enemy::move(Checkpoint* listCheckpoint, int nbCheckpoint, float gameAcc)
+void Enemy::move(const Checkpoint* listCheckpoint, int nbCheckpoint, float gameAcc)
 {
 	//checkpoints change direction
 	for (int i = 0; i < nbCheckpoint; ++i)
@@ -59,7 +55,8 @@ void Enemy::move(Checkpoint* listCheckpoint, int nbCheckpoint, float gameAcc)
 				this->checkId++;
 				this->pos = listCheckpoint[i].pos;
 			}
-			this->pos += this->direction * this->moveSpeed * ImGui::GetIO().DeltaTime * gameAcc;
+			else
+				this->pos += this->direction * this->moveSpeed * ImGui::GetIO().DeltaTime * gameAcc;
 			//changes enemy see direction 
 			// TODO change to switch
 			if (this->direction == LEFT)
@@ -74,7 +71,7 @@ void Enemy::move(Checkpoint* listCheckpoint, int nbCheckpoint, float gameAcc)
 	}
 }
 
-bool Enemy::isDead()
+bool Enemy::isDead() const
 {
 	return this->health.life <= 0;
 }
@@ -93,10 +90,10 @@ void Enemy::heal(Enemy** en, float gameAcc)
 			this->actionCD += ImGui::GetIO().DeltaTime;
 			if (this->actionCD * gameAcc >= 3.f)
 			{
-				if (en[i]->health.life + 5.f <= en[i]->health.maxLife)
+				if (en[i]->health.life + 5 <= en[i]->health.maxLife)
 				{
 					this->actionCD = 0;
-					en[i]->health.life += 5.f;
+					en[i]->health.life += 5;
 				}
 			}
 		}

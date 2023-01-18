@@ -4,6 +4,8 @@
 #include "projectile.hpp"
 #include "enemy.hpp"
 
+constexpr auto UPGRADE_COST = 15;
+
 enum class Type_Tower : char
 {
 	NONE = 'n',
@@ -17,16 +19,17 @@ struct Turret
 {
 	float angle = 0.f;
 	Texture sprite;
+	Projectile projectile;
 };
 
 class Tower : public Entity
 {
 public:
 	int price = 0;
+
 	Turret turret;
 	Type_Tower type;
 	Enemy* current_target = nullptr;
-	//Projectile projectile; //not used for now
 
 	Tower();
 	~Tower();
@@ -36,15 +39,17 @@ public:
 
 	virtual const char* getTypeName() const;
 
-	void update(Enemy** en, float gameAcc, int nbEnemies = 0);
+	void update(Enemy** en, int nbEnemies, int* money, float gameAcc);
 	void draw(bool drawRadius = true);
+	void drawTarget();
 
-	void upgrade();
+	virtual void upgrade(int* money) { /*used by subclasses*/ };
 
 	bool isMouseOverTower() const;
 
 protected:
 	void setAttackStats(float attackRadius, float attackSpeed, int attackDmg);
+	void upgradeAttackStats(float attackRadius, float attackSpeed, int attackDmg);
 	virtual void attack();
 
 private:

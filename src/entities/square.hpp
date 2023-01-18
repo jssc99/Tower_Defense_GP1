@@ -19,12 +19,14 @@ class Square : public Entity
 {
 public:
 	Type_Square type;
+	Texture decor;
+
+	bool hasDecor = false;
 	bool canHaveTower = false;
 
 	Square();
 	~Square();
 
-	std::string getType() const;
 	void setType(Type_Square type);
 
 	float2 getPosCenter() const;

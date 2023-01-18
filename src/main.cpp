@@ -27,8 +27,8 @@ int main(int argc, char* argv[])
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
 
 	// Create window with graphics context
-	GLFWwindow* window = glfwCreateWindow(WIDTH, HEIGHT, "Tower Defense", NULL, NULL);
-	if (window == NULL)
+	GLFWwindow* window = glfwCreateWindow(WIDTH, HEIGHT, "Tower Defense", nullptr, nullptr);
+	if (window == nullptr)
 		return 1;
 
 	glfwSetWindowSizeLimits(window, WIDTH, HEIGHT, WIDTH, HEIGHT);
@@ -61,7 +61,7 @@ int main(int argc, char* argv[])
 
 		app->Update();
 
-		if ( app->closeApp )
+		if (app->closeApp)
 			glfwSetWindowShouldClose(window, app->closeApp);
 
 		// Rendering

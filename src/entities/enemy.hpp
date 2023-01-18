@@ -30,14 +30,14 @@ public:
 	Enemy();
 	~Enemy();
 
-	void update(Checkpoint* listCheckpoint, int nbCheckpoint, Castle* castle, float gameAcc, Enemy** en);
+	void update(const Checkpoint* listCheckpoint, int nbCheckpoint, Castle* castle, float gameAcc, Enemy** en);
 	void spawn(float2 spawnPoint);
 	void draw(bool drawRadius = true);
-	bool isDead();
+	bool isDead() const;
 	void getDamage(int damage);
 	void heal(Enemy** en, float gameAcc);
 	bool isMouseOverEnemy() const;
 
 private:
-	void move(Checkpoint* listCheckpoint, int nbCheckpoint, float gameAcc);
+	void move(const Checkpoint* listCheckpoint, int nbCheckpoint, float gameAcc);
 };

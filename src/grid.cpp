@@ -4,7 +4,7 @@
 Grid::Grid()
 {
 	for (int i = 0; i < MAX_NB_CHECKPOINTS; i++)
-		this->chkpList[i];
+		this->chkpList[i] = {0, STOP, STOP};
 	for (int i = 0; i < NB_SQUARES_ROW; i++)
 		for (int j = 0; j < NB_SQUARES_COL; j++)
 			this->square[i][j].pos = { (float)j * SQUARE_SIZE, (float)i * SQUARE_SIZE };
@@ -26,14 +26,15 @@ void Grid::unloadGrid()
 		for (int j = 0; j < NB_SQUARES_COL; j++)
 			this->square[i][j].setType(Type_Square::NONE);
 	this->nbCheckpoints = 0;
+	this->spawnP = STOP;
 }
 
-void Grid::loadCheckpoints(Checkpoint* checkpointList, int nbCheckpoints, Castle* castle)
+void Grid::loadCheckpoints(const Checkpoint* checkpointList, int nbCheckpoints, Castle* castle)
 {
 	this->nbCheckpoints = nbCheckpoints;
 	for (int i = 0; i < nbCheckpoints; i++) {
 		this->chkpList[i] = checkpointList[i];
-		if (i + 1 == nbCheckpoints) 
+		if (i + 1 == nbCheckpoints)
 			castle->pos = this->square[(int)(checkpointList[i].pos.x)][(int)(checkpointList[i].pos.y)].pos;
 		this->chkpList[i].pos = this->square[(int)(checkpointList[i].pos.x)][(int)(checkpointList[i].pos.y)].pos;
 		this->chkpList[i].pos.y += SQUARE_SIZE;
@@ -66,13 +67,15 @@ void Grid::drawCheckpoints()
 		this->chkpList[i].draw();
 }
 
-float2 Grid::getSpawnPoint() const
+float2 Grid::getSpawnPoint()
 {
-	for (int i = 0; i < NB_SQUARES_ROW; i++)
-		for (int j = 0; j < NB_SQUARES_COL; j++)
-			if (this->square[i][j].type == Type_Square::SPAWN)
-				return { this->square[i][j].pos.x,this->square[i][j].pos.y + SQUARE_SIZE };
-	return { 0,0 };
+	if (this->spawnP == STOP) {
+		for (int i = 0; i < NB_SQUARES_ROW; i++)
+			for (int j = 0; j < NB_SQUARES_COL; j++)
+				if (this->square[i][j].type == Type_Square::SPAWN)
+					this->spawnP = { this->square[i][j].pos.x,this->square[i][j].pos.y + SQUARE_SIZE };
+	}
+	return this->spawnP;
 }
 
 Square* Grid::getSquare(float2 point)

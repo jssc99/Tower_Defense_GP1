@@ -1,5 +1,7 @@
 #include "sub_enemies.hpp"
 
+// HEALER
+
 Healer::Healer()
 {
 	this->type = Type_Enemy::HEALER;
@@ -7,13 +9,13 @@ Healer::Healer()
 	this->attackDmg = 5;
 	this->initMS = 90.f;
 	this->moveSpeed = initMS;
-	this->loot = 5;
-	this->health.maxLife = 50;
+	this->loot = 10;
+	this->health.maxLife = 40;
 	this->health.life = this->health.maxLife;
 	this->radius = 100.f;
 }
 
-
+// KNIGHT
 
 Knight::Knight()
 {
@@ -22,12 +24,12 @@ Knight::Knight()
 	this->attackDmg = 50;
 	this->initMS = 42.f;
 	this->moveSpeed = initMS;
-	this->loot = 30;
-	this->health.maxLife = 300;
+	this->loot = 20;
+	this->health.maxLife = 100;
 	this->health.life = this->health.maxLife;
 }
 
-
+// SOLDIER
 
 Soldier::Soldier()
 {
@@ -36,7 +38,7 @@ Soldier::Soldier()
 	this->attackDmg = 20;
 	this->initMS = 60.f;
 	this->moveSpeed = initMS;
-	this->loot = 10;
-	this->health.maxLife = 125;
+	this->health.maxLife = 60;
 	this->health.life = this->health.maxLife;
+	this->loot = 5;
 }

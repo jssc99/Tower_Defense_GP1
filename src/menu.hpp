@@ -19,8 +19,8 @@ enum class Type_Menu : char
 	IN_GAME = 'g',
 	PAUSE = 'p',
 	VICTORY = 'v',
-	LOSE = 'l',
-	QUIT = 'q'
+	LOSE = 'l'
+	//QUIT = 'q'
 };
 
 struct purchaseMenu
@@ -42,6 +42,7 @@ public:
 
 	void load(Type_Menu menu);
 	void loadPurchaseMenu(const Grid* g);
+	void goToLoadingScreen();
 
 	bool isButtonPressed(const float2 x, const float2 y) const;
 
@@ -49,7 +50,14 @@ public:
 	void draw(int currentLevel = 0, int currentWave = 0, int money = 0, int towerPlaced = 0);
 
 private:
+	int updateMain();
+	int updateInGame();
+	int updatePause();
 
 	void drawMain() const;
 	void drawInGame(int currentLevel, int currentWave, int money, int towerPlaced) const;
+	void drawPause() const;
+	void drawEnd(bool victory) const;
+
+	void drawExitButton(ImDrawList* dl, bool mainMenu) const;
 };
