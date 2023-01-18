@@ -39,7 +39,7 @@ public:
 
 	virtual const char* getTypeName() const;
 
-	void update(Enemy** en, int nbEnemies, int* money);
+	void update(Enemy** en, int nbEnemies, int* money, float gameAcc);
 	void draw(bool drawRadius = true);
 	void drawTarget();
 
@@ -57,8 +57,9 @@ private:
 	float mAttackSpeed = 0.f;
 	float mAttackCooldown = 0.f;
 	int mAttackDmg = 0;
+	int mUpgradeLvl = 0;
 
 	bool isEnemyInsideRange(Enemy const* en) const;
 	void getTarget(Enemy** en, int nbEnemies);
-	void attackTarget();
+	void attackTarget(float gameAcc);
 };
