@@ -32,7 +32,9 @@ void Game::loadLvl(int lvl)
 	//this->grid.makePathLookGood();
 	this->money = 100;
 	this->wave = 0;
-	this->enSpwTimer = 0.f;
+	this->enSpawnTimer = 0.f;
+	this->mWaveAdvancement = 0;
+	this->mWaveCooldown = 0.f;
 	this->menu.load(Type_Menu::IN_GAME);
 }
 
@@ -45,7 +47,7 @@ void Game::unloadLvl()
 		if (this->towers[i])
 			this->towers[i] = nullptr;
 	this->castle = nullptr;
-	this->enSpwTimer = 0.f;
+	this->enSpawnTimer = 0.f;
 	this->grid.unloadGrid();
 }
 
@@ -79,7 +81,6 @@ void Game::update()
 		break;
 	}
 	if (this->menu.menu == Type_Menu::IN_GAME) this->updateInGame();
-	
 }
 
 void Game::draw()
@@ -88,7 +89,7 @@ void Game::draw()
 	if (this->menu.menu == Type_Menu::IN_GAME || this->menu.menu == Type_Menu::PAUSE) {
 		this->drawTowers();
 		this->drawEnemies();
-		this->menu.draw(this->mCurrentLevelId + 1, this->wave, this->money, this->towerPlaced);
+		this->menu.draw(this->mCurrentLevelId + 1, this->wave + 1, this->money, this->towerPlaced);
 	}
 	if (this->menu.menu == Type_Menu::IN_GAME)
 		this->castle->health.draw();
@@ -112,6 +113,21 @@ void Game::updateInGame()
 		this->menu.menu = Type_Menu::LOSE;
 	if (this->wave == 11) // TODO win contition
 		this->menu.menu = Type_Menu::VICTORY;
+	if ((this->mWaveCooldown += ImGui::GetIO().DeltaTime) >= 10.f)
+		this->updateWave();
+}
+
+void Game::updateWave()
+{
+	if ((this->enSpawnTimer += ImGui::GetIO().DeltaTime) >= 2.f) {
+		if (!this->lvl[this->mCurrentLevelId].wave[wave][this->mWaveAdvancement + 1] && this->isWaveDead()) {
+			this->wave++;
+			this->mWaveAdvancement = 0;
+			this->mWaveCooldown = 0.f;
+		}
+		else if (this->lvl[this->mCurrentLevelId].wave[wave][this->mWaveAdvancement + 1])
+			this->spawnEnemy((Type_Enemy)(this->lvl[this->mCurrentLevelId].wave[wave][this->mWaveAdvancement++]));
+	}
 }
 
 void Game::updateEnemies()
@@ -149,6 +165,14 @@ void Game::drawTowers() const
 	for (int i = 0; i < MAX_NB_TOWERS; i++)
 		if (this->towers[i])
 			this->towers[i]->draw();
+}
+
+bool Game::isWaveDead()
+{
+	for (int i = 0; i < MAX_NB_ENEMIES; i++)
+		if (this->enemies[i])
+			return false;
+	return true;
 }
 
 void Game::placeTower(Square* s)
@@ -203,7 +227,7 @@ void Game::spawnEnemy(Type_Enemy type)
 			break;
 		}
 		this->enemies[id]->spawn(this->grid.getSpawnPoint());
-		this->enSpwTimer = 0.f;
+		this->enSpawnTimer = 0.f;
 	}
 }
 

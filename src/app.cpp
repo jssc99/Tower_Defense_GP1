@@ -37,6 +37,18 @@ App::App()
 		G.lvl[0].checkpointList[id++] = { id + 1, { 4,31 }, LEFT };
 		G.lvl[0].checkpointList[id++] = { id + 1, { 4,21 }, STOP };
 		G.lvl[0].nbCheckpoints = id;
+		int waves = 0;
+		G.lvl[0].wave[waves++] = "sssssssssssssssssske";
+		G.lvl[0].wave[waves++] = "sssskksssssssskksssske";
+		G.lvl[0].wave[waves++] = "sssskkhssssssskkhssssske";
+		G.lvl[0].wave[waves++] = "sssskkkkhssssskkkkhsssske";
+		G.lvl[0].wave[waves++] = "ssskkkkkkhssshkkkkhssssske";
+		G.lvl[0].wave[waves++] = "ssskkkkkkhssshkkkkhsssssske";
+		G.lvl[0].wave[waves++] = "ssskkkkkkhssshkkkkkkhssssske";
+		G.lvl[0].wave[waves++] = "ssskkkkkkkhssshkkkkkkhssssske";
+		G.lvl[0].wave[waves++] = "ssshkkkkkkhssshhhkkkkkhssssske";
+		G.lvl[0].wave[waves++] = "ssshhkkkkkkhssshhhkkkkhsssssske";
+		G.lvl[0].nbWaves = waves;
 	}
 	{ // level 2
 		G.lvl[1].id = 2;
@@ -69,6 +81,19 @@ App::App()
 		G.lvl[1].checkpointList[id++] = { id + 1, { 9,7 }, RIGHT };
 		G.lvl[1].checkpointList[id++] = { id + 1, { 9,35 }, STOP };
 		G.lvl[1].nbCheckpoints = id;
+		G.lvl[0].nbCheckpoints = id;
+		int waves = 0;
+		G.lvl[0].wave[waves++] = "ssssssssssssssssssk";
+		G.lvl[0].wave[waves++] = "sssskksssssssskksssske";
+		G.lvl[0].wave[waves++] = "sssskkhssssssskkhssssske";
+		G.lvl[0].wave[waves++] = "sssskkkkhssssskkkkhsssske";
+		G.lvl[0].wave[waves++] = "ssskkkkkkhssshkkkkhssssske";
+		G.lvl[0].wave[waves++] = "ssskkkkkkhssshkkkkhsssssske";
+		G.lvl[0].wave[waves++] = "ssskkkkkkhssshkkkkkkhssssske";
+		G.lvl[0].wave[waves++] = "ssskkkkkkkhssshkkkkkkhssssske";
+		G.lvl[0].wave[waves++] = "ssshkkkkkkhssshhhkkkkkhssssske";
+		G.lvl[0].wave[waves++] = "ssshhkkkkkkhssshhhkkkkhsssssske";
+		G.lvl[1].nbWaves = waves;
 	}
 }
 
@@ -82,6 +107,8 @@ void App::Update()
 		ImGui::Begin("Tower");
 		ImGui::Checkbox("Draw Grid", &this->debug);
 		ImGui::Text("mouse: %.0f, %.0f", ImGui::GetMousePos().x, ImGui::GetMousePos().y);
+		ImGui::Text("wave advance %d", G.mWaveAdvancement);
+		ImGui::Text("wave cooldown %0.2f", G.mWaveCooldown);
 		if (ImGui::Button("$$$ + 20")) G.money += 20;
 		if (ImGui::Button("$$$ - 20"))  G.money -= 20;
 		if (ImGui::Button("unload lvl")) {
@@ -102,9 +129,6 @@ void App::Update()
 	}
 	G.update();
 	G.draw();
-	G.enSpwTimer += ImGui::GetIO().DeltaTime;
-	if (G.enSpwTimer > 300 * ImGui::GetIO().DeltaTime)
-		G.spawnEnemy(Type_Enemy::HEALER);
 	if (this->debug) G.drawDebug();
 	this->closeApp = G.closeGame;
 }
