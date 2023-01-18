@@ -35,12 +35,13 @@ class Menu
 public:
 	ImFont* font;
 	purchaseMenu purchaseMenu;
-	Type_Menu menu = Type_Menu::NONE;
 
 	Menu();
 	~Menu();
 
-	void load(Type_Menu menu);
+	void setMenu(Type_Menu menu);
+	Type_Menu getMenu() const;
+
 	void loadPurchaseMenu(const Grid* g);
 	void goToLoadingScreen();
 
@@ -50,6 +51,8 @@ public:
 	void draw(int currentLevel = 0, int currentWave = 0, int money = 0, int towerPlaced = 0);
 
 private:
+	Type_Menu mMenu = Type_Menu::NONE;
+
 	int updateMain();
 	int updateInGame();
 	int updatePause();

@@ -18,9 +18,14 @@ Menu::~Menu()
 		if (M.tow[i]) delete M.tow[i];
 }
 
-void Menu::load(Type_Menu menu)
+void Menu::setMenu(Type_Menu menu)
 {
-	this->menu = menu;
+	this->mMenu = menu;
+}
+
+Type_Menu Menu::getMenu() const
+{
+	return this->mMenu;
 }
 
 void Menu::loadPurchaseMenu(const Grid* g)
@@ -31,12 +36,12 @@ void Menu::loadPurchaseMenu(const Grid* g)
 	M.tow[2] = new Slow;
 	M.tow[3] = new Explosive;
 	for (int i = 0; i < 4; i++)
-		M.tow[i]->pos = g->square[20][16 + 2 * i].pos + H_SQUARE_SIZE;
+		M.tow[i]->pos = g->squares[20][16 + 2 * i].pos + H_SQUARE_SIZE;
 }
 
 void Menu::goToLoadingScreen()
 {
-	this->menu = Type_Menu::LOADING;
+	this->mMenu = Type_Menu::LOADING;
 	this->draw();
 }
 
@@ -60,7 +65,7 @@ returns 12 if lvl 2 etc
 ***/
 int Menu::update()
 {
-	switch (this->menu)
+	switch (this->mMenu)
 	{
 	case Type_Menu::MAIN:
 		return updateMain();
@@ -83,7 +88,7 @@ int Menu::update()
 
 void Menu::draw(int currentLevel, int currentWave, int money, int towerPlaced)
 {
-	switch (this->menu)
+	switch (this->mMenu)
 	{
 	case Type_Menu::LOADING:
 		ImGui::GetForegroundDrawList()->AddRectFilled({ 0,0 }, { WIDTH,HEIGHT }, SHY_LIGHT_BLUE);
@@ -141,14 +146,14 @@ int Menu::updateInGame()
 		return 1;
 	}
 	if (ImGui::IsKeyPressed(ImGuiKey_Escape, false) || ImGui::IsKeyPressed(ImGuiKey_Space, false))
-		this->menu = Type_Menu::PAUSE;
+		this->mMenu = Type_Menu::PAUSE;
 	return 0;
 }
 
 int Menu::updatePause()
 {
 	if (this->isButtonPressed(MAIN_BUT_ONE_TOP, MAIN_BUT_ONE_BOT) || ImGui::IsKeyPressed(ImGuiKey_Space, false))
-		this->menu = Type_Menu::IN_GAME;
+		this->mMenu = Type_Menu::IN_GAME;
 	if (this->isButtonPressed(MAIN_BUT_EXIT_TOP, MAIN_BUT_EXIT_BOT) || ImGui::IsKeyPressed(ImGuiKey_Escape, false)) {
 		this->goToLoadingScreen();;
 		return 3;

@@ -4,17 +4,14 @@
 
 Tower::Tower()
 {
-	this->turret.angle = 0.f;
 	this->type = Type_Tower::NONE;
 }
 
 Tower::~Tower()
 {
-	if (this->hasTexture) {
-		this->unloadTexture();
-		ImGuiUtils::UnloadTexture(this->turret.sprite);
-		this->turret.projectile.unloadTexture();
-	}
+	this->unloadTexture();
+	ImGuiUtils::UnloadTexture(this->turret.sprite);
+	this->turret.projectile.unloadTexture();
 }
 
 void Tower::setPos(float2 pos)
@@ -38,6 +35,7 @@ void Tower::setAttackStats(float attackRadius, float attackSpeed, int attackDmg)
 	this->mAttackSpeed = attackSpeed;
 	this->mAttackDmg = attackDmg;
 	this->mAttackCooldown = 0.f;
+	this->mUpgradeLvl = 0;
 }
 
 void Tower::upgradeAttackStats(float attackRadius, float attackSpeed, int attackDmg)
@@ -47,13 +45,13 @@ void Tower::upgradeAttackStats(float attackRadius, float attackSpeed, int attack
 	this->mAttackDmg += attackDmg;
 }
 
-void Tower::update(Enemy** en, int nbEnemies, int* money, float gameAcc)
+void Tower::update(Enemy** en, int nbEnemies, int* money, float gameSpeed)
 {
 	if (nbEnemies) {
 		if (this->current_target == nullptr || this->current_target->isDead() || !(this->isEnemyInsideRange(this->current_target)))
 			this->getTarget(en, nbEnemies);
 		if (this->current_target != nullptr) {
-			this->attackTarget(gameAcc);
+			this->attackTarget(gameSpeed);
 			this->turret.angle = atan2f(this->current_target->pos.y - this->pos.y, this->current_target->pos.x - this->pos.x) + calc::PI / 2.f;
 		}
 		else this->turret.angle = 0.f;
@@ -72,15 +70,15 @@ void Tower::draw(bool drawRadius)
 }
 
 bool Tower::isEnemyInsideRange(Enemy const* en) const// SS collision
-{																																
+{
 	return (pow(en->pos.x - this->pos.x, 2.f) + pow(en->pos.y - this->pos.y, 2.f) < pow(en->size + this->mAttackRadius, 2.f));
 }
 
 bool Tower::isMouseOverTower() const
 {
 	ImVec2 mouse = ImGui::GetMousePos();
-	if ((this->pos.x - (float)H_TOWER_SIZE <= mouse.x && mouse.x <= this->pos.x + (float)H_TOWER_SIZE) &&
-		(this->pos.y - (float)H_TOWER_SIZE <= mouse.y && mouse.y <= this->pos.y + (float)H_TOWER_SIZE))
+	if ((this->pos.x - H_TOWER_SIZE <= mouse.x && mouse.x <= this->pos.x + H_TOWER_SIZE) &&
+		(this->pos.y - H_TOWER_SIZE <= mouse.y && mouse.y <= this->pos.y + H_TOWER_SIZE))
 		return true;
 	else
 		return false;
@@ -88,7 +86,7 @@ bool Tower::isMouseOverTower() const
 
 void Tower::drawTarget()
 {
-	ImGui::GetForegroundDrawList()->AddCircle(this->current_target->pos, 10, WHITE, 0, 5.f);
+	ImGui::GetForegroundDrawList()->AddCircle(this->current_target->pos, 10, VIOLET, 0, 5.f);
 }
 
 void Tower::getTarget(Enemy** en, int nbEnemies)
@@ -102,9 +100,9 @@ void Tower::getTarget(Enemy** en, int nbEnemies)
 	}
 }
 
-void Tower::attackTarget(float gameAcc)
+void Tower::attackTarget(float gameSpeed)
 {
-	if ((this->mAttackCooldown += ImGui::GetIO().DeltaTime * gameAcc) >= this->mAttackSpeed)
+	if ((this->mAttackCooldown += ImGui::GetIO().DeltaTime * gameSpeed) >= this->mAttackSpeed)
 	{
 		this->attack();
 		this->mAttackCooldown -= this->mAttackSpeed;

@@ -14,8 +14,8 @@ Enemy::~Enemy()
 
 void Enemy::update(const Checkpoint* listCheckpoint, int nbCheckpoint, Castle* castle, float gameAcc, Enemy** en)
 {
-	if (this->checkId -1 != nbCheckpoint)
-		this->move(listCheckpoint, nbCheckpoint ,gameAcc);
+	if (this->checkId - 1 != nbCheckpoint)
+		this->move(listCheckpoint, nbCheckpoint, gameAcc);
 	else
 		if (castle->health.life - this->attackDmg >= 0)
 			castle->health.life -= this->attackDmg;
@@ -30,7 +30,7 @@ void Enemy::draw(bool drawRadius)
 	ImDrawList* bgDrawList = ImGui::GetBackgroundDrawList();
 	if (drawRadius && this->isMouseOverEnemy())
 		bgDrawList->AddCircle(this->pos, this->radius, SHY_GREEN, 0, 2.f);
-	ImGuiUtils::DrawTextureEx(*bgDrawList, this->sprite, { this->pos.x, this->pos.y }, { 0.5f,0.5f }, this->angle);
+	ImGuiUtils::DrawTextureEx(*bgDrawList, this->sprite, this->pos, { 0.5f,0.5f }, this->angle);
 	this->health.draw(L_HEALTH_SIZE, H_HEALTH_SIZE);
 }
 
@@ -57,16 +57,16 @@ void Enemy::move(const Checkpoint* listCheckpoint, int nbCheckpoint, float gameA
 			}
 			else
 				this->pos += this->direction * this->moveSpeed * ImGui::GetIO().DeltaTime * gameAcc;
-			//changes enemy see direction 
+			//changes enemy see direction
 			// TODO change to switch
 			if (this->direction == LEFT)
 				this->angle = calc::PI;
 			else if (this->direction == RIGHT)
 				this->angle = 0.f;
 			else if (this->direction == UP)
-				this->angle = -calc::PI/2;
+				this->angle = -calc::PI / 2;
 			else if (this->direction == DOWN)
-				this->angle = calc::PI/2;
+				this->angle = calc::PI / 2;
 		}
 	}
 }
@@ -84,20 +84,16 @@ void Enemy::getDamage(int damage)
 void Enemy::heal(Enemy** en, float gameAcc)
 {
 	for (int i = 0; i < MAX_NB_ENEMIES; ++i)
-	{
 		if (en[i] && pow(en[i]->pos.x - this->pos.x, 2.f) + pow(en[i]->pos.y - this->pos.y, 2.f) < pow(en[i]->size + this->radius, 2.f))
 		{
 			this->actionCD += ImGui::GetIO().DeltaTime;
 			if (this->actionCD * gameAcc >= 3.f)
-			{
 				if (en[i]->health.life + 5 <= en[i]->health.maxLife)
 				{
 					this->actionCD = 0;
 					en[i]->health.life += 5;
 				}
-			}
 		}
-	}
 }
 
 bool Enemy::isMouseOverEnemy() const

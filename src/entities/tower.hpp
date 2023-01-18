@@ -1,6 +1,5 @@
 #pragma once
 
-#include "../entity.hpp"
 #include "projectile.hpp"
 #include "enemy.hpp"
 
@@ -39,27 +38,30 @@ public:
 
 	virtual const char* getTypeName() const;
 
-	void update(Enemy** en, int nbEnemies, int* money, float gameAcc);
+	void update(Enemy** en, int nbEnemies, int* money, float gameSpeed);
 	void draw(bool drawRadius = true);
-	void drawTarget();
-
-	virtual void upgrade(int* money) { /*used by subclasses*/ };
 
 	bool isMouseOverTower() const;
 
+	// debug drawing function
+	void drawTarget();
+
 protected:
+	int mUpgradeLvl = 0;
+
 	void setAttackStats(float attackRadius, float attackSpeed, int attackDmg);
 	void upgradeAttackStats(float attackRadius, float attackSpeed, int attackDmg);
 	virtual void attack();
+
+	virtual void upgrade(int* money) { /*used by subclasses*/ };
 
 private:
 	float mAttackRadius = 0.f;
 	float mAttackSpeed = 0.f;
 	float mAttackCooldown = 0.f;
 	int mAttackDmg = 0;
-	int mUpgradeLvl = 0;
 
 	bool isEnemyInsideRange(Enemy const* en) const;
 	void getTarget(Enemy** en, int nbEnemies);
-	void attackTarget(float gameAcc);
+	void attackTarget(float gameSpeed);
 };

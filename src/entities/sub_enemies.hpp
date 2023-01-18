@@ -2,6 +2,8 @@
 
 #include "enemy.hpp"
 
+// Healer enemy //
+
 class Healer : public Enemy
 {
 public:
@@ -9,12 +11,16 @@ public:
 	~Healer() {};
 };
 
+// Knight enemy //
+
 class Knight : public Enemy
 {
 public:
 	Knight();
 	~Knight() {};
 };
+
+// Soldier enemy //
 
 class Soldier : public Enemy
 {

@@ -22,8 +22,8 @@ public:
 	float radius = 0.f;
 	float actionCD = 0.f;
 	float size = 10.f;
-	float2 direction = RIGHT;
 	int checkId = 1;
+	float2 direction = RIGHT;
 	Health health;
 	Type_Enemy type = Type_Enemy::NONE;
 

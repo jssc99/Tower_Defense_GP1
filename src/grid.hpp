@@ -2,28 +2,34 @@
 
 #include "entities/square.hpp"
 #include "entities/castle.hpp"
+#include "entities/checkpoint.hpp"
 
 class Grid
 {
 public:
-	Square square[NB_SQUARES_ROW][NB_SQUARES_COL];
-	Checkpoint chkpList[MAX_NB_CHECKPOINTS];
-
-	float2 spawnP = STOP;
-	int nbCheckpoints = 0;
+	Square squares[NB_SQUARES_ROW][NB_SQUARES_COL];
+	Checkpoint checkpoints[MAX_NB_CHECKPOINTS];
 
 	Grid();
 	~Grid() {};
 
 	void loadGrid(std::string seed);
-	void unloadGrid();
 	void loadCheckpoints(const Checkpoint* checkpointList, int nbCheckpoint, Castle* castle);
-	void makePathLookGood();
+
+	void unloadGrid();
 
 	void draw();
 	void drawGrid();
 	void drawCheckpoints();
 
+	int getNbCheckpoints() const;
 	float2 getSpawnPoint();
 	Square* getSquare(float2 point);
+	Square* getSquareXY(float2 XY);
+
+private:
+	float2 mSpawnPoint = STOP;
+	int nNbCheckpoints = 0;
+
+	void makePathLookGood();
 };

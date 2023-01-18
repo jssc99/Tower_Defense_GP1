@@ -102,12 +102,16 @@ App::~App()
 
 void App::Update()
 {
+	if (ImGui::IsKeyPressed(ImGuiKey_C, false))
+		this->mDebugMenu = !this->mDebugMenu;
+
+	if (this->mDebugMenu)
 	{
 		ImGui::Begin("Tower");
-		ImGui::Checkbox("Draw Grid", &this->debug);
-		//ImGui::Text("mouse: %.0f, %.0f", ImGui::GetMousePos().x, ImGui::GetMousePos().y);
-		if (ImGui::Button("$$$ + 20")) G.money += 20;
-		if (ImGui::Button("$$$ - 20"))  G.money -= 20;
+		ImGui::Checkbox("Draw Grid", &this->mDrawDebug);
+		// ImGui::Text("mouse: %.0f, %.0f", ImGui::GetMousePos().x, ImGui::GetMousePos().y);
+		if (ImGui::Button("$$$ + 20")) G.addMoney(20);
+		if (ImGui::Button("$$$ - 20")) G.addMoney(-20);
 		if (ImGui::Button("Soldier"))
 			G.spawnEnemy(Type_Enemy::SOLDIER);
 		if (ImGui::Button("Healer"))
@@ -116,8 +120,9 @@ void App::Update()
 			G.spawnEnemy(Type_Enemy::KNIGHT);
 		ImGui::End();
 	}
+
 	G.update();
 	G.draw();
-	if (this->debug) G.drawDebug();
+	if (this->mDrawDebug) G.drawDebug();
 	this->closeApp = G.closeGame;
 }

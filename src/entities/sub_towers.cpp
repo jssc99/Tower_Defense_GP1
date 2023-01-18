@@ -19,7 +19,7 @@ const char* Basic::getTypeName() const
 
 void Basic::upgrade(int* money)
 {
-	if (*money - UPGRADE_COST >= 0) { this->upgradeAttackStats(5.f, -0.1f, 1); *money -= UPGRADE_COST; }
+	if (this->mUpgradeLvl < 5 && *money - UPGRADE_COST >= 0) { this->upgradeAttackStats(5.f, -0.1f, 1); *money -= UPGRADE_COST; }
 }
 
 // QUICK
@@ -41,7 +41,7 @@ const char* Quick::getTypeName() const
 
 void Quick::upgrade(int* money)
 {
-	if (*money - UPGRADE_COST >= 0) { this->upgradeAttackStats(1.f, -0.02f, 2); *money -= UPGRADE_COST; }
+	if (this->mUpgradeLvl < 5 && *money - UPGRADE_COST >= 0) { this->upgradeAttackStats(1.f, -0.02f, 2); *money -= UPGRADE_COST; }
 }
 
 // SLOW
@@ -60,14 +60,14 @@ const char* Slow::getTypeName() const
 	return "Slow";
 }
 
-inline void Slow::attack()
-{
-	this->current_target->moveSpeed = this->current_target->initMS/2;
-}
-
 void Slow::upgrade(int* money)
 {
-	if (*money - UPGRADE_COST >= 0) { this->upgradeAttackStats(8.f, 0.f, 0); *money -= UPGRADE_COST; }
+	if (this->mUpgradeLvl < 5 && *money - UPGRADE_COST >= 0) { this->upgradeAttackStats(8.f, 0.f, 0); *money -= UPGRADE_COST; }
+}
+
+void Slow::attack()
+{
+	this->current_target->moveSpeed = this->current_target->initMS / 2;
 }
 
 // EXPLOSIVE
@@ -89,5 +89,5 @@ const char* Explosive::getTypeName() const
 
 void Explosive::upgrade(int* money)
 {
-	if (*money - UPGRADE_COST >= 0) { this->upgradeAttackStats(5.f, -0.2f, 3); *money -= UPGRADE_COST; }
+	if (this->mUpgradeLvl < 5 && *money - UPGRADE_COST >= 0) { this->upgradeAttackStats(5.f, -0.2f, 3); *money -= UPGRADE_COST; }
 }
