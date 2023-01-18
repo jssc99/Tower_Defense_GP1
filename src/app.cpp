@@ -81,18 +81,17 @@ App::App()
 		G.lvl[1].checkpointList[id++] = { id + 1, { 9,7 }, RIGHT };
 		G.lvl[1].checkpointList[id++] = { id + 1, { 9,35 }, STOP };
 		G.lvl[1].nbCheckpoints = id;
-		G.lvl[0].nbCheckpoints = id;
 		int waves = 0;
-		G.lvl[0].wave[waves++] = "ssssssssssssssssssk";
-		G.lvl[0].wave[waves++] = "sssskksssssssskksssske";
-		G.lvl[0].wave[waves++] = "sssskkhssssssskkhssssske";
-		G.lvl[0].wave[waves++] = "sssskkkkhssssskkkkhsssske";
-		G.lvl[0].wave[waves++] = "ssskkkkkkhssshkkkkhssssske";
-		G.lvl[0].wave[waves++] = "ssskkkkkkhssshkkkkhsssssske";
-		G.lvl[0].wave[waves++] = "ssskkkkkkhssshkkkkkkhssssske";
-		G.lvl[0].wave[waves++] = "ssskkkkkkkhssshkkkkkkhssssske";
-		G.lvl[0].wave[waves++] = "ssshkkkkkkhssshhhkkkkkhssssske";
-		G.lvl[0].wave[waves++] = "ssshhkkkkkkhssshhhkkkkhsssssske";
+		G.lvl[1].wave[waves++] = "ssssssssssssssssssk";
+		G.lvl[1].wave[waves++] = "sssskksssssssskksssske";
+		G.lvl[1].wave[waves++] = "sssskkhssssssskkhssssske";
+		G.lvl[1].wave[waves++] = "sssskkkkhssssskkkkhsssske";
+		G.lvl[1].wave[waves++] = "ssskkkkkkhssshkkkkhssssske";
+		G.lvl[1].wave[waves++] = "ssskkkkkkhssshkkkkhsssssske";
+		G.lvl[1].wave[waves++] = "ssskkkkkkhssshkkkkkkhssssske";
+		G.lvl[1].wave[waves++] = "ssskkkkkkkhssshkkkkkkhssssske";
+		G.lvl[1].wave[waves++] = "ssshkkkkkkhssshhhkkkkkhssssske";
+		G.lvl[1].wave[waves++] = "ssshhkkkkkkhssshhhkkkkhsssssske";
 		G.lvl[1].nbWaves = waves;
 	}
 }
@@ -115,13 +114,8 @@ void App::Update()
 			G.spawnEnemy(Type_Enemy::HEALER);
 		if (ImGui::Button("Knight"))
 			G.spawnEnemy(Type_Enemy::KNIGHT);
-		if (G.castle) {
-			ImGui::Text("Castle health and max health: %d, %d", G.castle->health.life, G.castle->health.maxLife);
-			ImGui::Text("Castle pos = %f, %f", G.castle->pos.x, G.castle->pos.y);
-		}
 		ImGui::End();
 	}
-	//time accelerator
 	G.update();
 	G.draw();
 	if (this->debug) G.drawDebug();
