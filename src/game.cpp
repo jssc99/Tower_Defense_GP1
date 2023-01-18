@@ -119,7 +119,7 @@ void Game::updateInGame()
 
 void Game::updateWave()
 {
-	if ((this->enSpawnTimer += ImGui::GetIO().DeltaTime) >= 2.f) {
+	if ((this->enSpawnTimer += ImGui::GetIO().DeltaTime) >= 3.f) {
 		if (!this->lvl[this->mCurrentLevelId].wave[wave][this->mWaveAdvancement + 1] && this->isWaveDead()) {
 			this->wave++;
 			this->mWaveAdvancement = 0;
