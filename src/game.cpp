@@ -116,6 +116,10 @@ void Game::updateEnemies()
 				this->money += this->enemies[i]->loot;
 				this->enemies[i] = nullptr;
 			}
+			else if (this->enemies[i]->checkId - 1 == this->lvl[this->mCurrentLevelId].nbCheckpoints) {
+				this->enemies[i]->update(this->grid.chkpList, this->grid.nbCheckpoints, this->castle);
+				this->enemies[i] = nullptr;
+			}
 		}
 }
 

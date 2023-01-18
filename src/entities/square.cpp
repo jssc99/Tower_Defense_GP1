@@ -15,25 +15,36 @@ Square::~Square()
 void Square::setType(Type_Square type)
 {
 	this->type = type;
+	int randomChoice = (rand() % 40);
 	switch (type)
 	{
 	case Type_Square::NONE:
 		this->loadTexture("assets/towerDefense_tile015.png");
+		ImGuiUtils::UnloadTexture(this->decor);
+		this->hasDecor = false;
 		break;
 	case Type_Square::BACKGROUND:
 		this->loadTexture("assets/towerDefense_tile103.png");
+		this->hasDecor = true;
+		if (randomChoice == 10)
+			this->decor = ImGuiUtils::LoadTexture("assets/towerDefense_tile135.png");
+		else if (randomChoice == 20)
+			this->decor = ImGuiUtils::LoadTexture("assets/towerDefense_tile136.png");
+		else if (randomChoice == 30)
+			this->decor = ImGuiUtils::LoadTexture("assets/towerDefense_tile137.png");
+		else this->hasDecor = false;
 		break;
 	case Type_Square::GRASS:
-		this->canHaveTower = true; {
-			int choiceGrass = (rand() % 4);
-			if (choiceGrass == 0)
-				this->loadTexture("assets/towerDefense_tile024.png");
-			else if (choiceGrass == 1)
-				this->loadTexture("assets/towerDefense_tile157.png");
-			else if (choiceGrass == 2)
-				this->loadTexture("assets/towerDefense_tile162.png");
-			else if (choiceGrass == 3)
-				this->loadTexture("assets/towerDefense_tile231.png"); }
+		this->canHaveTower = true;
+		randomChoice /= 10;
+		if (randomChoice == 0)
+			this->loadTexture("assets/towerDefense_tile024.png");
+		else if (randomChoice == 1)
+			this->loadTexture("assets/towerDefense_tile157.png");
+		else if (randomChoice == 2)
+			this->loadTexture("assets/towerDefense_tile162.png");
+		else if (randomChoice == 3)
+			this->loadTexture("assets/towerDefense_tile231.png");
 		break;
 	case Type_Square::PATH:
 		//this->loadTexture("assets/towerDefense_tile158.png");
@@ -66,6 +77,8 @@ bool Square::canPlaceTower() const
 void Square::draw()
 {
 	ImGuiUtils::DrawTextureEx(*ImGui::GetBackgroundDrawList(), this->sprite, this->pos + H_SQUARE_SIZE, { 0.5f,0.5f });
+	if ( hasDecor )
+		ImGuiUtils::DrawTextureEx(*ImGui::GetBackgroundDrawList(), this->decor, this->pos + H_SQUARE_SIZE, { 0.5f,0.5f });
 }
 
 void Square::drawPos()

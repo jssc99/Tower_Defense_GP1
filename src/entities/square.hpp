@@ -19,6 +19,9 @@ class Square : public Entity
 {
 public:
 	Type_Square type;
+	Texture decor;
+
+	bool hasDecor = false;
 	bool canHaveTower = false;
 
 	Square();
