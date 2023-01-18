@@ -61,6 +61,9 @@ int main(int argc, char* argv[])
 
 		app->Update();
 
+		if ( app->closeApp )
+			glfwSetWindowShouldClose(window, app->closeApp);
+
 		// Rendering
 		ImGui::Render();
 		int display_w, display_h;

@@ -6,19 +6,19 @@ class Healer : public Enemy
 {
 public:
 	Healer();
-	~Healer();
+	~Healer() {};
 };
 
 class Knight : public Enemy
 {
 public:
 	Knight();
-	~Knight();
+	~Knight() {};
 };
 
 class Soldier : public Enemy
 {
 public:
 	Soldier();
-	~Soldier();
+	~Soldier() {};
 };

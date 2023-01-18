@@ -1,4 +1,5 @@
 #pragma once
+
 #include "tower.hpp"
 
 class Basic : public Tower
@@ -16,7 +17,7 @@ public:
 	Slow();
 	~Slow() {};
 
-	const char* getTypeName() const;
+	const char* getTypeName() const override;
 	void attack() override;
 };
 
@@ -26,16 +27,16 @@ public:
 	Quick();
 	~Quick() {};
 
-	const char* getTypeName() const;
+	const char* getTypeName() const override;
 };
 
 class Explosive : public Tower
 {
 public:
-	float bombRadius;
+	float bombRadius = 10.f;
 
 	Explosive();
 	~Explosive() {};
 
-	const char* getTypeName() const;
+	const char* getTypeName() const override;
 };

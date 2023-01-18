@@ -14,10 +14,15 @@ static inline float2 operator*(float2 a, float b) { return { a.x * b, a.y * b };
 static inline float2 operator/(float2 a, float2 b) { return { a.x / b.x, a.y / b.y }; }
 static inline float2 operator/(float2 a, float b) { return { a.x / b, a.y / b }; }
 static inline float2& operator+=(float2& a, float2 b) { a = a + b; return a; }
+static inline float2& operator+=(float2& a, float b) { a = a + b; return a; }
+static inline float2& operator-=(float2& a, float2 b) { a = a - b; return a; }
+static inline float2& operator-=(float2& a, float b) { a = a - b; return a; }
 static inline float2& operator*=(float2& a, float2 b) { a = a * b; return a; }
+static inline float2& operator*=(float2& a, float b) { a = a * b; return a; }
 static inline float2& operator/=(float2& a, float2 b) { a = a / b; return a; }
+static inline float2& operator/=(float2& a, float b) { a = a / b; return a; }
 
-static inline bool operator== (float2 a, float2 b) { if (a.x == b.x && a.y == b.y) return true; else return false; }
+static inline bool operator== (float2 a, float2 b) { if (a.x - b.x <= 0.0001 && a.y - b.y <= 0.0001) return true; else return false; }
 static inline bool operator!= (float2 a, float2 b) { return !(a == b); }
 
 namespace calc

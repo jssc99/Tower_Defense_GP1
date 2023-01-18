@@ -12,8 +12,10 @@ public:
 	inline ~Castle() {};
 };
 
-Castle::Castle()
+inline Castle::Castle()
 {
 	health.maxLife = 250;
 	health.life = health.maxLife;
+	health.posCenter.x = SQUARE_SIZE * 25 + SQUARE_SIZE/2;
+	health.posCenter.y = SQUARE_SIZE*22;
 };

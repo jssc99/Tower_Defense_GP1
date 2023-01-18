@@ -5,72 +5,70 @@
 
 Enemy::Enemy()
 {
-	this->attackDmg = 0;
-	this->initMS = 1;
-	this->moveSpeed = initMS;
-	this->loot = 0;
-	this->direction = RIGHT;
-	this->checkId = 1;
 	this->health.maxLife = 0;
 	this->health.life = 0;
-	this->type = Type_Enemy::NONE;
 }
 
 Enemy::~Enemy()
 {
-
+	this->unloadTexture();
 }
 
-void Enemy::update(Checkpoint* listCheckpoint, int nbCheckpoint, Castle* castle)
+void Enemy::update(Checkpoint* listCheckpoint, int nbCheckpoint, Castle* castle, float gameAcc, Enemy** en)
 {
 	if (this->checkId -1 != nbCheckpoint)
-		this->move(listCheckpoint, nbCheckpoint);
+		this->move(listCheckpoint, nbCheckpoint ,gameAcc);
 	else
 		if(castle->health.life - this->attackDmg >= 0)
 			castle->health.life -= this->attackDmg;
 	this->health.posCenter = this->pos;
 	this->moveSpeed = initMS;
+	if (this->type == Type_Enemy::HEALER)
+		this->heal(en, gameAcc);
 }
 
-void Enemy::draw()
+void Enemy::draw(bool drawRadius)
 {
+
+	ImDrawList* bgDrawList = ImGui::GetBackgroundDrawList();
+	if (drawRadius && this->isMouseOverEnemy())
+		bgDrawList->AddCircle(this->pos, this->radius, SHY_GREEN, 0, 2.f);
 	ImDrawList* fgDrawlist = ImGui::GetForegroundDrawList();
-	fgDrawlist->AddCircleFilled({ pos.x, pos.y }, 10, this->color);
 	ImGuiUtils::DrawTextureEx(*fgDrawlist, this->sprite, { this->pos.x, this->pos.y }, { 0.5f,0.5f }, this->angle); 
-	this->health.draw();
+	this->health.draw(L_HEALTH_SIZE, H_HEALTH_SIZE);
 }
 
-void Enemy::spawn(Grid* grid)
+void Enemy::spawn(float2 spawnPoint)
 {
-	this->pos = grid->getSpawnPoint();
+	this->pos = spawnPoint;
 }
 
-void Enemy::move(Checkpoint* listCheckpoint, int nbCheckpoint)
+void Enemy::move(Checkpoint* listCheckpoint, int nbCheckpoint, float gameAcc)
 {
 	//checkpoints change direction
 	for (int i = 0; i < nbCheckpoint; ++i)
 	{
 		if (listCheckpoint[i].id == this->checkId)
 		{
-			if (this->pos.x >= listCheckpoint[i].pos.x - this->moveSpeed &&
-				this->pos.x <= listCheckpoint[i].pos.x + this->moveSpeed &&
-				this->pos.y >= listCheckpoint[i].pos.y - this->moveSpeed &&
-				this->pos.y <= listCheckpoint[i].pos.y + this->moveSpeed)
+			if (this->pos.x >= listCheckpoint[i].pos.x - this->moveSpeed * ImGui::GetIO().DeltaTime * gameAcc &&
+				this->pos.x <= listCheckpoint[i].pos.x + this->moveSpeed * ImGui::GetIO().DeltaTime * gameAcc &&
+				this->pos.y >= listCheckpoint[i].pos.y - this->moveSpeed * ImGui::GetIO().DeltaTime * gameAcc &&
+				this->pos.y <= listCheckpoint[i].pos.y + this->moveSpeed * ImGui::GetIO().DeltaTime * gameAcc)
 			{
 				this->direction = listCheckpoint[i].newDirection;
 				this->checkId++;
 				this->pos = listCheckpoint[i].pos;
 			}
-			else
-				this->pos += this->direction * this->moveSpeed;
-			//changes enemy see direction
+			this->pos += this->direction * this->moveSpeed * ImGui::GetIO().DeltaTime * gameAcc;
+			//changes enemy see direction 
+			// TODO change to switch
 			if (this->direction == LEFT)
 				this->angle = calc::PI;
-			if (this->direction == RIGHT)
+			else if (this->direction == RIGHT)
 				this->angle = 0.f;
-			if (this->direction == UP)
+			else if (this->direction == UP)
 				this->angle = -calc::PI/2;
-			if (this->direction == DOWN)
+			else if (this->direction == DOWN)
 				this->angle = calc::PI/2;
 		}
 	}
@@ -84,4 +82,33 @@ bool Enemy::isDead()
 void Enemy::getDamage(int damage)
 {
 	this->health.life -= damage;
+}
+
+void Enemy::heal(Enemy** en, float gameAcc)
+{
+	for (int i = 0; i < MAX_NB_ENEMIES; ++i)
+	{
+		if (en[i] && pow(en[i]->pos.x - this->pos.x, 2.f) + pow(en[i]->pos.y - this->pos.y, 2.f) < pow(en[i]->size + this->radius, 2.f))
+		{
+			this->actionCD += ImGui::GetIO().DeltaTime;
+			if (this->actionCD * gameAcc >= 3.f)
+			{
+				if (en[i]->health.life + 5.f <= en[i]->health.maxLife)
+				{
+					this->actionCD = 0;
+					en[i]->health.life += 5.f;
+				}
+			}
+		}
+	}
+}
+
+bool Enemy::isMouseOverEnemy() const
+{
+	ImVec2 mouse = ImGui::GetMousePos();
+	if ((this->pos.x - this->size <= mouse.x && mouse.x <= this->pos.x + this->size) &&
+		(this->pos.y - this->size <= mouse.y && mouse.y <= this->pos.y + this->size))
+		return true;
+	else
+		return false;
 }
