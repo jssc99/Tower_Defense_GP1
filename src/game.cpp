@@ -88,13 +88,13 @@ void Game::update()
 void Game::draw()
 {
 	this->grid.draw();
-	if (this->menu.menu == Type_Menu::IN_GAME)
-		this->castle->health.draw();
 	if (this->menu.menu == Type_Menu::IN_GAME || this->menu.menu == Type_Menu::PAUSE) {
 		this->drawTowers();
 		this->drawEnemies();
 		this->menu.draw(this->mCurrentLevelId + 1, this->wave, this->money, this->towerPlaced); 
 	}
+	if (this->menu.menu == Type_Menu::IN_GAME)
+		this->castle->health.draw();
 	else this->menu.draw();
 }
 

@@ -45,8 +45,11 @@ void Tower::update(Enemy** en, int nbEnemies)
 	if (nbEnemies) {
 		if (this->current_target == nullptr || this->current_target->isDead() || !(this->isEnemyInsideRange(this->current_target)))
 			this->getTarget(en, nbEnemies);
-		if (this->current_target != nullptr)
+		if (this->current_target != nullptr) {
 			this->attackTarget();
+			this->turret.angle = atan2f(this->pos.y, this->current_target->pos.y);
+		}
+		else this->turret.angle = 0.f;
 	}
 }
 

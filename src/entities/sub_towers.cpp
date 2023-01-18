@@ -8,7 +8,7 @@ Basic::Basic()
 	this->loadTexture("assets/towerDefense_tile181.png");
 	this->turret.sprite = ImGuiUtils::LoadTexture("assets/towerDefense_tile228.png");
 	this->price = 20;
-	this->setAttackStats(100.f, 1.f, 5);
+	this->setAttackStats(100.f, 2.f, 10);
 }
 
 const char* Basic::getTypeName() const
@@ -24,7 +24,7 @@ Quick::Quick()
 	this->loadTexture("assets/towerDefense_tile183.png");
 	this->turret.sprite = ImGuiUtils::LoadTexture("assets/towerDefense_tile229.png");
 	this->price = 15;
-	this->setAttackStats(150.f, 2.f, 1);
+	this->setAttackStats(150.f, 0.5f, 1);
 }
 
 const char* Quick::getTypeName() const
@@ -74,7 +74,7 @@ Explosive::Explosive()
 	this->loadTexture("assets/towerDefense_tile180.png");
 	this->turret.sprite = ImGuiUtils::LoadTexture("assets/towerDefense_tile227.png");
 	this->price = 40;
-	this->setAttackStats(200.f, 6.f, 15);
+	this->setAttackStats(130.f, 4.f, 30);
 }
 
 const char* Explosive::getTypeName() const
