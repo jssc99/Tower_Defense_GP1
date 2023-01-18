@@ -21,6 +21,7 @@ public:
 	Enemy* enemies[MAX_NB_ENEMIES];
 	Castle* castle = nullptr;
 
+	float gameAccelerator = 1.f;
 	float enSpawnTimer = 0.f;
 
 	level lvl[NB_LEVELS];

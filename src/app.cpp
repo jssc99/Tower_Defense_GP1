@@ -106,13 +106,9 @@ void App::Update()
 	{
 		ImGui::Begin("Tower");
 		ImGui::Checkbox("Draw Grid", &this->debug);
-		ImGui::Text("mouse: %.0f, %.0f", ImGui::GetMousePos().x, ImGui::GetMousePos().y);
+		//ImGui::Text("mouse: %.0f, %.0f", ImGui::GetMousePos().x, ImGui::GetMousePos().y);
 		if (ImGui::Button("$$$ + 20")) G.money += 20;
 		if (ImGui::Button("$$$ - 20"))  G.money -= 20;
-		if (ImGui::Button("unload lvl")) {
-			G.unloadLvl();
-			G.menu.load(Type_Menu::MAIN);
-		}
 		if (ImGui::Button("Soldier"))
 			G.spawnEnemy(Type_Enemy::SOLDIER);
 		if (ImGui::Button("Healer"))
@@ -125,6 +121,7 @@ void App::Update()
 		}
 		ImGui::End();
 	}
+	//time accelerator
 	G.update();
 	G.draw();
 	if (this->debug) G.drawDebug();

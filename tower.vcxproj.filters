@@ -135,9 +135,7 @@
     <ClInclude Include="src\entities\sub_enemies.hpp">
       <Filter>src\entities</Filter>
     </ClInclude>
-    <ClInclude Include="src\health.hpp">
-      <Filter>src\entities</Filter>
-    </ClInclude>
+    <ClInclude Include="src\health.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\calc.hpp" />

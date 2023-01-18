@@ -10,12 +10,12 @@ public:
 	Health() {};
 	~Health() {};
 
-	void draw() const;
+	void draw(float L, float H) const;
 };
 
-inline void Health::draw() const
+inline void Health::draw(float L, float H) const
 {
-	ImDrawList* bgDrawlist = ImGui::GetBackgroundDrawList();
-	bgDrawlist->AddRectFilled({ posCenter.x - L_HEALTH_SIZE / 2, posCenter.y - 30 }, { posCenter.x + L_HEALTH_SIZE / 2, posCenter.y - H_HEALTH_SIZE - 30 }, RED);
-	bgDrawlist->AddRectFilled({ posCenter.x - L_HEALTH_SIZE / 2, posCenter.y - 30 }, { posCenter.x - L_HEALTH_SIZE / 2 + (life * L_HEALTH_SIZE) / maxLife, posCenter.y - H_HEALTH_SIZE - 30 }, DARK_GREEN);
+	ImDrawList* fgDrawlist = ImGui::GetBackgroundDrawList();
+	fgDrawlist->AddRectFilled({ posCenter.x - L / 2 + (life * L) / maxLife, posCenter.y - 30 }, { posCenter.x + L / 2, posCenter.y -H - 30 }, RED);
+	fgDrawlist->AddRectFilled({ posCenter.x - L / 2, posCenter.y - 30 }, { posCenter.x - L / 2 + (life * L) / maxLife, posCenter.y -H - 30 }, DARK_GREEN);
 }

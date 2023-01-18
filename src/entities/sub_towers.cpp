@@ -62,20 +62,7 @@ const char* Slow::getTypeName() const
 
 inline void Slow::attack()
 {
-	switch (this->current_target->type)
-	{
-	case Type_Enemy::SOLDIER:
-		this->current_target->moveSpeed = 0.5f;
-		break;
-	case Type_Enemy::HEALER:
-		this->current_target->moveSpeed = 0.75f;
-		break;
-	case Type_Enemy::KNIGHT:
-		this->current_target->moveSpeed = 0.35f;
-		break;
-	default:
-		break;
-	}
+	this->current_target->moveSpeed = this->current_target->initMS/2;
 }
 
 void Slow::upgrade(int* money)

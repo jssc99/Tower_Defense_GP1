@@ -92,7 +92,7 @@ void Game::draw()
 		this->menu.draw(this->mCurrentLevelId + 1, this->wave + 1, this->money, this->towerPlaced);
 	}
 	if (this->menu.menu == Type_Menu::IN_GAME)
-		this->castle->health.draw();
+		this->castle->health.draw(L_HEALTH_SIZE * 2, H_HEALTH_SIZE * 2);
 	else this->menu.draw();
 }
 
@@ -119,7 +119,7 @@ void Game::updateInGame()
 
 void Game::updateWave()
 {
-	if ((this->enSpawnTimer += ImGui::GetIO().DeltaTime) >= 2.f) {
+	if ((this->enSpawnTimer += ImGui::GetIO().DeltaTime) >= 3.f) {
 		if (!this->lvl[this->mCurrentLevelId].wave[wave][this->mWaveAdvancement + 1] && this->isWaveDead()) {
 			this->wave++;
 			this->mWaveAdvancement = 0;
@@ -134,13 +134,13 @@ void Game::updateEnemies()
 {
 	for (int i = 0; i < MAX_NB_ENEMIES; i++)
 		if (this->enemies[i] != nullptr) {
-			this->enemies[i]->update(this->grid.chkpList, this->grid.nbCheckpoints, this->castle);
+			this->enemies[i]->update(this->grid.chkpList, this->grid.nbCheckpoints, this->castle, this->gameAccelerator, this->enemies);
 			if (this->enemies[i]->isDead()) {
 				this->money += this->enemies[i]->loot;
 				this->enemies[i] = nullptr;
 			}
 			else if (this->enemies[i]->checkId - 1 == this->lvl[this->mCurrentLevelId].nbCheckpoints) {
-				this->enemies[i]->update(this->grid.chkpList, this->grid.nbCheckpoints, this->castle);
+				this->enemies[i]->update(this->grid.chkpList, this->grid.nbCheckpoints, this->castle, this->gameAccelerator, this->enemies);
 				this->enemies[i] = nullptr;
 			}
 		}
@@ -150,7 +150,7 @@ void Game::updateTowers()
 {
 	for (int i = 0; i < MAX_NB_TOWERS; i++)
 		if (this->towers[i] != nullptr)
-			this->towers[i]->update(this->enemies, MAX_NB_ENEMIES, &this->money);
+			this->towers[i]->update(this->enemies, MAX_NB_ENEMIES, &this->money, this->gameAccelerator);
 }
 
 void Game::drawEnemies() const
