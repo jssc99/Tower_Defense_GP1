@@ -86,6 +86,11 @@ bool Tower::isMouseOverTower() const
 		return false;
 }
 
+void Tower::drawTarget()
+{
+	ImGui::GetForegroundDrawList()->AddCircle(this->current_target->pos, 10, WHITE, 0, 5.f);
+}
+
 void Tower::getTarget(Enemy** en, int nbEnemies)
 {
 	for (int i = 0; i < nbEnemies; i++) {
@@ -99,7 +104,6 @@ void Tower::getTarget(Enemy** en, int nbEnemies)
 
 void Tower::attackTarget()
 {
-	ImGui::GetForegroundDrawList()->AddCircle(this->current_target->pos, 10, WHITE, 0, 5.f);
 	if ((this->mAttackCooldown += ImGui::GetIO().DeltaTime) >= this->mAttackSpeed)
 	{
 		this->attack();

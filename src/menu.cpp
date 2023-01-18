@@ -34,6 +34,12 @@ void Menu::loadPurchaseMenu(const Grid* g)
 		M.tow[i]->pos = g->square[20][16 + 2 * i].pos + H_SQUARE_SIZE;
 }
 
+void Menu::goToLoadingScreen()
+{
+	this->menu = Type_Menu::LOADING;
+	this->draw();
+}
+
 bool Menu::isButtonPressed(const float2 x, const float2 y) const
 {
 	ImVec2 mouse = ImGui::GetMousePos();
@@ -44,56 +50,28 @@ bool Menu::isButtonPressed(const float2 x, const float2 y) const
 	else
 		return false;
 }
-
-// returns 1 if tower needs to be placed
-// returns 2 if app is to be closed
-// returns 3 if lvl is to be closed
-// returns 11 if lvl 1 needs to be loaded
-// returns 12 if lvl 2 etc
+/***
+returns 0 if nothing is needed
+returns 1 if tower needs to be placed
+returns 2 if app is to be closed
+returns 3 if lvl is to be closed
+returns 11 if lvl 1 needs to be loaded
+returns 12 if lvl 2 etc
+***/
 int Menu::update()
 {
 	switch (this->menu)
 	{
 	case Type_Menu::MAIN:
-		if (this->isButtonPressed(MAIN_BUT_ONE_TOP, MAIN_BUT_ONE_BOT)) {// lvl 1 button
-			this->menu = Type_Menu::LOADING;
-			return 11;
-		}
-		else if (this->isButtonPressed(MAIN_BUT_TWO_TOP, MAIN_BUT_TWO_BOT)) {// lvl 2 button
-			this->menu = Type_Menu::LOADING;
-			return 12;
-		}
-		else if (this->isButtonPressed(MAIN_BUT_EXIT_TOP, MAIN_BUT_EXIT_BOT) || ImGui::IsKeyPressed(ImGuiKey_Escape, false)) // exit button
-			return 2;
-		break;
+		return updateMain();
 	case Type_Menu::IN_GAME:
-		if (!M.hasSelected && ImGui::IsMouseClicked(ImGuiMouseButton_Left))
-			for (int i = 0; i < 4; i++)
-				if (!M.hasSelected && M.tow[i]->isMouseOverTower()) {
-					M.selection = *M.tow[i];
-					M.hasSelected = true;
-				}
-		if (M.hasSelected && ImGui::IsMouseDragging(ImGuiMouseButton_Left))
-			M.selection.setPos(ImGui::GetMousePos().x, ImGui::GetMousePos().y);
-		if (M.hasSelected && ImGui::IsMouseReleased(ImGuiMouseButton_Left)) {
-			M.hasSelected = false;
-			return 1;
-		}
-		if (ImGui::IsKeyPressed(ImGuiKey_Escape, false) || ImGui::IsKeyPressed(ImGuiKey_Space, false))
-			this->menu = Type_Menu::PAUSE;
-		break;
+		return this->updateInGame();
 	case Type_Menu::PAUSE:
-		if (this->isButtonPressed(MAIN_BUT_ONE_TOP, MAIN_BUT_ONE_BOT) || ImGui::IsKeyPressed(ImGuiKey_Space, false))
-			this->menu = Type_Menu::IN_GAME;
-		if (this->isButtonPressed(MAIN_BUT_EXIT_TOP, MAIN_BUT_EXIT_BOT) || ImGui::IsKeyPressed(ImGuiKey_Escape, false)) {
-			this->menu = Type_Menu::LOADING;
-			return 3;
-		}
-		break;
+		return this->updatePause();
 	case Type_Menu::VICTORY:
 	case Type_Menu::LOSE:
 		if (this->isButtonPressed(MAIN_BUT_EXIT_TOP, MAIN_BUT_EXIT_BOT) || ImGui::IsKeyPressed(ImGuiKey_Escape, false)) {
-			this->menu = Type_Menu::LOADING;
+			this->goToLoadingScreen();
 			return 3;
 		}
 		break;
@@ -108,8 +86,8 @@ void Menu::draw(int currentLevel, int currentWave, int money, int towerPlaced)
 	switch (this->menu)
 	{
 	case Type_Menu::LOADING:
-		ImGui::GetBackgroundDrawList()->AddRectFilled({ 0,0 }, { WIDTH,HEIGHT }, SHY_LIGHT_BLUE);
-		ImGui::GetBackgroundDrawList()->AddText(this->font, 60.f, { H_WIDTH - 100, H_HEIGHT - 50 }, WHITE, "LOADING...");
+		ImGui::GetForegroundDrawList()->AddRectFilled({ 0,0 }, { WIDTH,HEIGHT }, SHY_LIGHT_BLUE);
+		ImGui::GetForegroundDrawList()->AddText(this->font, 60.f, { H_WIDTH - 100, H_HEIGHT - 50 }, WHITE, "LOADING...");
 		break;
 	case Type_Menu::MAIN:
 		this->drawMain();
@@ -131,6 +109,51 @@ void Menu::draw(int currentLevel, int currentWave, int money, int towerPlaced)
 	default:
 		break;
 	}
+}
+
+int Menu::updateMain()
+{
+	if (this->isButtonPressed(MAIN_BUT_ONE_TOP, MAIN_BUT_ONE_BOT)) {// lvl 1 button
+		this->goToLoadingScreen();
+		return 11;
+	}
+	else if (this->isButtonPressed(MAIN_BUT_TWO_TOP, MAIN_BUT_TWO_BOT)) {// lvl 2 button
+		this->goToLoadingScreen();
+		return 12;
+	}
+	else if (this->isButtonPressed(MAIN_BUT_EXIT_TOP, MAIN_BUT_EXIT_BOT) || ImGui::IsKeyPressed(ImGuiKey_Escape, false)) // exit button
+		return 2;
+	return 0;
+}
+
+int Menu::updateInGame()
+{
+	if (!M.hasSelected && ImGui::IsMouseClicked(ImGuiMouseButton_Left))
+		for (int i = 0; i < 4; i++)
+			if (!M.hasSelected && M.tow[i]->isMouseOverTower()) {
+				M.selection = *M.tow[i];
+				M.hasSelected = true;
+			}
+	if (M.hasSelected && ImGui::IsMouseDragging(ImGuiMouseButton_Left))
+		M.selection.setPos(ImGui::GetMousePos().x, ImGui::GetMousePos().y);
+	if (M.hasSelected && ImGui::IsMouseReleased(ImGuiMouseButton_Left)) {
+		M.hasSelected = false;
+		return 1;
+	}
+	if (ImGui::IsKeyPressed(ImGuiKey_Escape, false) || ImGui::IsKeyPressed(ImGuiKey_Space, false))
+		this->menu = Type_Menu::PAUSE;
+	return 0;
+}
+
+int Menu::updatePause()
+{
+	if (this->isButtonPressed(MAIN_BUT_ONE_TOP, MAIN_BUT_ONE_BOT) || ImGui::IsKeyPressed(ImGuiKey_Space, false))
+		this->menu = Type_Menu::IN_GAME;
+	if (this->isButtonPressed(MAIN_BUT_EXIT_TOP, MAIN_BUT_EXIT_BOT) || ImGui::IsKeyPressed(ImGuiKey_Escape, false)) {
+		this->goToLoadingScreen();;
+		return 3;
+	}
+	return 0;
 }
 
 void Menu::drawExitButton(ImDrawList* dl, bool mainMenu) const {

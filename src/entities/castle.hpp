@@ -12,7 +12,7 @@ public:
 
 	inline Castle() {
 		health.posCenter = CASTLE_LIFE_POS;
-		health.maxLife = 250;
+		health.maxLife = 100;
 		health.life = health.maxLife;
 	};
 	inline ~Castle() {};

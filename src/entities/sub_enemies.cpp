@@ -5,10 +5,10 @@ Healer::Healer()
 	this->type = Type_Enemy::HEALER;
 	this->loadTexture("assets/towerDefense_tile245.png");
 	this->attackDmg = 5;
-	this->initMS = 1.5f;
+	this->initMS = 1.2f;
 	this->moveSpeed = initMS;
-	this->loot = 5;
-	this->health.maxLife = 50;
+	this->loot = 10;
+	this->health.maxLife = 40;
 	this->health.life = this->health.maxLife;
 }
 
@@ -19,8 +19,8 @@ Knight::Knight()
 	this->attackDmg = 50;
 	this->initMS = 0.7f;
 	this->moveSpeed = initMS;
-	this->loot = 30;
-	this->health.maxLife = 300;
+	this->loot = 20;
+	this->health.maxLife = 100;
 	this->health.life = this->health.maxLife;
 }
 
@@ -31,7 +31,7 @@ Soldier::Soldier()
 	this->attackDmg = 20;
 	this->initMS = 1.f;
 	this->moveSpeed = initMS;
-	this->loot = 10;
-	this->health.maxLife = 125;
+	this->loot = 5;
+	this->health.maxLife = 30;
 	this->health.life = this->health.maxLife;
 }
