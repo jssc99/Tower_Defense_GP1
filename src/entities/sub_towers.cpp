@@ -7,6 +7,7 @@ Basic::Basic()
 	this->type = Type_Tower::BASIC;
 	this->loadTexture("assets/towerDefense_tile181.png");
 	this->turret.sprite = ImGuiUtils::LoadTexture("assets/towerDefense_tile228.png");
+	this->turret.projectile.loadTexture("assets/towerDefense_tile273.png");
 	this->price = 20;
 	this->setAttackStats(100.f, 2.f, 10);
 }
@@ -28,6 +29,7 @@ Quick::Quick()
 	this->type = Type_Tower::QUICK;
 	this->loadTexture("assets/towerDefense_tile183.png");
 	this->turret.sprite = ImGuiUtils::LoadTexture("assets/towerDefense_tile229.png");
+	this->turret.projectile.loadTexture("assets/towerDefense_tile272.png");
 	this->price = 15;
 	this->setAttackStats(150.f, 0.5f, 1);
 }
@@ -88,6 +90,7 @@ Explosive::Explosive()
 	this->type = Type_Tower::EXPLOSIVE;
 	this->loadTexture("assets/towerDefense_tile180.png");
 	this->turret.sprite = ImGuiUtils::LoadTexture("assets/towerDefense_tile227.png");
+	this->turret.projectile.loadTexture("assets/towerDefense_tile274.png");
 	this->price = 40;
 	this->setAttackStats(130.f, 4.f, 30);
 }

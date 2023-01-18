@@ -27,7 +27,6 @@ void Game::loadLvl(int lvl)
 {
 	this->mCurrentLevelId = lvl - 1;
 	this->castle = new Castle;
-	this->castle->health.posCenter = CASTLE_LIFE_POS;
 	this->grid.loadGrid(this->lvl[(lvl - 1)].seed);
 	this->grid.loadCheckpoints(this->lvl[(lvl - 1)].checkpointList, this->lvl[(lvl - 1)].nbCheckpoints, this->castle);
 	//this->grid.makePathLookGood();
@@ -84,7 +83,7 @@ void Game::update()
 		this->updateTowers();
 		if (this->castle->isDead())
 			this->menu.menu = Type_Menu::LOSE;
-		if (0/*win contition TODO*/)
+		if (this->wave == 11) // TODO win contition
 			this->menu.menu = Type_Menu::VICTORY;
 	}
 }

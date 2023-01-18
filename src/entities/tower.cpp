@@ -13,6 +13,7 @@ Tower::~Tower()
 	if (this->hasTexture) {
 		this->unloadTexture();
 		ImGuiUtils::UnloadTexture(this->turret.sprite);
+		this->turret.projectile.unloadTexture();
 	}
 }
 
@@ -53,7 +54,7 @@ void Tower::update(Enemy** en, int nbEnemies, int *money)
 			this->getTarget(en, nbEnemies);
 		if (this->current_target != nullptr) {
 			this->attackTarget();
-			this->turret.angle = atan2f(this->pos.y, this->current_target->pos.y); // TODO
+			this->turret.angle = atan2f(this->current_target->pos.y - this->pos.y, this->current_target->pos.x - this->pos.x) + calc::PI / 2.f;
 		}
 		else this->turret.angle = 0.f;
 		if (this->isMouseOverTower() && ImGui::IsMouseDoubleClicked(ImGuiMouseButton_Left))

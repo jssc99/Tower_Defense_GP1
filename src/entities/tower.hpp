@@ -19,6 +19,7 @@ struct Turret
 {
 	float angle = 0.f;
 	Texture sprite;
+	Projectile projectile;
 };
 
 class Tower : public Entity
@@ -29,7 +30,6 @@ public:
 	Turret turret;
 	Type_Tower type;
 	Enemy* current_target = nullptr;
-	//Projectile projectile; //not used for now
 
 	Tower();
 	~Tower();

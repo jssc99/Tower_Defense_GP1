@@ -11,8 +11,6 @@
 #define MAIN_BUT_EXIT_TOP { H_WIDTH - 100, HEIGHT - 260 }
 #define MAIN_BUT_EXIT_BOT { H_WIDTH + 100, HEIGHT - 215 }
 
-#define CASTLE_LIFE_POS { H_WIDTH + 180, HEIGHT /*- 30 + 30*/ } // (+30, off center health bar)
-
 enum class Type_Menu : char
 {
 	NONE = 'n',
