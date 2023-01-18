@@ -136,7 +136,7 @@
       <Filter>src\entities</Filter>
     </ClInclude>
     <ClInclude Include="src\health.hpp">
-      <Filter>src</Filter>
+      <Filter>src\entities</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -149,15 +149,8 @@
     <ClInclude Include="src\entities\square.hpp" />
     <ClInclude Include="src\entities\tower.hpp" />
     <ClInclude Include="src\types.hpp" />
-    <ClInclude Include="src\entities\towers\basic_tower.hpp" />
-    <ClInclude Include="src\entities\towers\explosive_tower.hpp" />
-    <ClInclude Include="src\entities\towers\quick_tower.hpp" />
-    <ClInclude Include="src\entities\towers\slow_tower.hpp" />
     <ClInclude Include="src\game.hpp" />
     <ClInclude Include="src\entities\projectile.hpp" />
-    <ClInclude Include="src\entities\enemies\healer.hpp" />
-    <ClInclude Include="src\entities\enemies\knight.hpp" />
-    <ClInclude Include="src\entities\enemies\soldier.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Font Include="assets\EvilEmpire-4BBVK.ttf">
