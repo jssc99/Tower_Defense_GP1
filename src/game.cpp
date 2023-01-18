@@ -111,7 +111,7 @@ void Game::updateInGame()
 	this->updateTowers();
 	if (this->castle->isDead())
 		this->menu.menu = Type_Menu::LOSE;
-	if (this->wave == 11) // TODO win contition
+	if (this->wave == this->lvl[this->mCurrentLevelId].nbWaves)
 		this->menu.menu = Type_Menu::VICTORY;
 	if ((this->mWaveCooldown += ImGui::GetIO().DeltaTime) >= 10.f)
 		this->updateWave();

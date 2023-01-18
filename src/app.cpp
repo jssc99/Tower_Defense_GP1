@@ -107,8 +107,6 @@ void App::Update()
 		ImGui::Begin("Tower");
 		ImGui::Checkbox("Draw Grid", &this->debug);
 		ImGui::Text("mouse: %.0f, %.0f", ImGui::GetMousePos().x, ImGui::GetMousePos().y);
-		ImGui::Text("wave advance %d", G.mWaveAdvancement);
-		ImGui::Text("wave cooldown %0.2f", G.mWaveCooldown);
 		if (ImGui::Button("$$$ + 20")) G.money += 20;
 		if (ImGui::Button("$$$ - 20"))  G.money -= 20;
 		if (ImGui::Button("unload lvl")) {
