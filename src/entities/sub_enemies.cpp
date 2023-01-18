@@ -12,8 +12,6 @@ Healer::Healer()
 	this->health.life = this->health.maxLife;
 }
 
-
-
 Knight::Knight()
 {
 	this->type = Type_Enemy::KNIGHT;
@@ -25,8 +23,6 @@ Knight::Knight()
 	this->health.maxLife = 300;
 	this->health.life = this->health.maxLife;
 }
-
-
 
 Soldier::Soldier()
 {

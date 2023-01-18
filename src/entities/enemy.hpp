@@ -27,12 +27,12 @@ public:
 	Enemy();
 	~Enemy();
 
-	void update(Checkpoint* listCheckpoint, int nbCheckpoint, Castle* castle);
+	void update(const Checkpoint* listCheckpoint, int nbCheckpoint, Castle* castle);
 	void spawn(float2 spawnPoint);
 	void draw() override;
-	bool isDead();
+	bool isDead() const;
 	void getDamage(int damage);
 
 private:
-	void move(Checkpoint* listCheckpoint, int nbCheckpoint);
+	void move(const Checkpoint* listCheckpoint, int nbCheckpoint);
 };

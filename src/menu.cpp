@@ -83,9 +83,9 @@ int Menu::update()
 			this->menu = Type_Menu::PAUSE;
 		break;
 	case Type_Menu::PAUSE:
-		if (this->isButtonPressed(MAIN_BUT_ONE_TOP, MAIN_BUT_ONE_BOT) || ImGui::IsKeyPressed(ImGuiKey_Space, false)) 
+		if (this->isButtonPressed(MAIN_BUT_ONE_TOP, MAIN_BUT_ONE_BOT) || ImGui::IsKeyPressed(ImGuiKey_Space, false))
 			this->menu = Type_Menu::IN_GAME;
-		if (this->isButtonPressed(MAIN_BUT_EXIT_TOP, MAIN_BUT_EXIT_BOT) || ImGui::IsKeyPressed(ImGuiKey_Escape, false)){
+		if (this->isButtonPressed(MAIN_BUT_EXIT_TOP, MAIN_BUT_EXIT_BOT) || ImGui::IsKeyPressed(ImGuiKey_Escape, false)) {
 			this->menu = Type_Menu::LOADING;
 			return 3;
 		}

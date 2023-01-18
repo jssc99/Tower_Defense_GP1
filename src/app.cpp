@@ -37,7 +37,6 @@ App::App()
 		G.lvl[0].checkpointList[id++] = { id + 1, { 4,31 }, LEFT };
 		G.lvl[0].checkpointList[id++] = { id + 1, { 4,21 }, STOP };
 		G.lvl[0].nbCheckpoints = id;
-
 	}
 	{ // level 2
 		G.lvl[1].id = 2;
@@ -84,13 +83,7 @@ void App::Update()
 		ImGui::Checkbox("Draw Grid", &this->debug);
 		ImGui::Text("mouse: %.0f, %.0f", ImGui::GetMousePos().x, ImGui::GetMousePos().y);
 		if (ImGui::Button("$$$ + 20")) G.money += 20;
-		if (ImGui::Button("$$$ - 20"))  G.money -= 20;/*
-		for (int i = 0; i < MAX_NB_TOWERS; i++)
-			if (G.towers[i]) {
-				char name[20] = "";
-				sprintf(name, "angle tower #%d", i);
-				ImGui::SliderAngle(name, &G.towers[i]->turret.angle, 0.f, 360.f);
-			}*/
+		if (ImGui::Button("$$$ - 20"))  G.money -= 20;
 		if (ImGui::Button("unload lvl")) {
 			G.unloadLvl();
 			G.menu.load(Type_Menu::MAIN);
@@ -111,11 +104,7 @@ void App::Update()
 	G.draw();
 	G.enSpwTimer += ImGui::GetIO().DeltaTime;
 	if (G.enSpwTimer > 300 * ImGui::GetIO().DeltaTime)
-	{
-		G.enSpwTimer = 0.f;
 		G.spawnEnemy(Type_Enemy::HEALER);
-		//TODO: spawn enemies
-	}
 	if (this->debug) G.drawDebug();
 	this->closeApp = G.closeGame;
 }

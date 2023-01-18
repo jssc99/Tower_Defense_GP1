@@ -94,7 +94,7 @@ void Game::draw()
 	if (this->menu.menu == Type_Menu::IN_GAME || this->menu.menu == Type_Menu::PAUSE) {
 		this->drawTowers();
 		this->drawEnemies();
-		this->menu.draw(this->mCurrentLevelId + 1, this->wave, this->money, this->towerPlaced); 
+		this->menu.draw(this->mCurrentLevelId + 1, this->wave, this->money, this->towerPlaced);
 	}
 	if (this->menu.menu == Type_Menu::IN_GAME)
 		this->castle->health.draw();
@@ -129,7 +129,7 @@ void Game::updateTowers()
 void Game::drawEnemies() const
 {
 	for (int i = 0; i < MAX_NB_ENEMIES; i++)
-		if (this->enemies[i]) 
+		if (this->enemies[i])
 			this->enemies[i]->draw();
 }
 
@@ -192,6 +192,7 @@ void Game::spawnEnemy(Type_Enemy type)
 			break;
 		}
 		this->enemies[id]->spawn(this->grid.getSpawnPoint());
+		this->enSpwTimer = 0.f;
 	}
 }
 

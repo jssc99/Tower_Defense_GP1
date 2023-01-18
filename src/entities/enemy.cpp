@@ -1,7 +1,5 @@
-
 #include "enemy.hpp"
 #include "../calc.hpp"
-
 
 Enemy::Enemy()
 {
@@ -14,12 +12,12 @@ Enemy::~Enemy()
 	this->unloadTexture();
 }
 
-void Enemy::update(Checkpoint* listCheckpoint, int nbCheckpoint, Castle* castle)
+void Enemy::update(const Checkpoint* listCheckpoint, int nbCheckpoint, Castle* castle)
 {
-	if (this->checkId -1 != nbCheckpoint)
+	if (this->checkId - 1 != nbCheckpoint)
 		this->move(listCheckpoint, nbCheckpoint);
 	else
-		if(castle->health.life - this->attackDmg >= 0)
+		if (castle->health.life - this->attackDmg >= 0)
 			castle->health.life -= this->attackDmg;
 	this->health.posCenter = this->pos;
 	this->moveSpeed = initMS;
@@ -28,7 +26,7 @@ void Enemy::update(Checkpoint* listCheckpoint, int nbCheckpoint, Castle* castle)
 void Enemy::draw()
 {
 	ImDrawList* bgDrawlist = ImGui::GetBackgroundDrawList();
-	ImGuiUtils::DrawTextureEx(*bgDrawlist, this->sprite, this->pos, { 0.5f,0.5f }, this->angle); 
+	ImGuiUtils::DrawTextureEx(*bgDrawlist, this->sprite, this->pos, { 0.5f,0.5f }, this->angle);
 	this->health.draw();
 }
 
@@ -37,7 +35,7 @@ void Enemy::spawn(float2 spawnPoint)
 	this->pos = spawnPoint;
 }
 
-void Enemy::move(Checkpoint* listCheckpoint, int nbCheckpoint)
+void Enemy::move(const Checkpoint* listCheckpoint, int nbCheckpoint)
 {
 	//checkpoints change direction
 	for (int i = 0; i < nbCheckpoint; ++i)
@@ -55,21 +53,21 @@ void Enemy::move(Checkpoint* listCheckpoint, int nbCheckpoint)
 			}
 			else
 				this->pos += this->direction * this->moveSpeed;
-			//changes enemy see direction 
+			//changes enemy see direction
 			// TODO change to switch
 			if (this->direction == LEFT)
 				this->angle = calc::PI;
 			else if (this->direction == RIGHT)
 				this->angle = 0.f;
 			else if (this->direction == UP)
-				this->angle = -calc::PI/2;
+				this->angle = -calc::PI / 2;
 			else if (this->direction == DOWN)
-				this->angle = calc::PI/2;
+				this->angle = calc::PI / 2;
 		}
 	}
 }
 
-bool Enemy::isDead()
+bool Enemy::isDead() const
 {
 	return this->health.life <= 0;
 }

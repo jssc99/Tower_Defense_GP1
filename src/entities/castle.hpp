@@ -17,5 +17,5 @@ public:
 	};
 	inline ~Castle() {};
 
-	inline bool isDead() { return this->health.life <= 0; };
+	inline bool isDead() const { return this->health.life <= 0; };
 };

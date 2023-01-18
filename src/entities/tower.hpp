@@ -42,7 +42,7 @@ public:
 	void update(Enemy** en, int nbEnemies, int* money);
 	void draw(bool drawRadius = true);
 
-	virtual void upgrade(int *money) {};
+	virtual void upgrade(int* money) { /*used by subclasses*/ };
 
 	bool isMouseOverTower() const;
 

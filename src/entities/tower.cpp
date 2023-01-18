@@ -47,7 +47,7 @@ void Tower::upgradeAttackStats(float attackRadius, float attackSpeed, int attack
 	this->mAttackDmg += attackDmg;
 }
 
-void Tower::update(Enemy** en, int nbEnemies, int *money)
+void Tower::update(Enemy** en, int nbEnemies, int* money)
 {
 	if (nbEnemies) {
 		if (this->current_target == nullptr || this->current_target->isDead() || !(this->isEnemyInsideRange(this->current_target)))

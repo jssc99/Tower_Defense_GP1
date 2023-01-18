@@ -17,7 +17,7 @@ const char* Basic::getTypeName() const
 	return "Basic";
 }
 
-void Basic::upgrade(int *money)
+void Basic::upgrade(int* money)
 {
 	if (*money - UPGRADE_COST >= 0) { this->upgradeAttackStats(5.f, -0.1f, 1); *money -= UPGRADE_COST; }
 }

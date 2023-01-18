@@ -16,7 +16,7 @@ public:
 
 	void loadGrid(std::string seed);
 	void unloadGrid();
-	void loadCheckpoints(Checkpoint* checkpointList, int nbCheckpoint, Castle* castle);
+	void loadCheckpoints(const Checkpoint* checkpointList, int nbCheckpoint, Castle* castle);
 	void makePathLookGood();
 
 	void draw();
