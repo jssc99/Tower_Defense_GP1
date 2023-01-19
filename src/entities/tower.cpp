@@ -4,14 +4,14 @@
 
 Tower::Tower()
 {
-	this->type = Type_Tower::NONE;
+	this->mType = Type_Tower::NONE;
 }
 
 Tower::~Tower()
 {
 	this->unloadTexture();
-	ImGuiUtils::UnloadTexture(this->turret.sprite);
-	this->turret.projectile.unloadTexture();
+	ImGuiUtils::UnloadTexture(this->mTurret.sprite);
+	this->mTurret.projectile.unloadTexture();
 }
 
 void Tower::setPos(float2 pos)
@@ -27,6 +27,16 @@ void Tower::setPos(float x, float y)
 const char* Tower::getTypeName() const
 {
 	return "None";
+}
+
+Type_Tower Tower::getType() const
+{
+	return this->mType;
+}
+
+int Tower::getPrice() const
+{
+	return this->mPrice;
 }
 
 void Tower::setAttackStats(float attackRadius, float attackSpeed, int attackDmg)
@@ -48,13 +58,13 @@ void Tower::upgradeAttackStats(float attackRadius, float attackSpeed, int attack
 void Tower::update(Enemy** en, int nbEnemies, int* money, float gameSpeed)
 {
 	if (nbEnemies) {
-		if (this->current_target == nullptr || this->current_target->isDead() || !(this->isEnemyInsideRange(this->current_target)))
+		if (this->mCurrentTarget == nullptr || this->mCurrentTarget->isDead() || !(this->isEnemyInsideRange(this->mCurrentTarget)))
 			this->getTarget(en, nbEnemies);
-		if (this->current_target != nullptr) {
+		if (this->mCurrentTarget != nullptr) {
 			this->attackTarget(gameSpeed);
-			this->turret.angle = atan2f(this->current_target->pos.y - this->pos.y, this->current_target->pos.x - this->pos.x) + calc::PI / 2.f;
+			this->mTurret.angle = atan2f(this->mCurrentTarget->pos.y - this->pos.y, this->mCurrentTarget->pos.x - this->pos.x) + calc::PI / 2.f;
 		}
-		else this->turret.angle = 0.f;
+		else this->mTurret.angle = 0.f;
 		if (this->isMouseOverTower() && ImGui::IsMouseDoubleClicked(ImGuiMouseButton_Left))
 			this->upgrade(money);
 	}
@@ -66,12 +76,12 @@ void Tower::draw(bool drawRadius)
 	if (drawRadius && this->isMouseOverTower())
 		bgDrawList->AddCircle(this->pos, this->mAttackRadius, SHY_LIGHT_BLUE, 0, 2.f);
 	ImGuiUtils::DrawTextureEx(*bgDrawList, this->sprite, this->pos, { 0.5f,0.5f });
-	ImGuiUtils::DrawTextureEx(*bgDrawList, this->turret.sprite, this->pos, { 0.4f,0.4f }, this->turret.angle);
+	ImGuiUtils::DrawTextureEx(*bgDrawList, this->mTurret.sprite, this->pos, { 0.4f,0.4f }, this->mTurret.angle);
 }
 
-bool Tower::isEnemyInsideRange(Enemy const* en) const// SS collision
+bool Tower::isEnemyInsideRange(Enemy* en) const// SS collision
 {
-	return (pow(en->pos.x - this->pos.x, 2.f) + pow(en->pos.y - this->pos.y, 2.f) < pow(en->size + this->mAttackRadius, 2.f));
+	return (pow(en->pos.x - this->pos.x, 2.f) + pow(en->pos.y - this->pos.y, 2.f) < pow(en->getSize() + this->mAttackRadius, 2.f));
 }
 
 bool Tower::isMouseOverTower() const
@@ -84,19 +94,27 @@ bool Tower::isMouseOverTower() const
 		return false;
 }
 
+bool Tower::hasTarget() const
+{
+	if (this->mCurrentTarget)
+		return true;
+	else
+		return false;
+}
+
 void Tower::drawTarget()
 {
-	ImGui::GetForegroundDrawList()->AddCircle(this->current_target->pos, 10, VIOLET, 0, 5.f);
+	ImGui::GetForegroundDrawList()->AddCircle(this->mCurrentTarget->pos, 10, VIOLET, 0, 5.f);
 }
 
 void Tower::getTarget(Enemy** en, int nbEnemies)
 {
 	for (int i = 0; i < nbEnemies; i++) {
 		if (en[i] && this->isEnemyInsideRange(en[i])) {
-			this->current_target = en[i];
+			this->mCurrentTarget = en[i];
 			break;
 		}
-		else this->current_target = nullptr;
+		else this->mCurrentTarget = nullptr;
 	}
 }
 
@@ -111,5 +129,5 @@ void Tower::attackTarget(float gameSpeed)
 
 void Tower::attack()
 {
-	this->current_target->getDamage(this->mAttackDmg);
+	this->mCurrentTarget->getDamage(this->mAttackDmg);
 }

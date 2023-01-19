@@ -7,15 +7,11 @@
 class Grid
 {
 public:
-	Square squares[NB_SQUARES_ROW][NB_SQUARES_COL];
-	Checkpoint checkpoints[MAX_NB_CHECKPOINTS];
-
 	Grid();
-	~Grid() {};
+	inline ~Grid() {};
 
 	void loadGrid(std::string seed);
 	void loadCheckpoints(const Checkpoint* checkpointList, int nbCheckpoint, Castle* castle);
-
 	void unloadGrid();
 
 	void draw();
@@ -23,13 +19,17 @@ public:
 	void drawCheckpoints();
 
 	int getNbCheckpoints() const;
+	Checkpoint* getCheckpoints();
 	float2 getSpawnPoint();
 	Square* getSquare(float2 point);
-	Square* getSquareXY(float2 XY);
+	Square* getSquareXY(int x, int y);
 
 private:
+	Square mSquares[NB_SQUARES_ROW][NB_SQUARES_COL];
+	Checkpoint mCheckpoints[MAX_NB_CHECKPOINTS];
+
 	float2 mSpawnPoint = STOP;
-	int nNbCheckpoints = 0;
+	int mNbCheckpoints = 0;
 
 	void makePathLookGood();
 };

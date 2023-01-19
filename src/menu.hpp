@@ -23,7 +23,7 @@ enum class Type_Menu : char
 	//QUIT = 'q'
 };
 
-struct purchaseMenu
+struct PurchaseMenu
 {
 	Tower* tow[4];
 	Tower selection;
@@ -33,16 +33,15 @@ struct purchaseMenu
 class Menu
 {
 public:
-	ImFont* font;
-	purchaseMenu purchaseMenu;
-
 	Menu();
 	~Menu();
 
 	void setMenu(Type_Menu menu);
 	Type_Menu getMenu() const;
 
-	void loadPurchaseMenu(const Grid* g);
+	Tower* getSelection();
+
+	void loadPurchaseMenu(Grid* g);
 	void goToLoadingScreen();
 
 	bool isButtonPressed(const float2 x, const float2 y) const;
@@ -52,6 +51,8 @@ public:
 
 private:
 	Type_Menu mMenu = Type_Menu::NONE;
+	PurchaseMenu mPurchaseMenu;
+	ImFont* mFont;
 
 	int updateMain();
 	int updateInGame();

@@ -2,7 +2,7 @@
 
 #include "menu.hpp"
 
-struct level
+struct Level
 {
 	int id = 0;
 	std::string seed;
@@ -15,13 +15,7 @@ struct level
 class Game
 {
 public:
-	Menu menu;
-	Grid grid;
-	Tower* towers[MAX_NB_TOWERS];
-	Enemy* enemies[MAX_NB_ENEMIES];
-	Castle* castle = nullptr;
-
-	level lvl[NB_LEVELS];
+	Level lvl[NB_LEVELS];
 
 	bool closeGame = false;
 
@@ -40,6 +34,12 @@ public:
 	void spawnEnemy(Type_Enemy type);	// should be private but is usefull for debug
 
 private:
+	Menu mMenu;
+	Grid mGrid;
+	Tower* mTowers[MAX_NB_TOWERS];
+	Enemy* mEnemies[MAX_NB_ENEMIES];
+	Castle* mCastle = nullptr;
+
 	int mWaveAdvancement = 0;
 	float mWaveCooldown = 0;
 	float mEnemySpawnTimer = 0.f;
@@ -50,7 +50,6 @@ private:
 	int mMoney = 0;
 	int mWave = 0;
 	int mTowerPlaced = 0;
-	int mEnemiesAlive = 0;
 
 	void updateInGame();
 	void updateWave();

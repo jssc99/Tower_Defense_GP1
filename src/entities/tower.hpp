@@ -24,12 +24,6 @@ struct Turret
 class Tower : public Entity
 {
 public:
-	int price = 0;
-
-	Turret turret;
-	Type_Tower type;
-	Enemy* current_target = nullptr;
-
 	Tower();
 	~Tower();
 
@@ -37,31 +31,37 @@ public:
 	void setPos(float x, float y);
 
 	virtual const char* getTypeName() const;
+	Type_Tower getType() const;
+	int getPrice() const;
 
 	void update(Enemy** en, int nbEnemies, int* money, float gameSpeed);
 	void draw(bool drawRadius = true);
-
-	bool isMouseOverTower() const;
-
-	// debug drawing function
 	void drawTarget();
 
-protected:
-	int mUpgradeLvl = 0;
+	bool isMouseOverTower() const;
+	bool hasTarget() const;
 
+protected:	
+	Turret mTurret;
+	Type_Tower mType;
+	Enemy* mCurrentTarget = nullptr;
+
+	int mUpgradeLvl = 0;
+	int mPrice = 0;
+
+	virtual void attack();
 	void setAttackStats(float attackRadius, float attackSpeed, int attackDmg);
 	void upgradeAttackStats(float attackRadius, float attackSpeed, int attackDmg);
-	virtual void attack();
 
 	virtual void upgrade(int* money) { /*used by subclasses*/ };
 
 private:
-	float mAttackRadius = 0.f;
-	float mAttackSpeed = 0.f;
-	float mAttackCooldown = 0.f;
 	int mAttackDmg = 0;
+	float mAttackSpeed = 0.f;
+	float mAttackRadius = 0.f;
+	float mAttackCooldown = 0.f;
 
-	bool isEnemyInsideRange(Enemy const* en) const;
+	bool isEnemyInsideRange(Enemy* en) const;
 	void getTarget(Enemy** en, int nbEnemies);
 	void attackTarget(float gameSpeed);
 };

@@ -4,11 +4,11 @@
 
 Basic::Basic()
 {
-	this->type = Type_Tower::BASIC;
+	this->mType = Type_Tower::BASIC;
 	this->loadTexture("assets/towerDefense_tile181.png");
-	this->turret.sprite = ImGuiUtils::LoadTexture("assets/towerDefense_tile228.png");
-	this->turret.projectile.loadTexture("assets/towerDefense_tile273.png");
-	this->price = 20;
+	this->mTurret.sprite = ImGuiUtils::LoadTexture("assets/towerDefense_tile228.png");
+	this->mTurret.projectile.loadTexture("assets/towerDefense_tile273.png");
+	this->mPrice = 20;
 	this->setAttackStats(100.f, 2.f, 10);
 }
 
@@ -26,11 +26,11 @@ void Basic::upgrade(int* money)
 
 Quick::Quick()
 {
-	this->type = Type_Tower::QUICK;
+	this->mType = Type_Tower::QUICK;
 	this->loadTexture("assets/towerDefense_tile183.png");
-	this->turret.sprite = ImGuiUtils::LoadTexture("assets/towerDefense_tile229.png");
-	this->turret.projectile.loadTexture("assets/towerDefense_tile272.png");
-	this->price = 15;
+	this->mTurret.sprite = ImGuiUtils::LoadTexture("assets/towerDefense_tile229.png");
+	this->mTurret.projectile.loadTexture("assets/towerDefense_tile272.png");
+	this->mPrice = 15;
 	this->setAttackStats(150.f, 0.5f, 1);
 }
 
@@ -48,10 +48,10 @@ void Quick::upgrade(int* money)
 
 Slow::Slow()
 {
-	this->type = Type_Tower::SLOW;
+	this->mType = Type_Tower::SLOW;
 	this->loadTexture("assets/towerDefense_tile182.png");
-	this->turret.sprite = ImGuiUtils::LoadTexture("assets/towerDefense_tile203.png");
-	this->price = 30;
+	this->mTurret.sprite = ImGuiUtils::LoadTexture("assets/towerDefense_tile203.png");
+	this->mPrice = 30;
 	this->setAttackStats(50.f, 0.f, 0);
 }
 
@@ -67,18 +67,18 @@ void Slow::upgrade(int* money)
 
 void Slow::attack()
 {
-	this->current_target->moveSpeed = this->current_target->initMS / 2;
+	this->mCurrentTarget->setMoveSpeed(0.5);
 }
 
 // EXPLOSIVE
 
 Explosive::Explosive()
 {
-	this->type = Type_Tower::EXPLOSIVE;
+	this->mType = Type_Tower::EXPLOSIVE;
 	this->loadTexture("assets/towerDefense_tile180.png");
-	this->turret.sprite = ImGuiUtils::LoadTexture("assets/towerDefense_tile227.png");
-	this->turret.projectile.loadTexture("assets/towerDefense_tile274.png");
-	this->price = 40;
+	this->mTurret.sprite = ImGuiUtils::LoadTexture("assets/towerDefense_tile227.png");
+	this->mTurret.projectile.loadTexture("assets/towerDefense_tile274.png");
+	this->mPrice = 40;
 	this->setAttackStats(130.f, 4.f, 30);
 }
 
