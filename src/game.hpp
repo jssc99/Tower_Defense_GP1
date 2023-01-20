@@ -19,8 +19,6 @@ public:
 
 	bool closeGame = false;
 
-	float gameSpeed = 1.f;
-
 	Game();
 	~Game();
 
