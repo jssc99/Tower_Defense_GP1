@@ -2,55 +2,54 @@
 
 #include "menu.hpp"
 
-struct level
+struct Level
 {
 	int id = 0;
 	std::string seed;
 	int nbCheckpoints = 0;
 	Checkpoint checkpointList[MAX_NB_CHECKPOINTS];
 	int nbWaves = 0;
-	std::string wave[100];
+	std::string wave[MAX_NB_WAVES];
 };
 
 class Game
 {
 public:
-	Menu menu;
-	Grid grid;
-	Tower* towers[MAX_NB_TOWERS];
-	Enemy* enemies[MAX_NB_ENEMIES];
-	Castle* castle = nullptr;
-
-	float gameAccelerator = 1.f;
-	float enSpawnTimer = 0.f;
-
-	level lvl[NB_LEVELS];
-	int money = 0;
-	int wave = 0;
-	int towerPlaced = 0;
+	Level lvl[NB_LEVELS];
 
 	bool closeGame = false;
 
 	Game();
 	~Game();
 
-	void loadLvl(int lvl);
+	void launchLvl(int lvl);
 	void unloadLvl();
 
 	void update();
-
 	void draw();
+
+	//debug functions
 	void drawDebug();
-
-	int getFreeEnemySpotId() const;
-	int getFreeTowerSpotId() const;
-
-	void spawnEnemy(Type_Enemy type);
+	void addMoney(int m);				// useless outside of debug
+	void spawnEnemy(Type_Enemy type);	// should be private but is usefull for debug
 
 private:
-	int mCurrentLevelId = 0;
+	Menu mMenu;
+	Grid mGrid;
+	Tower* mTowers[MAX_NB_TOWERS];
+	Enemy* mEnemies[MAX_NB_ENEMIES];
+	Castle* mCastle = nullptr;
+
 	int mWaveAdvancement = 0;
 	float mWaveCooldown = 0;
+	float mEnemySpawnTimer = 0.f;
+
+	int mCurrentLevelId = 0;
+	float mGameSpeed = 1.f;
+
+	int mMoney = 0;
+	int mWave = 0;
+	int mTowerPlaced = 0;
 
 	void updateInGame();
 	void updateWave();
@@ -60,7 +59,9 @@ private:
 	void drawEnemies() const;
 	void drawTowers() const;
 
-	bool isWaveDead();
+	int getFreeEnemySpotId() const;
+	int getFreeTowerSpotId() const;
 
+	bool isWaveDead() const;
 	void placeTower(Square* s);
 };

@@ -39,15 +39,15 @@ App::App()
 		G.lvl[0].nbCheckpoints = id;
 		int waves = 0;
 		G.lvl[0].wave[waves++] = "sssssssssssssssssske";
-		G.lvl[0].wave[waves++] = "sssskksssssssskksssske";
-		G.lvl[0].wave[waves++] = "sssskkhssssssskkhssssske";
-		G.lvl[0].wave[waves++] = "sssskkkkhssssskkkkhsssske";
-		G.lvl[0].wave[waves++] = "ssskkkkkkhssshkkkkhssssske";
-		G.lvl[0].wave[waves++] = "ssskkkkkkhssshkkkkhsssssske";
-		G.lvl[0].wave[waves++] = "ssskkkkkkhssshkkkkkkhssssske";
-		G.lvl[0].wave[waves++] = "ssskkkkkkkhssshkkkkkkhssssske";
-		G.lvl[0].wave[waves++] = "ssshkkkkkkhssshhhkkkkkhssssske";
-		G.lvl[0].wave[waves++] = "ssshhkkkkkkhssshhhkkkkhsssssske";
+		G.lvl[0].wave[waves++] = "sssskksssssssskkssssk";
+		G.lvl[0].wave[waves++] = "sssskkhssssssskkhsssssk";
+		G.lvl[0].wave[waves++] = "sssskkkkhssssskkkkhssssk";
+		G.lvl[0].wave[waves++] = "ssskkkkkkhssshkkkkhsssssk";
+		G.lvl[0].wave[waves++] = "ssskkkkkkhssshkkkkhssssssk";
+		G.lvl[0].wave[waves++] = "ssskkkkkkhssshkkkkkkhsssssk";
+		G.lvl[0].wave[waves++] = "ssskkkkkkkhssshkkkkkkhsssssk";
+		G.lvl[0].wave[waves++] = "ssshkkkkkkhssshhhkkkkkhsssssk";
+		G.lvl[0].wave[waves++] = "ssshhkkkkkkhssshhhkkkkhssssssk";
 		G.lvl[0].nbWaves = waves;
 	}
 	{ // level 2
@@ -83,15 +83,15 @@ App::App()
 		G.lvl[1].nbCheckpoints = id;
 		int waves = 0;
 		G.lvl[1].wave[waves++] = "ssssssssssssssssssk";
-		G.lvl[1].wave[waves++] = "sssskksssssssskksssske";
-		G.lvl[1].wave[waves++] = "sssskkhssssssskkhssssske";
-		G.lvl[1].wave[waves++] = "sssskkkkhssssskkkkhsssske";
-		G.lvl[1].wave[waves++] = "ssskkkkkkhssshkkkkhssssske";
-		G.lvl[1].wave[waves++] = "ssskkkkkkhssshkkkkhsssssske";
-		G.lvl[1].wave[waves++] = "ssskkkkkkhssshkkkkkkhssssske";
-		G.lvl[1].wave[waves++] = "ssskkkkkkkhssshkkkkkkhssssske";
-		G.lvl[1].wave[waves++] = "ssshkkkkkkhssshhhkkkkkhssssske";
-		G.lvl[1].wave[waves++] = "ssshhkkkkkkhssshhhkkkkhsssssske";
+		G.lvl[1].wave[waves++] = "sssskksssssssskkssssk";
+		G.lvl[1].wave[waves++] = "sssskkhssssssskkhsssssk";
+		G.lvl[1].wave[waves++] = "sssskkkkhssssskkkkhssssk";
+		G.lvl[1].wave[waves++] = "ssskkkkkkhssshkkkkhsssssk";
+		G.lvl[1].wave[waves++] = "ssskkkkkkhssshkkkkhssssssk";
+		G.lvl[1].wave[waves++] = "ssskkkkkkhssshkkkkkkhsssssk";
+		G.lvl[1].wave[waves++] = "ssskkkkkkkhssshkkkkkkhsssssk";
+		G.lvl[1].wave[waves++] = "ssshkkkkkkhssshhhkkkkkhsssssk";
+		G.lvl[1].wave[waves++] = "ssshhkkkkkkhssshhhkkkkhssssssk";
 		G.lvl[1].nbWaves = waves;
 	}
 }
@@ -102,12 +102,16 @@ App::~App()
 
 void App::Update()
 {
+	if (ImGui::IsKeyPressed(ImGuiKey_C, false))
+		this->mDebugMenu = !this->mDebugMenu;
+
+	if (this->mDebugMenu)
 	{
 		ImGui::Begin("Tower");
-		ImGui::Checkbox("Draw Grid", &this->debug);
-		//ImGui::Text("mouse: %.0f, %.0f", ImGui::GetMousePos().x, ImGui::GetMousePos().y);
-		if (ImGui::Button("$$$ + 20")) G.money += 20;
-		if (ImGui::Button("$$$ - 20"))  G.money -= 20;
+		ImGui::Checkbox("Draw Grid", &this->mDrawDebug);
+		// ImGui::Text("mouse: %.0f, %.0f", ImGui::GetMousePos().x, ImGui::GetMousePos().y);
+		if (ImGui::Button("$$$ + 20")) G.addMoney(20);
+		if (ImGui::Button("$$$ - 20")) G.addMoney(-20);
 		if (ImGui::Button("Soldier"))
 			G.spawnEnemy(Type_Enemy::SOLDIER);
 		if (ImGui::Button("Healer"))
@@ -118,6 +122,6 @@ void App::Update()
 	}
 	G.update();
 	G.draw();
-	if (this->debug) G.drawDebug();
+	if (this->mDrawDebug) G.drawDebug();
 	this->closeApp = G.closeGame;
 }

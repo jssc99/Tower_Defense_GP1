@@ -3,7 +3,6 @@
 #include <string>
 
 #include "../entity.hpp"
-#include "checkpoint.hpp"
 
 enum class Type_Square : char
 {
@@ -18,21 +17,23 @@ enum class Type_Square : char
 class Square : public Entity
 {
 public:
-	Type_Square type;
-	Texture decor;
-
-	bool hasDecor = false;
-	bool canHaveTower = false;
-
 	Square();
 	~Square();
 
 	void setType(Type_Square type);
+	Type_Square getType();
 
 	float2 getPosCenter() const;
 
 	bool canPlaceTower() const;
+	void cantHaveTower();
 
 	void draw() override;
 	void drawPos();
+
+private:
+	Type_Square mType;
+	Texture mDecor;
+	bool mHasDecor = false;
+	bool mCanHaveTower = false;
 };

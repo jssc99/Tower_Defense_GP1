@@ -1,12 +1,13 @@
 #include "square.hpp"
+
 #include "../calc.hpp"
 
 Square::Square()
 {
-	this->type = Type_Square::NONE;
+	this->mType = Type_Square::NONE;
 	this->loadTexture("assets/towerDefense_tile015.png");
-	if ( hasDecor )
-		this->decor = ImGuiUtils::LoadTexture("assets/towerDefense_tile015.png");
+	if (this->mHasDecor)
+		this->mDecor = ImGuiUtils::LoadTexture("assets/towerDefense_tile015.png");
 }
 
 Square::~Square()
@@ -16,28 +17,28 @@ Square::~Square()
 
 void Square::setType(Type_Square type)
 {
-	this->type = type;
+	this->mType = type;
 	int randomChoice = (rand() % 40);
 	switch (type)
 	{
 	case Type_Square::NONE:
 		this->loadTexture("assets/towerDefense_tile015.png");
-		ImGuiUtils::UnloadTexture(this->decor);
-		this->hasDecor = false;
+		ImGuiUtils::UnloadTexture(this->mDecor);
+		this->mHasDecor = false;
 		break;
 	case Type_Square::BACKGROUND:
 		this->loadTexture("assets/towerDefense_tile103.png");
-		this->hasDecor = true;
+		this->mHasDecor = true;
 		if (randomChoice == 10)
-			this->decor = ImGuiUtils::LoadTexture("assets/towerDefense_tile135.png");
+			this->mDecor = ImGuiUtils::LoadTexture("assets/towerDefense_tile135.png");
 		else if (randomChoice == 20)
-			this->decor = ImGuiUtils::LoadTexture("assets/towerDefense_tile136.png");
+			this->mDecor = ImGuiUtils::LoadTexture("assets/towerDefense_tile136.png");
 		else if (randomChoice == 30)
-			this->decor = ImGuiUtils::LoadTexture("assets/towerDefense_tile137.png");
-		else this->hasDecor = false;
+			this->mDecor = ImGuiUtils::LoadTexture("assets/towerDefense_tile137.png");
+		else this->mHasDecor = false;
 		break;
 	case Type_Square::GRASS:
-		this->canHaveTower = true;
+		this->mCanHaveTower = true;
 		randomChoice /= 10;
 		if (randomChoice == 0)
 			this->loadTexture("assets/towerDefense_tile024.png");
@@ -50,17 +51,24 @@ void Square::setType(Type_Square type)
 		break;
 	case Type_Square::PATH:
 		this->loadTexture("assets/towerDefense_tile158.png");
-		//this->loadTexture("assets/towerDefense_tile060.png"); // if makePathLookGood() is finisheds
+		// this->loadTexture("assets/towerDefense_tile060.png"); // use if makePathLookGood() is ever finished
 		break;
 	case Type_Square::CASTLE:
-		this->loadTexture("assets/towerDefense_tile090.png");
+		// this->loadTexture("assets/towerDefense_tile090.png"); // for debug use, or if no castle texture
+		this->loadTexture("assets/towerDefense_tile158.png");
 		break;
 	case Type_Square::SPAWN:
-		this->loadTexture("assets/towerDefense_tile068.png");
+		// this->loadTexture("assets/towerDefense_tile068.png"); // for debug use
+		this->loadTexture("assets/towerDefense_tile158.png");
 		break;
 	default:
 		break;
 	}
+}
+
+Type_Square Square::getType()
+{
+	return this->mType;
 }
 
 float2 Square::getPosCenter() const
@@ -70,24 +78,29 @@ float2 Square::getPosCenter() const
 
 bool Square::canPlaceTower() const
 {
-	if (this->type == Type_Square::GRASS && this->canHaveTower)
+	if (this->mType == Type_Square::GRASS && this->mCanHaveTower)
 		return true;
 	else
 		return false;
 }
 
+void Square::cantHaveTower()
+{
+	this->mCanHaveTower = false;
+}
+
 void Square::draw()
 {
-	ImGuiUtils::DrawTextureEx(*ImGui::GetBackgroundDrawList(), this->sprite, this->pos + H_SQUARE_SIZE, { 0.5f,0.5f });
-	if ( hasDecor )
-		ImGuiUtils::DrawTextureEx(*ImGui::GetBackgroundDrawList(), this->decor, this->pos + H_SQUARE_SIZE, { 0.5f,0.5f });
+	ImGuiUtils::DrawTextureEx(*ImGui::GetBackgroundDrawList(), this->sprite, this->getPosCenter(), { 0.5f,0.5f });
+	if (this->mHasDecor)
+		ImGuiUtils::DrawTextureEx(*ImGui::GetBackgroundDrawList(), this->mDecor, this->getPosCenter(), { 0.5f,0.5f });
 }
 
 void Square::drawPos()
 {
-	char temp[20];
-	sprintf(temp, "%.0f", (this->pos.y / SQUARE_SIZE));
+	char temp[10];
+	sprintf(temp, "%d", (int)(this->pos.y / SQUARE_SIZE));
 	ImGui::GetBackgroundDrawList()->AddText(this->pos, WHITE, temp);
-	sprintf(temp, "%.0f", (this->pos.x / SQUARE_SIZE));
-	ImGui::GetBackgroundDrawList()->AddText(this->pos + H_SQUARE_SIZE, WHITE, temp);
+	sprintf(temp, "%d", (int)(this->pos.x / SQUARE_SIZE));
+	ImGui::GetBackgroundDrawList()->AddText(this->getPosCenter(), WHITE, temp);
 }

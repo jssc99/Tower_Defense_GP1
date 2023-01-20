@@ -6,11 +6,15 @@ class App
 {
 public:
 	Game game;
-	bool debug = false;
+
 	bool closeApp = false;
 
 	App();
 	~App();
 
 	void Update();
+
+private:
+	bool mDebugMenu = false;
+	bool mDrawDebug = false;
 };

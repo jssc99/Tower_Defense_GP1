@@ -4,41 +4,43 @@
 
 Healer::Healer()
 {
-	this->type = Type_Enemy::HEALER;
+	this->mType = Type_Enemy::HEALER;
 	this->loadTexture("assets/towerDefense_tile245.png");
-	this->attackDmg = 5;
-	this->initMS = 90.f;
-	this->moveSpeed = initMS;
-	this->loot = 10;
-	this->health.maxLife = 40;
-	this->health.life = this->health.maxLife;
-	this->radius = 100.f;
+	this->mAttackDmg = 5;
+	this->mInitMS = 90.f;
+	this->mMoveSpeed = mInitMS;
+	this->mLoot = 10;
+	this->mHealth.maxLife = 40;
+	this->mHealth.life = this->mHealth.maxLife;
+	this->mRadius = 100.f;
 }
 
 // KNIGHT
 
 Knight::Knight()
 {
-	this->type = Type_Enemy::KNIGHT;
+	this->mType = Type_Enemy::KNIGHT;
 	this->loadTexture("assets/towerDefense_tile246.png");
-	this->attackDmg = 50;
-	this->initMS = 42.f;
-	this->moveSpeed = initMS;
-	this->loot = 20;
-	this->health.maxLife = 100;
-	this->health.life = this->health.maxLife;
+	this->mAttackDmg = 50;
+	this->mInitMS = 42.f;
+	this->mMoveSpeed = mInitMS;
+	this->mLoot = 20;
+	this->mHealth.maxLife = 100;
+	this->mHealth.life = this->mHealth.maxLife;
+	this->mRadius = 5.f;
 }
 
 // SOLDIER
 
 Soldier::Soldier()
 {
-	this->type = Type_Enemy::SOLDIER;
+	this->mType = Type_Enemy::SOLDIER;
 	this->loadTexture("assets/towerDefense_tile247.png");
-	this->attackDmg = 20;
-	this->initMS = 60.f;
-	this->moveSpeed = initMS;
-	this->health.maxLife = 60;
-	this->health.life = this->health.maxLife;
-	this->loot = 5;
+	this->mAttackDmg = 20;
+	this->mInitMS = 60.f;
+	this->mMoveSpeed = mInitMS;
+	this->mLoot = 5;
+	this->mHealth.maxLife = 60;
+	this->mHealth.life = this->mHealth.maxLife;
+	this->mRadius = 5.f;
 }

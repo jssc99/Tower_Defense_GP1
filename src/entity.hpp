@@ -29,10 +29,10 @@ constexpr auto HEIGHT = 704;
 constexpr auto H_WIDTH = 640;
 constexpr auto H_HEIGHT = 352;
 
-constexpr auto SQUARE_SIZE = 32;
-constexpr auto TOWER_SIZE = 24;
-constexpr auto H_SQUARE_SIZE = 16;
-constexpr auto H_TOWER_SIZE = 12;
+constexpr auto SQUARE_SIZE = 32.f;
+constexpr auto TOWER_SIZE = 24.f;
+constexpr auto H_SQUARE_SIZE = 16.f;
+constexpr auto H_TOWER_SIZE = 12.f;
 
 constexpr auto NB_SQUARES_COL = 40;
 constexpr auto NB_SQUARES_ROW = 22;
@@ -41,17 +41,16 @@ constexpr auto NB_LEVELS = 2;
 constexpr auto MAX_NB_CHECKPOINTS = 22;
 constexpr auto MAX_NB_WAVES = 100;
 constexpr auto MAX_NB_TOWERS = 50;
-constexpr auto MAX_NB_ENEMIES = 100;
+constexpr auto MAX_NB_ENEMIES = 50;
 
-constexpr auto L_HEALTH_SIZE = 40;
-constexpr auto H_HEALTH_SIZE = 5;
+constexpr auto L_HEALTH_SIZE = 40.f;
+constexpr auto H_HEALTH_SIZE = 5.f;
 
 class Entity
 {
 public:
 	float2 pos = { 0,0 };
 	Texture sprite;
-	bool hasTexture = false;
 
 	inline Entity() { this->loadTexture("assets/towerDefense_tile298.png"); };
 	inline virtual ~Entity() { this->unloadTexture(); };
@@ -59,13 +58,18 @@ public:
 	inline virtual void draw() { ImGuiUtils::DrawTextureEx(*ImGui::GetBackgroundDrawList(), this->sprite, this->pos); };
 
 	inline void loadTexture(const char* path) {
-		if (this->hasTexture)
+		if (this->mHasTexture)
 			this->unloadTexture();
 		this->sprite = ImGuiUtils::LoadTexture(path);
-		this->hasTexture = true;
+		this->mHasTexture = true;
 	};
 	inline void unloadTexture() {
-		ImGuiUtils::UnloadTexture(this->sprite);
-		this->hasTexture = false;
+		if (this->mHasTexture) {
+			ImGuiUtils::UnloadTexture(this->sprite);
+			this->mHasTexture = false;
+		}
 	};
+
+private:
+	bool mHasTexture = false;
 };
