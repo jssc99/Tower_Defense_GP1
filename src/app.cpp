@@ -123,10 +123,7 @@ void App::Update()
 			G.spawnEnemy(Type_Enemy::KNIGHT);
 		ImGui::End();
 	}
-	if (ImGui::IsKeyPressed(ImGuiKey_RightArrow) && this->game.gameSpeed < 8)
-		this->game.gameSpeed *= 2;
-	if (ImGui::IsKeyPressed(ImGuiKey_LeftArrow) && this->game.gameSpeed > 1)
-		this->game.gameSpeed /= 2;
+	//time accelerator
 	G.update();
 	G.draw();
 	if (this->mDrawDebug) G.drawDebug();

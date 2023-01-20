@@ -25,6 +25,7 @@ public:
 	const char* getTypeName() const override;
 	void upgrade(int* money) override;
 	void attack() override;
+	void upgrade(int* money) override;
 };
 
 // Quick Tower //
