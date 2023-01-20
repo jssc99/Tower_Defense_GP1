@@ -26,7 +26,6 @@ public:
 
 	void launchLvl(int lvl);
 	void unloadLvl();
-
 	void update();
 	void draw();
 

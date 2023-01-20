@@ -27,7 +27,7 @@ Knight::Knight()
 	this->mLoot = 20;
 	this->mHealth.maxLife = 100;
 	this->mHealth.life = this->mHealth.maxLife;
-	this->mRadius = 5.f;
+	this->mRadius = 3.f;
 }
 
 // SOLDIER
@@ -42,5 +42,5 @@ Soldier::Soldier()
 	this->mLoot = 5;
 	this->mHealth.maxLife = 60;
 	this->mHealth.life = this->mHealth.maxLife;
-	this->mRadius = 5.f;
+	this->mRadius = 3.f;
 }
