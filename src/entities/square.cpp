@@ -51,13 +51,15 @@ void Square::setType(Type_Square type)
 		break;
 	case Type_Square::PATH:
 		this->loadTexture("assets/towerDefense_tile158.png");
-		//this->loadTexture("assets/towerDefense_tile060.png"); // if makePathLookGood() is finisheds
+		// this->loadTexture("assets/towerDefense_tile060.png"); // use if makePathLookGood() is ever finished
 		break;
 	case Type_Square::CASTLE:
-		this->loadTexture("assets/towerDefense_tile090.png");
+		// this->loadTexture("assets/towerDefense_tile090.png"); // for debug use, or if no castle texture
+		this->loadTexture("assets/towerDefense_tile158.png");
 		break;
 	case Type_Square::SPAWN:
-		this->loadTexture("assets/towerDefense_tile068.png");
+		// this->loadTexture("assets/towerDefense_tile068.png"); // for debug use
+		this->loadTexture("assets/towerDefense_tile158.png");
 		break;
 	default:
 		break;

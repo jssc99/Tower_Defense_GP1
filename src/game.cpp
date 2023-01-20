@@ -68,6 +68,19 @@ void Game::update()
 		this->mMenu.setMenu(Type_Menu::MAIN);
 		break;
 
+	case 6:// change game speed to 0.5
+		this->mGameSpeed = 0.5f;
+		break;
+	case 7:// change game speed to 1
+		this->mGameSpeed = 1.f;
+		break;
+	case 8:// change game speed to 2
+		this->mGameSpeed = 2.f;
+		break;
+	case 9:// change game speed to 4
+		this->mGameSpeed = 4.f;
+		break;
+
 	case 11:// load lvl 1
 		this->launchLvl(1);
 		break;
@@ -88,7 +101,7 @@ void Game::draw()
 	if (this->mMenu.getMenu() == Type_Menu::IN_GAME || this->mMenu.getMenu() == Type_Menu::PAUSE) {
 		this->drawTowers();
 		this->drawEnemies();
-		this->mMenu.draw(this->mCurrentLevelId + 1, this->mWave + 1, this->mMoney, this->mTowerPlaced);
+		this->mMenu.draw(this->mCurrentLevelId + 1, this->mWave + 1, this->mMoney, this->mTowerPlaced, this->mGameSpeed);
 	}
 	if (this->mMenu.getMenu() == Type_Menu::IN_GAME)
 		this->mCastle->health.draw(L_HEALTH_SIZE * 2, H_HEALTH_SIZE * 2);
@@ -117,13 +130,13 @@ void Game::updateInGame()
 		this->mMenu.setMenu(Type_Menu::LOSE);
 	if (this->mWave == this->lvl[this->mCurrentLevelId].nbWaves)
 		this->mMenu.setMenu(Type_Menu::VICTORY);
-	if ((this->mWaveCooldown += ImGui::GetIO().DeltaTime) >= 10.f)
+	if ((this->mWaveCooldown += ImGui::GetIO().DeltaTime * this->mGameSpeed) >= 10.f )
 		this->updateWave();
 }
 
 void Game::updateWave()
 {
-	if ((this->mEnemySpawnTimer += ImGui::GetIO().DeltaTime) >= 3.f) {
+	if ((this->mEnemySpawnTimer += ImGui::GetIO().DeltaTime * this->mGameSpeed) >= 3.f) {
 		if (!this->lvl[this->mCurrentLevelId].wave[mWave][this->mWaveAdvancement + 1] && this->isWaveDead()) {
 			this->mWave++;
 			this->mWaveAdvancement = 0;

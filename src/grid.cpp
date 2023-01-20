@@ -36,8 +36,10 @@ void Grid::loadCheckpoints(const Checkpoint* checkpointList, int nbCheckpoints, 
 	this->mNbCheckpoints = nbCheckpoints;
 	for (int i = 0; i < nbCheckpoints; i++) {
 		this->mCheckpoints[i] = checkpointList[i];
-		if (i + 1 == nbCheckpoints)
-			castle->pos = this->getSquare(checkpointList[i].pos)->pos; // useless ? TODO
+		if (i + 1 == nbCheckpoints) {
+			castle->pos = this->getSquareXY((int)checkpointList[i].pos.x, (int)checkpointList[i].pos.y)->pos;
+			castle->pos.y += SQUARE_SIZE;
+		}
 		this->mCheckpoints[i].pos = this->getSquareXY((int)checkpointList[i].pos.x, (int)checkpointList[i].pos.y)->pos;
 		this->mCheckpoints[i].pos.y += SQUARE_SIZE;
 	}

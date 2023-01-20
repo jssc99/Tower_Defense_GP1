@@ -47,7 +47,7 @@ public:
 	bool isButtonPressed(const float2 x, const float2 y) const;
 
 	int update();
-	void draw(int currentLevel = 0, int currentWave = 0, int money = 0, int towerPlaced = 0);
+	void draw(int currentLevel = 0, int currentWave = 0, int money = 0, int towerPlaced = 0, float gameSpeed = 0.f);
 
 private:
 	Type_Menu mMenu = Type_Menu::NONE;
@@ -59,7 +59,7 @@ private:
 	int updatePause();
 
 	void drawMain() const;
-	void drawInGame(int currentLevel, int currentWave, int money, int towerPlaced) const;
+	void drawInGame(int currentLevel, int currentWave, int money, int towerPlaced, float gameSpeed) const;
 	void drawPause() const;
 	void drawEnd(bool victory) const;
 
