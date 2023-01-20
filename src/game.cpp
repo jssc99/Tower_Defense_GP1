@@ -2,109 +2,152 @@
 
 #include "calc.hpp"
 
+
 Game::Game()
 {
 	for (int i = 0; i < MAX_NB_ENEMIES; i++)
-		this->enemies[i] = nullptr;
+		this->mEnemies[i] = nullptr;
 	for (int i = 0; i < MAX_NB_TOWERS; i++)
-		this->towers[i] = nullptr;
-	this->menu.loadPurchaseMenu(&this->grid);
-	this->menu.load(Type_Menu::MAIN);
+		this->mTowers[i] = nullptr;
+	this->mCastle = nullptr;
+	this->mMenu.loadPurchaseMenu(&this->mGrid);
+	this->mMenu.setMenu(Type_Menu::MAIN);
 }
 
 Game::~Game()
 {
 	for (int i = 0; i < MAX_NB_ENEMIES; i++)
-		if (this->enemies[i])
-			delete this->enemies[i];
+		if (this->mEnemies[i])
+			delete this->mEnemies[i];
 	for (int i = 0; i < MAX_NB_TOWERS; i++)
-		if (this->towers[i])
-			delete this->towers[i];
-	delete this->castle;
+		if (this->mTowers[i])
+			delete this->mTowers[i];
+	delete this->mCastle;
 }
 
-void Game::loadLvl(int lvl)
+void Game::launchLvl(int lvl)
 {
 	this->mCurrentLevelId = lvl - 1;
-	this->castle = new Castle;
-	this->grid.loadGrid(this->lvl[(lvl - 1)].seed);
-	this->grid.loadCheckpoints(this->lvl[(lvl - 1)].checkpointList, this->lvl[(lvl - 1)].nbCheckpoints, this->castle);
-	//this->grid.makePathLookGood();
-	this->money = 100;
-	this->wave = 0;
-	this->menu.load(Type_Menu::IN_GAME);
+	this->mMoney = 150;
+	this->mWave = 0;
+	this->mEnemySpawnTimer = 0.f;
+	this->mWaveAdvancement = 0;
+	this->mWaveCooldown = 0.f;
+	this->mTowerPlaced = 0;
+	this->mCastle = new Castle;
+	this->mGrid.loadGrid(this->lvl[lvl - 1].seed);
+	this->mGrid.loadCheckpoints(this->lvl[lvl - 1].checkpointList, this->lvl[lvl - 1].nbCheckpoints, this->mCastle);
+	this->mMenu.setMenu(Type_Menu::IN_GAME);
 }
 
 void Game::unloadLvl()
 {
 	for (int i = 0; i < MAX_NB_ENEMIES; i++)
-		if (this->enemies[i])
-			this->enemies[i] = nullptr;
+		if (this->mEnemies[i]) this->mEnemies[i] = nullptr;
 	for (int i = 0; i < MAX_NB_TOWERS; i++)
-		if (this->towers[i])
-			this->towers[i] = nullptr;
-	this->castle = nullptr;
-	this->grid.unloadGrid();
-	this->enSpwTimer = 0.f;
+		if (this->mTowers[i]) this->mTowers[i] = nullptr;
+	this->mCastle = nullptr;
+	this->mEnemySpawnTimer = 0.f;
+	this->mGrid.unloadGrid();
 }
 
 void Game::update()
 {
-	switch (this->menu.update())
+	switch (this->mMenu.update())
 	{
-	case 1: {
-		Square* s = this->grid.getSquare(this->menu.purchaseMenu.selection.pos);
-		if ((this->money - this->menu.purchaseMenu.selection.price) > -1 && s->canPlaceTower())
+	case 1: { // place tower
+		Square* s = this->mGrid.getSquare(this->mMenu.getSelection()->pos);
+		if ((this->mMoney - this->mMenu.getSelection()->getPrice()) > -1 && s->canPlaceTower())
 			this->placeTower(s); }
 		  break;
 	case 2:// close game
 		this->closeGame = true;
 		break;
 
+	case 3:// close lvl
+		this->unloadLvl();
+		this->mMenu.setMenu(Type_Menu::MAIN);
+		break;
+
 	case 11:// load lvl 1
-		this->loadLvl(1);
+		this->launchLvl(1);
 		break;
 
 	case 12:// load lvl 2
-		this->loadLvl(2);
+		this->launchLvl(2);
 		break;
 
 	default:
 		break;
 	}
-	if (this->menu.menu == Type_Menu::IN_GAME) {
-		this->updateEnemies();
-		this->updateTowers();
-	}
+	if (this->mMenu.getMenu() == Type_Menu::IN_GAME) this->updateInGame();
 }
 
 void Game::draw()
 {
-	this->grid.draw();
-	if (this->menu.menu == Type_Menu::IN_GAME) {
+	this->mGrid.draw();
+	if (this->mMenu.getMenu() == Type_Menu::IN_GAME || this->mMenu.getMenu() == Type_Menu::PAUSE) {
 		this->drawTowers();
 		this->drawEnemies();
-	this->menu.draw(this->mCurrentLevelId + 1, this->wave, this->money, this->towerPlaced); 
-	this->castle->health.draw(L_HEALTH_SIZE*2, H_HEALTH_SIZE*2);
+		this->drawCastle();
+		this->mMenu.draw(this->mCurrentLevelId + 1, this->mWave + 1, this->mMoney, this->mTowerPlaced);
 	}
-	else this->menu.draw();
+	if (this->mMenu.getMenu() == Type_Menu::IN_GAME)
+		this->mCastle->health.draw(L_HEALTH_SIZE * 2, H_HEALTH_SIZE * 2);
+	else this->mMenu.draw();
 }
 
 void Game::drawDebug()
 {
-	this->grid.drawCheckpoints();
-	this->grid.drawGrid();
+	this->mGrid.drawCheckpoints();
+	this->mGrid.drawGrid();
+	for (int i = 0; i < MAX_NB_TOWERS; i++)
+		if (this->mTowers[i] != nullptr && this->mTowers[i]->hasTarget())
+			this->mTowers[i]->drawTarget();
+}
+
+void Game::addMoney(int m)
+{
+	this->mMoney += m;
+}
+
+void Game::updateInGame()
+{
+	this->updateEnemies();
+	this->updateTowers();
+	if (this->mCastle->isDead())
+		this->mMenu.setMenu(Type_Menu::LOSE);
+	if (this->mWave == this->lvl[this->mCurrentLevelId].nbWaves)
+		this->mMenu.setMenu(Type_Menu::VICTORY);
+	if ((this->mWaveCooldown += ImGui::GetIO().DeltaTime) >= 10.f)
+		this->updateWave();
+}
+
+void Game::updateWave()
+{
+	if ((this->mEnemySpawnTimer += ImGui::GetIO().DeltaTime) >= 3.f) {
+		if (!this->lvl[this->mCurrentLevelId].wave[mWave][this->mWaveAdvancement + 1] && this->isWaveDead()) {
+			this->mWave++;
+			this->mWaveAdvancement = 0;
+			this->mWaveCooldown = 0.f;
+		}
+		else if (this->lvl[this->mCurrentLevelId].wave[mWave][this->mWaveAdvancement + 1])
+			this->spawnEnemy((Type_Enemy)(this->lvl[this->mCurrentLevelId].wave[mWave][this->mWaveAdvancement++]));
+	}
 }
 
 void Game::updateEnemies()
 {
 	for (int i = 0; i < MAX_NB_ENEMIES; i++)
-		if (this->enemies[i] != nullptr) {
-			this->enemies[i]->update(this->grid.chkpList, this->grid.nbCheckpoints, this->castle, this->gameAccelerator, this->enemies);
-			if (this->enemies[i]->isDead())
-			{
-				this->money += this->enemies[i]->loot;
-				this->enemies[i] = nullptr;
+		if (this->mEnemies[i] != nullptr) {
+			this->mEnemies[i]->update(this->mGrid.getCheckpoints(), this->mGrid.getNbCheckpoints(), this->mCastle, this->gameSpeed, this->mEnemies);
+			if (this->mEnemies[i]->isDead()) {
+				this->mMoney += this->mEnemies[i]->getLoot();
+				this->mEnemies[i] = nullptr;
+			}
+			else if (this->mEnemies[i]->isAtEndOfPath(this->lvl[this->mCurrentLevelId].nbCheckpoints)) {
+				this->mEnemies[i]->update(this->mGrid.getCheckpoints(), this->mGrid.getNbCheckpoints(), this->mCastle, this->gameSpeed, this->mEnemies);
+				this->mEnemies[i] = nullptr;
 			}
 		}
 }
@@ -112,52 +155,61 @@ void Game::updateEnemies()
 void Game::updateTowers()
 {
 	for (int i = 0; i < MAX_NB_TOWERS; i++)
-		if (this->towers[i] != nullptr)
-			this->towers[i]->update(this->enemies, this->gameAccelerator,  MAX_NB_ENEMIES);
+		if (this->mTowers[i] != nullptr)
+			this->mTowers[i]->update(this->mEnemies, MAX_NB_ENEMIES, &this->mMoney, this->gameSpeed);
 }
 
 void Game::drawEnemies() const
 {
 	for (int i = 0; i < MAX_NB_ENEMIES; i++)
-		if (this->enemies[i]) {
-			this->enemies[i]->draw();
-		}
+		if (this->mEnemies[i]) this->mEnemies[i]->draw();
 }
 
 void Game::drawTowers() const
 {
 	for (int i = 0; i < MAX_NB_TOWERS; i++)
-		if (this->towers[i])
-			this->towers[i]->draw();
+		if (this->mTowers[i]) this->mTowers[i]->draw();
+}
+
+void Game::drawCastle() const
+{
+	if (this->mCastle) this->mCastle->draw();
+}
+
+bool Game::isWaveDead() const
+{
+	for (int i = 0; i < MAX_NB_ENEMIES; i++)
+		if (this->mEnemies[i]) return false;
+	return true;
 }
 
 void Game::placeTower(Square* s)
 {
 	int id = this->getFreeTowerSpotId();
 	if (!(id < 0)) {
-		switch (this->menu.purchaseMenu.selection.type)
+		switch (this->mMenu.getSelection()->getType())
 		{
 		case Type_Tower::BASIC:
-			this->towers[id] = new Basic;
+			this->mTowers[id] = new Basic;
 			break;
 		case Type_Tower::QUICK:
-			this->towers[id] = new Quick;
+			this->mTowers[id] = new Quick;
 			break;
 		case Type_Tower::EXPLOSIVE:
-			this->towers[id] = new Explosive;
+			this->mTowers[id] = new Explosive;
 			break;
 		case Type_Tower::SLOW:
-			this->towers[id] = new Slow;
+			this->mTowers[id] = new Slow;
 			break;
 		case Type_Tower::NONE: // shoudn't happen
 		default:
-			this->towers[id] = new Tower;
+			this->mTowers[id] = new Tower;
 			break;
 		}
-		this->towers[id]->setPos(s->getPosCenter());
-		this->money -= this->towers[id]->price;
-		s->canHaveTower = false;
-		this->towerPlaced++;
+		this->mTowers[id]->setPos(s->getPosCenter());
+		this->mMoney -= this->mTowers[id]->getPrice();
+		this->mTowerPlaced++;
+		s->cantHaveTower();
 	}
 }
 
@@ -169,20 +221,21 @@ void Game::spawnEnemy(Type_Enemy type)
 		switch (type)
 		{
 		case Type_Enemy::SOLDIER:
-			this->enemies[id] = new Soldier;
+			this->mEnemies[id] = new Soldier;
 			break;
 		case Type_Enemy::KNIGHT:
-			this->enemies[id] = new Knight;
+			this->mEnemies[id] = new Knight;
 			break;
 		case Type_Enemy::HEALER:
-			this->enemies[id] = new Healer;
+			this->mEnemies[id] = new Healer;
 			break;
 		case Type_Enemy::NONE: // shoudn't happen
 		default:
-			this->enemies[id] = new Enemy;
+			this->mEnemies[id] = new Enemy;
 			break;
 		}
-		this->enemies[id]->spawn(this->grid.getSpawnPoint());
+		this->mEnemies[id]->spawn(this->mGrid.getSpawnPoint());
+		this->mEnemySpawnTimer = 0.f;
 	}
 }
 
@@ -190,7 +243,7 @@ void Game::spawnEnemy(Type_Enemy type)
 int Game::getFreeEnemySpotId() const
 {
 	for (int i = 0; i < MAX_NB_ENEMIES; i++)
-		if (!this->enemies[i] || this->enemies[i] == nullptr)
+		if (!this->mEnemies[i] || this->mEnemies[i] == nullptr)
 			return i;
 	return -1;
 }
@@ -199,7 +252,7 @@ int Game::getFreeEnemySpotId() const
 int Game::getFreeTowerSpotId() const
 {
 	for (int i = 0; i < MAX_NB_TOWERS; i++)
-		if (!this->towers[i] || this->towers[i] == nullptr)
+		if (!this->mTowers[i] || this->mTowers[i] == nullptr)
 			return i;
 	return -1;
 }

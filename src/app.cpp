@@ -6,13 +6,15 @@
 
 App::App()
 {
-	{ // level 1
+	{ 
+		ma_engine_init(nullptr, &Entity::sAudioEngine);
+		// level 1
 		G.lvl[0].id = 1;
 		G.lvl[0].seed = { std::string("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb") +
 									  "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb" +
 									  "bbbbbggggggbbbbbbbbbbbbbggggggggbbbbbbbb" +
 									  "bbbbggggggggggbbbbbbbbgggggggggggbbbbbbb" +
-									  "bbgggggggggggggbbbbbccppppppppppggbbbbbb" +
+									  "bbbggggggggggggbbbbbccppppppppppggbbbbbb" +
 									  "bbgggggggggggggbbbbbccppppppppppggbbbbbb" +
 									  "spppppppgggggggbbbbbggggggggggppgggbbbbb" +
 									  "ppppppppggggggbbbbbgggggggggggppggggbbbb" +
@@ -37,7 +39,18 @@ App::App()
 		G.lvl[0].checkpointList[id++] = { id + 1, { 4,31 }, LEFT };
 		G.lvl[0].checkpointList[id++] = { id + 1, { 4,21 }, STOP };
 		G.lvl[0].nbCheckpoints = id;
-
+		int waves = 0;
+		G.lvl[0].wave[waves++] = "sssssssssssssssssske";
+		G.lvl[0].wave[waves++] = "sssskksssssssskksssske";
+		G.lvl[0].wave[waves++] = "sssskkhssssssskkhssssske";
+		G.lvl[0].wave[waves++] = "sssskkkkhssssskkkkhsssske";
+		G.lvl[0].wave[waves++] = "ssskkkkkkhssshkkkkhssssske";
+		G.lvl[0].wave[waves++] = "ssskkkkkkhssshkkkkhsssssske";
+		G.lvl[0].wave[waves++] = "ssskkkkkkhssshkkkkkkhssssske";
+		G.lvl[0].wave[waves++] = "ssskkkkkkkhssshkkkkkkhssssske";
+		G.lvl[0].wave[waves++] = "ssshkkkkkkhssshhhkkkkkhssssske";
+		G.lvl[0].wave[waves++] = "ssshhkkkkkkhssshhhkkkkhsssssske";
+		G.lvl[0].nbWaves = waves;
 	}
 	{ // level 2
 		G.lvl[1].id = 2;
@@ -48,12 +61,12 @@ App::App()
 									  "gggggggggggggggggggggggggggggggggggbbbbb" +
 									  "spppppppppppppppppppppppppppppggggggbbbb" +
 									  "ppppppppppppppppppppppppppppppggggggbbbb" +
-									  "bbbbbbbbbbbbbbbbbbbbbbbbbbbbppbbbbbbbbbb" +
-									  "bbbbbbbbbbbbbbbbbbbbbbbbbbbbppbbbbbbbbbb" +
+									  "bbbgggbbbbbbbbbbbbbbbbbbbbbbppbbbbbbbbbb" +
+									  "bbbgggbbbbbbbbbbbbbbbbbbbbbbppbbbbbbbbbb" +
 									  "bbbgggppppppppppppppppppppppppppppccbbbb" +
 									  "bbbgggppppppppppppppppppppppppppppccbbbb" +
-									  "bbggggppggggggggggggggggggbbppbbgggbbbbb" +
-									  "bbggggppggggggggggggggggggbbppbbgggbbbbb" +
+									  "bbggggppggggggggggggggggggbbppbggggbbbbb" +
+									  "bbggggppgggggggggggggggggggbppgggggbbbbb" +
 									  "bbggggppggggggggggggggggggggppgggggbbbbb" +
 									  "bbggggppggggggggggggggggggggppgggggbbbbb" +
 									  "bbbgggppppppppppppppppppppppppgggggbbbbb" +
@@ -70,69 +83,52 @@ App::App()
 		G.lvl[1].checkpointList[id++] = { id + 1, { 9,7 }, RIGHT };
 		G.lvl[1].checkpointList[id++] = { id + 1, { 9,35 }, STOP };
 		G.lvl[1].nbCheckpoints = id;
+		int waves = 0;
+		G.lvl[1].wave[waves++] = "ssssssssssssssssssk";
+		G.lvl[1].wave[waves++] = "sssskksssssssskksssske";
+		G.lvl[1].wave[waves++] = "sssskkhssssssskkhssssske";
+		G.lvl[1].wave[waves++] = "sssskkkkhssssskkkkhsssske";
+		G.lvl[1].wave[waves++] = "ssskkkkkkhssshkkkkhssssske";
+		G.lvl[1].wave[waves++] = "ssskkkkkkhssshkkkkhsssssske";
+		G.lvl[1].wave[waves++] = "ssskkkkkkhssshkkkkkkhssssske";
+		G.lvl[1].wave[waves++] = "ssskkkkkkkhssshkkkkkkhssssske";
+		G.lvl[1].wave[waves++] = "ssshkkkkkkhssshhhkkkkkhssssske";
+		G.lvl[1].wave[waves++] = "ssshhkkkkkkhssshhhkkkkhsssssske";
+		G.lvl[1].nbWaves = waves;
 	}
 }
 
 App::~App()
 {
+	ma_engine_uninit(&Entity::sAudioEngine);
 }
 
 void App::Update()
 {
+	if (ImGui::IsKeyPressed(ImGuiKey_C, false))
+		this->mDebugMenu = !this->mDebugMenu;
+
+	if (this->mDebugMenu)
 	{
 		ImGui::Begin("Tower");
-		ImGui::Checkbox("Draw Grid", &this->debug);
-		ImGui::Text("mouse: %.0f, %.0f", ImGui::GetMousePos().x, ImGui::GetMousePos().y);
-		if (ImGui::Button("$$$ + 20")) G.money += 20;
-		if (ImGui::Button("$$$ - 20"))  G.money -= 20;/*
-		for (int i = 0; i < MAX_NB_TOWERS; i++)
-			if (G.towers[i]) {
-				char name[20] = "";
-				sprintf(name, "angle tower #%d", i);
-				ImGui::SliderAngle(name, &G.towers[i]->turret.angle, 0.f, 360.f);
-			}*/
-		if (ImGui::Button("load lvl1"))
-			G.loadLvl(1);
-		if (ImGui::Button("unload lvl")) {
-			G.unloadLvl();
-			G.menu.load(Type_Menu::MAIN);
-		}
+		ImGui::Checkbox("Draw Grid", &this->mDrawDebug);
+		// ImGui::Text("mouse: %.0f, %.0f", ImGui::GetMousePos().x, ImGui::GetMousePos().y);
+		if (ImGui::Button("$$$ + 20")) G.addMoney(20);
+		if (ImGui::Button("$$$ - 20")) G.addMoney(-20);
 		if (ImGui::Button("Soldier"))
-		{
-			int id = this->game.getFreeEnemySpotId();
-			//G.enemies[id]->spawn(Type_Enemy type, G>grid.getSpwn());
-			//if (id > -1)
-			G.enemies[id] = new Soldier;
-			G.enemies[id]->pos = G.grid.getSpawnPoint();
-		}
+			G.spawnEnemy(Type_Enemy::SOLDIER);
 		if (ImGui::Button("Healer"))
-		{
-			int id = this->game.getFreeEnemySpotId();
-			G.enemies[id] = new Healer;
-			G.enemies[id]->pos = G.grid.getSpawnPoint();
-		}
+			G.spawnEnemy(Type_Enemy::HEALER);
 		if (ImGui::Button("Knight"))
-		{
-			int id = this->game.getFreeEnemySpotId();
-			G.enemies[id] = new Knight;
-			G.enemies[id]->pos = G.grid.getSpawnPoint();
-		}
-		if (G.castle) {
-		ImGui::Text("Castle health and max health: %d, %d", G.castle->health.life, G.castle->health.maxLife);
-		ImGui::Text("Castle pos = %f, %f", G.castle->pos.x, G.castle->pos.y);
-		}
+			G.spawnEnemy(Type_Enemy::KNIGHT);
 		ImGui::End();
 	}
-	//time accelerator
+	if (ImGui::IsKeyPressed(ImGuiKey_RightArrow) && this->game.gameSpeed < 8)
+		this->game.gameSpeed *= 2;
+	if (ImGui::IsKeyPressed(ImGuiKey_LeftArrow) && this->game.gameSpeed > 1)
+		this->game.gameSpeed /= 2;
 	G.update();
 	G.draw();
-	G.enSpwTimer += ImGui::GetIO().DeltaTime;
-	if (G.enSpwTimer > 3)
-	{
-		G.enSpwTimer = 0;
-		//G.spawnEnemy(Type_Enemy::HEALER);
-		//TODO: spawn enemies
-	}
-	if (this->debug) G.drawDebug();
+	if (this->mDrawDebug) G.drawDebug();
 	this->closeApp = G.closeGame;
 }

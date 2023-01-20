@@ -4,16 +4,14 @@
 
 Tower::Tower()
 {
-	this->turret.angle = 0;
-	this->type = Type_Tower::NONE;
+	this->mType = Type_Tower::NONE;
 }
 
 Tower::~Tower()
 {
-	if (this->hasTexture) {
-		this->unloadTexture();
-		ImGuiUtils::UnloadTexture(this->turret.sprite);
-	}
+	this->unloadTexture();
+	ImGuiUtils::UnloadTexture(this->mTurret.sprite);
+	this->mTurret.projectile.unloadTexture();
 }
 
 void Tower::setPos(float2 pos)
@@ -31,6 +29,16 @@ const char* Tower::getTypeName() const
 	return "None";
 }
 
+Type_Tower Tower::getType() const
+{
+	return this->mType;
+}
+
+int Tower::getPrice() const
+{
+	return this->mPrice;
+}
+
 void Tower::setAttackStats(float attackRadius, float attackSpeed, int attackDmg)
 {
 	this->mAttackRadius = attackRadius;
@@ -40,13 +48,25 @@ void Tower::setAttackStats(float attackRadius, float attackSpeed, int attackDmg)
 	this->mUpgradeLvl = 0;
 }
 
-void Tower::update(Enemy** en, float gameAcc, int nbEnemies)
+void Tower::upgradeAttackStats(float attackRadius, float attackSpeed, int attackDmg)
+{
+	this->mAttackRadius += attackRadius;
+	this->mAttackSpeed += attackSpeed;
+	this->mAttackDmg += attackDmg;
+}
+
+void Tower::update(Enemy** en, int nbEnemies, int* money, float gameSpeed)
 {
 	if (nbEnemies) {
-		if (this->current_target == nullptr || this->current_target->isDead() || !(this->isEnemyInsideRange(this->current_target)))
+		if (this->mCurrentTarget == nullptr || this->mCurrentTarget->isDead() || !(this->isEnemyInsideRange(this->mCurrentTarget)))
 			this->getTarget(en, nbEnemies);
-		if (this->current_target != nullptr)
-			this->attackTarget(gameAcc);
+		if (this->mCurrentTarget != nullptr) {
+			this->attackTarget(gameSpeed);
+			this->mTurret.angle = atan2f(this->mCurrentTarget->pos.y - this->pos.y, this->mCurrentTarget->pos.x - this->pos.x) + calc::PI / 2.f;
+		}
+		else this->mTurret.angle = 0.f;
+		if (this->isMouseOverTower() && ImGui::IsMouseDoubleClicked(ImGuiMouseButton_Left))
+			this->upgrade(money);
 	}
 }
 
@@ -56,52 +76,65 @@ void Tower::draw(bool drawRadius)
 	if (drawRadius && this->isMouseOverTower())
 		bgDrawList->AddCircle(this->pos, this->mAttackRadius, SHY_LIGHT_BLUE, 0, 2.f);
 	ImGuiUtils::DrawTextureEx(*bgDrawList, this->sprite, this->pos, { 0.5f,0.5f });
-	ImGuiUtils::DrawTextureEx(*bgDrawList, this->turret.sprite, this->pos, { 0.4f,0.4f }, this->turret.angle);
+	ImGuiUtils::DrawTextureEx(*bgDrawList, this->mTurret.sprite, this->pos, { 0.4f,0.4f }, this->mTurret.angle);
 }
 
-void Tower::upgrade()
+bool Tower::isEnemyInsideRange(Enemy* en) const// SS collision
 {
-	this->mUpgradeLvl++;
-	// TODO
-}
-
-bool Tower::isEnemyInsideRange(Enemy const* en) const// SS collision
-{																																// 10 == enemy.size TODO
-	return (pow(en->pos.x - this->pos.x, 2.f) + pow(en->pos.y - this->pos.y, 2.f) < pow(en->size + this->mAttackRadius, 2.f));
+	return (pow(en->pos.x - this->pos.x, 2.f) + pow(en->pos.y - this->pos.y, 2.f) < pow(en->getSize() + this->mAttackRadius, 2.f));
 }
 
 bool Tower::isMouseOverTower() const
 {
 	ImVec2 mouse = ImGui::GetMousePos();
-	if ((this->pos.x - (float)H_TOWER_SIZE <= mouse.x && mouse.x <= this->pos.x + (float)H_TOWER_SIZE) &&
-		(this->pos.y - (float)H_TOWER_SIZE <= mouse.y && mouse.y <= this->pos.y + (float)H_TOWER_SIZE))
+	if ((this->pos.x - H_TOWER_SIZE <= mouse.x && mouse.x <= this->pos.x + H_TOWER_SIZE) &&
+		(this->pos.y - H_TOWER_SIZE <= mouse.y && mouse.y <= this->pos.y + H_TOWER_SIZE))
 		return true;
 	else
 		return false;
+}
+
+bool Tower::hasTarget() const
+{
+	if (this->mCurrentTarget)
+		return true;
+	else
+		return false;
+}
+
+void Tower::drawTarget()
+{
+	ImGui::GetForegroundDrawList()->AddCircle(this->mCurrentTarget->pos, 10, VIOLET, 0, 5.f);
 }
 
 void Tower::getTarget(Enemy** en, int nbEnemies)
 {
 	for (int i = 0; i < nbEnemies; i++) {
 		if (en[i] && this->isEnemyInsideRange(en[i])) {
-			this->current_target = en[i];
+			if (mType == Type_Tower::SLOW)
+				ma_engine_play_sound(&Entity::sAudioEngine, "assets/slow.mp3.", nullptr);
+			this->mCurrentTarget = en[i];
 			break;
 		}
-		else this->current_target = nullptr;
+		else this->mCurrentTarget = nullptr;
 	}
 }
 
-void Tower::attackTarget(float gameAcc)
+void Tower::attackTarget(float gameSpeed)
 {
-	ImGui::GetForegroundDrawList()->AddCircle(this->current_target->pos, 10, WHITE, 0, 5.f);
-	if ((this->mAttackCooldown += ImGui::GetIO().DeltaTime * gameAcc) >= this->mAttackSpeed)
+	if ((this->mAttackCooldown += ImGui::GetIO().DeltaTime * gameSpeed) >= this->mAttackSpeed)
 	{
 		this->attack();
 		this->mAttackCooldown -= this->mAttackSpeed;
+		if (mType == Type_Tower::EXPLOSIVE)
+			ma_engine_play_sound(&Entity::sAudioEngine, "assets/explosive.mp3.", nullptr);
+		else if (mType != Type_Tower::SLOW)
+			ma_engine_play_sound(&Entity::sAudioEngine, "assets/shot.mp3.", nullptr);
+
 	}
 }
 
 void Tower::attack()
 {
-	this->current_target->getDamage(this->mAttackDmg);
+	this->mCurrentTarget->getDamage(this->mAttackDmg);
 }

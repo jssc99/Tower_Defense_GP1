@@ -1,8 +1,9 @@
 #pragma once
 
-#include "../entity.hpp"
 #include "projectile.hpp"
 #include "enemy.hpp"
+
+constexpr auto UPGRADE_COST = 15;
 
 enum class Type_Tower : char
 {
@@ -17,17 +18,12 @@ struct Turret
 {
 	float angle = 0.f;
 	Texture sprite;
+	Projectile projectile;
 };
 
 class Tower : public Entity
 {
 public:
-	int price = 0;
-	Turret turret;
-	Type_Tower type;
-	Enemy* current_target = nullptr;
-	//Projectile projectile; //not used for now
-
 	Tower();
 	~Tower();
 
@@ -35,26 +31,37 @@ public:
 	void setPos(float x, float y);
 
 	virtual const char* getTypeName() const;
+	Type_Tower getType() const;
+	int getPrice() const;
 
-	void update(Enemy** en, float gameAcc, int nbEnemies = 0);
+	void update(Enemy** en, int nbEnemies, int* money, float gameSpeed);
 	void draw(bool drawRadius = true);
-
-	void upgrade();
+	void drawTarget();
 
 	bool isMouseOverTower() const;
+	bool hasTarget() const;
 
-protected:
-	void setAttackStats(float attackRadius, float attackSpeed, int attackDmg);
+protected:	
+	Turret mTurret;
+	Type_Tower mType;
+	Enemy* mCurrentTarget = nullptr;
+
+	int mUpgradeLvl = 0;
+	int mPrice = 0;
+
 	virtual void attack();
+	void setAttackStats(float attackRadius, float attackSpeed, int attackDmg);
+	void upgradeAttackStats(float attackRadius, float attackSpeed, int attackDmg);
+
+	virtual void upgrade(int* money) { /*used by subclasses*/ };
 
 private:
-	float mAttackRadius = 0.f;
-	float mAttackSpeed = 0.f;
-	float mAttackCooldown = 0.f;
 	int mAttackDmg = 0;
-	int mUpgradeLvl = 0;
+	float mAttackSpeed = 0.f;
+	float mAttackRadius = 0.f;
+	float mAttackCooldown = 0.f;
 
-	bool isEnemyInsideRange(Enemy const* en) const;
+	bool isEnemyInsideRange(Enemy* en) const;
 	void getTarget(Enemy** en, int nbEnemies);
-	void attackTarget(float gameAcc);
+	void attackTarget(float gameSpeed);
 };

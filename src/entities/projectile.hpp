@@ -5,6 +5,6 @@
 class Projectile : public Entity
 {
 public:
-	Projectile() {};
-	~Projectile() {};
+	inline Projectile() {};
+	inline ~Projectile() {};
 };

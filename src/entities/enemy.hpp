@@ -14,30 +14,39 @@ enum class Type_Enemy : char
 class Enemy : public Entity
 {
 public:
-	int attackDmg = 0;
-	float initMS = 1.f;
-	float moveSpeed = 1.f;
-	float angle = 0.f;
-	int loot = 0;
-	float radius = 0.f;
-	float actionCD = 0.f;
-	float size = 10.f;
-	float2 direction = RIGHT;
-	int checkId = 1;
-	Health health;
-	Type_Enemy type = Type_Enemy::NONE;
-
 	Enemy();
 	~Enemy();
 
-	void update(Checkpoint* listCheckpoint, int nbCheckpoint, Castle* castle, float gameAcc, Enemy** en);
-	void spawn(float2 spawnPoint);
+	void update(const Checkpoint* listCheckpoint, int nbCheckpoint, Castle* castle, float gameSpeed, Enemy** en);
 	void draw(bool drawRadius = true);
-	bool isDead();
+
 	void getDamage(int damage);
-	void heal(Enemy** en, float gameAcc);
+	void spawn(float2 spawnPoint);
+	void heal(Enemy** en, float gameSpeed);
+	
+	void setMoveSpeed(float s);
+	float getSize();
+	int getLoot();
+
+	bool isDead() const;
 	bool isMouseOverEnemy() const;
+	bool isAtEndOfPath(int nbCheckpoints);
+
+protected:
+	Type_Enemy mType = Type_Enemy::NONE;
+	int mAttackDmg = 0;
+	int mCheckId = 1;
+	int mLoot = 0;
+	float mMoveSpeed = 1.f;
+	float mInitMS = 1.f;
+	float mRadius = 0.f;
+	float mSize = 10.f;
+	Health mHealth;
 
 private:
-	void move(Checkpoint* listCheckpoint, int nbCheckpoint, float gameAcc);
+	float2 mDirection = RIGHT;
+	float mActionCD = 0.f;
+	float mAngle = 0.f;
+
+	void move(const Checkpoint* listCheckpoint, int nbCheckpoint, float gameSpeed);
 };

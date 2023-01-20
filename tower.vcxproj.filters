@@ -71,6 +71,8 @@
     <ClCompile Include="src\entities\sub_towers.cpp">
       <Filter>src\entities</Filter>
     </ClCompile>
+    <ClCompile Include="externals\src\miniaudio.c" />
+    <ClCompile Include="src\entity.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -135,7 +137,9 @@
     <ClInclude Include="src\entities\sub_enemies.hpp">
       <Filter>src\entities</Filter>
     </ClInclude>
-    <ClInclude Include="src\health.hpp" />
+    <ClInclude Include="src\health.hpp">
+      <Filter>src</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\calc.hpp" />
@@ -750,5 +754,12 @@
     <Image Include="assets\towerDefense_tile299.png">
       <Filter>assets</Filter>
     </Image>
+    <Image Include="assets\castle.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="assets\shot.mp3" />
+    <Media Include="assets\slow.mp3" />
+    <Media Include="assets\castle_hit.mp3" />
+    <Media Include="assets\explosive.mp3" />
   </ItemGroup>
 </Project>

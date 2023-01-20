@@ -2,6 +2,8 @@
 
 #include "tower.hpp"
 
+// Basic Tower //
+
 class Basic : public Tower
 {
 public:
@@ -9,7 +11,10 @@ public:
 	~Basic() {};
 
 	const char* getTypeName() const override;
+	void upgrade(int* money) override;
 };
+
+// Slow Tower //
 
 class Slow : public Tower
 {
@@ -18,8 +23,11 @@ public:
 	~Slow() {};
 
 	const char* getTypeName() const override;
+	void upgrade(int* money) override;
 	void attack() override;
 };
+
+// Quick Tower //
 
 class Quick : public Tower
 {
@@ -28,7 +36,10 @@ public:
 	~Quick() {};
 
 	const char* getTypeName() const override;
+	void upgrade(int* money) override;
 };
+
+// Explosive Tower //
 
 class Explosive : public Tower
 {
@@ -39,4 +50,5 @@ public:
 	~Explosive() {};
 
 	const char* getTypeName() const override;
+	void upgrade(int* money) override;
 };
