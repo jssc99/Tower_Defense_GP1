@@ -130,7 +130,7 @@ void Game::updateInGame()
 		this->mMenu.setMenu(Type_Menu::LOSE);
 	if (this->mWave == this->lvl[this->mCurrentLevelId].nbWaves)
 		this->mMenu.setMenu(Type_Menu::VICTORY);
-	if ((this->mWaveCooldown += ImGui::GetIO().DeltaTime * this->mGameSpeed) >= 10.f )
+	if ((this->mWaveCooldown += ImGui::GetIO().DeltaTime * this->mGameSpeed) >= 10.f)
 		this->updateWave();
 }
 

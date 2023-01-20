@@ -142,7 +142,7 @@ int Menu::updateMain()
 int Menu::updateInGame()
 {
 	if (this->isButtonPressed({ H_WIDTH - 1 * SQUARE_SIZE + 2.f, 0 }, { H_WIDTH - 0 * SQUARE_SIZE + 2.f, 20.f }))
-		return 6;				  										  
+		return 6;
 	if (this->isButtonPressed({ H_WIDTH + 1 * SQUARE_SIZE + 2.f, 0 }, { H_WIDTH + 2 * SQUARE_SIZE + 2.f, 20.f }))
 		return 7;
 	if (this->isButtonPressed({ H_WIDTH + 3 * SQUARE_SIZE + 2.f, 0 }, { H_WIDTH + 4 * SQUARE_SIZE + 2.f, 20.f }))
@@ -200,13 +200,13 @@ void Menu::drawMain() const
 void Menu::drawInGame(int currentLevel, int currentWave, int money, int towerPlaced, float gameSpeed) const
 {
 	ImDrawList* dl = ImGui::GetForegroundDrawList();
-	ImGui::GetBackgroundDrawList()->AddRectFilled({ H_WIDTH - 7 * SQUARE_SIZE, 0 }, { H_WIDTH + 7 * SQUARE_SIZE, SQUARE_SIZE}, SHY_LIGHT_BLUE, 5.f);
+	ImGui::GetBackgroundDrawList()->AddRectFilled({ H_WIDTH - 7 * SQUARE_SIZE, 0 }, { H_WIDTH + 7 * SQUARE_SIZE, SQUARE_SIZE }, SHY_LIGHT_BLUE, 5.f);
 	dl->AddText(this->mFont, 20.f, { 2.f, 0 }, BLACK, "Spacebar to pause");
 	dl->AddText(this->mFont, 20.f, { H_WIDTH - 7 * SQUARE_SIZE + 2.f, 0 }, BLACK, "Change Game Speed");
-	dl->AddText(this->mFont, 20.f, { H_WIDTH - 1 * SQUARE_SIZE + 2.f, 0 }, ( gameSpeed == 0.5f ? WHITE : BLACK ), "0.5");
-	dl->AddText(this->mFont, 20.f, { H_WIDTH + 1 * SQUARE_SIZE + 2.f, 0 }, ( gameSpeed == 1.f ? WHITE : BLACK ), "1");
-	dl->AddText(this->mFont, 20.f, { H_WIDTH + 3 * SQUARE_SIZE + 2.f, 0 }, ( gameSpeed == 2.f ? WHITE : BLACK ), "2");
-	dl->AddText(this->mFont, 20.f, { H_WIDTH + 5 * SQUARE_SIZE + 2.f, 0 }, ( gameSpeed == 4.f ? WHITE : BLACK ), "4");
+	dl->AddText(this->mFont, 20.f, { H_WIDTH - 1 * SQUARE_SIZE + 2.f, 0 }, (gameSpeed == 0.5f ? WHITE : BLACK), "0.5");
+	dl->AddText(this->mFont, 20.f, { H_WIDTH + 1 * SQUARE_SIZE + 2.f, 0 }, (gameSpeed == 1.f ? WHITE : BLACK), "1");
+	dl->AddText(this->mFont, 20.f, { H_WIDTH + 3 * SQUARE_SIZE + 2.f, 0 }, (gameSpeed == 2.f ? WHITE : BLACK), "2");
+	dl->AddText(this->mFont, 20.f, { H_WIDTH + 5 * SQUARE_SIZE + 2.f, 0 }, (gameSpeed == 4.f ? WHITE : BLACK), "4");
 	char tmp[50];
 	ImGui::GetBackgroundDrawList()->AddRectFilled({ H_WIDTH - 7 * SQUARE_SIZE, HEIGHT - 2 * SQUARE_SIZE }, { H_WIDTH + 7 * SQUARE_SIZE, HEIGHT }, SHY_LIGHT_BLUE, 5.f);
 	for (int i = 0; i < 4; i++) {

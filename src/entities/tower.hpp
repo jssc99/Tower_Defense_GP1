@@ -41,7 +41,7 @@ public:
 	bool isMouseOverTower() const;
 	bool hasTarget() const;
 
-protected:	
+protected:
 	Turret mTurret;
 	Type_Tower mType;
 	Enemy* mCurrentTarget = nullptr;

@@ -23,7 +23,7 @@ public:
 	void getDamage(int damage);
 	void spawn(float2 spawnPoint);
 	void heal(Enemy** en, float gameSpeed);
-	
+
 	void setMoveSpeed(float s);
 	float getSize();
 	int getLoot();
