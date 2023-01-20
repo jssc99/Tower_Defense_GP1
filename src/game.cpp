@@ -101,6 +101,7 @@ void Game::draw()
 	if (this->mMenu.getMenu() == Type_Menu::IN_GAME || this->mMenu.getMenu() == Type_Menu::PAUSE) {
 		this->drawTowers();
 		this->drawEnemies();
+		this->drawCastle();
 		this->mMenu.draw(this->mCurrentLevelId + 1, this->mWave + 1, this->mMoney, this->mTowerPlaced, this->mGameSpeed);
 	}
 	if (this->mMenu.getMenu() == Type_Menu::IN_GAME)
@@ -180,6 +181,11 @@ void Game::drawTowers() const
 {
 	for (int i = 0; i < MAX_NB_TOWERS; i++)
 		if (this->mTowers[i]) this->mTowers[i]->draw();
+}
+
+void Game::drawCastle() const
+{
+	if (this->mCastle) this->mCastle->draw();
 }
 
 bool Game::isWaveDead() const

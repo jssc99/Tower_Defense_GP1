@@ -51,12 +51,9 @@ void Menu::goToLoadingScreen()
 bool Menu::isButtonPressed(const float2 x, const float2 y) const
 {
 	ImVec2 mouse = ImGui::GetMousePos();
-	if (ImGui::IsMouseReleased(ImGuiMouseButton_Left) &&
-		(x.x - (float)H_TOWER_SIZE <= mouse.x && mouse.x <= y.x + (float)H_TOWER_SIZE) &&
-		(x.y - (float)H_TOWER_SIZE <= mouse.y && mouse.y <= y.y + (float)H_TOWER_SIZE))
-		return true;
-	else
-		return false;
+	return (ImGui::IsMouseReleased(ImGuiMouseButton_Left) &&
+		(x.x - H_TOWER_SIZE <= mouse.x && mouse.x <= y.x + H_TOWER_SIZE) &&
+		(x.y - H_TOWER_SIZE <= mouse.y && mouse.y <= y.y + H_TOWER_SIZE));
 }
 
 /***

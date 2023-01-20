@@ -66,7 +66,7 @@ void Square::setType(Type_Square type)
 	}
 }
 
-Type_Square Square::getType()
+Type_Square Square::getType() const
 {
 	return this->mType;
 }

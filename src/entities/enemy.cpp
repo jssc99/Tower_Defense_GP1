@@ -17,8 +17,11 @@ void Enemy::update(const Checkpoint* listCheckpoint, int nbCheckpoint, Castle* c
 	if (this->mCheckId - 1 != nbCheckpoint)
 		this->move(listCheckpoint, nbCheckpoint, gameSpeed);
 	else
-		if (castle->health.life - this->mAttackDmg >= 0)
+		if (castle->health.life - this->mAttackDmg >= 0) {
 			castle->health.life -= this->mAttackDmg;
+			ma_engine_play_sound(&Entity::sAudioEngine, "assets/castle_hit.mp3.", nullptr);
+		}
+
 	this->mHealth.posCenter = this->pos;
 	this->mMoveSpeed = mInitMS;
 	if (this->mType == Type_Enemy::HEALER)
@@ -58,7 +61,6 @@ void Enemy::move(const Checkpoint* listCheckpoint, int nbCheckpoint, float gameS
 			else
 				this->pos += this->mDirection * this->mMoveSpeed * ImGui::GetIO().DeltaTime * gameSpeed;
 			//changes enemy see direction
-			// TODO change to switch
 			if (this->mDirection == LEFT)
 				this->mAngle = calc::PI;
 			else if (this->mDirection == RIGHT)
@@ -99,11 +101,8 @@ void Enemy::heal(Enemy** en, float gameSpeed)
 bool Enemy::isMouseOverEnemy() const
 {
 	ImVec2 mouse = ImGui::GetMousePos();
-	if ((this->pos.x - this->mSize <= mouse.x && mouse.x <= this->pos.x + this->mSize) &&
-		(this->pos.y - this->mSize <= mouse.y && mouse.y <= this->pos.y + this->mSize))
-		return true;
-	else
-		return false;
+	return ((this->pos.x - this->mSize <= mouse.x && mouse.x <= this->pos.x + this->mSize) &&
+		(this->pos.y - this->mSize <= mouse.y && mouse.y <= this->pos.y + this->mSize));
 }
 
 void Enemy::setMoveSpeed(float s)
@@ -111,20 +110,17 @@ void Enemy::setMoveSpeed(float s)
 	this->mMoveSpeed = this->mInitMS * s;
 }
 
-float Enemy::getSize()
+float Enemy::getSize() const
 {
 	return this->mSize;
 }
 
-int Enemy::getLoot()
+int Enemy::getLoot() const
 {
 	return this->mLoot;
 }
 
-bool Enemy::isAtEndOfPath(int nbCheckpoints)
+bool Enemy::isAtEndOfPath(int nbCheckpoints) const
 {
-	if (this->mCheckId - 1 == nbCheckpoints)
-		return true;
-	else
-		return false;
+	return (this->mCheckId - 1 == nbCheckpoints);
 }

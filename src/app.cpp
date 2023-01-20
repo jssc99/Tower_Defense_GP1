@@ -6,7 +6,9 @@
 
 App::App()
 {
-	{ // level 1
+	ma_engine_init(nullptr, &Entity::sAudioEngine);
+	{
+		// level 1
 		G.lvl[0].id = 1;
 		G.lvl[0].seed = { std::string("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb") +
 									  "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb" +
@@ -98,6 +100,7 @@ App::App()
 
 App::~App()
 {
+	ma_engine_uninit(&Entity::sAudioEngine);
 }
 
 void App::Update()
@@ -109,7 +112,6 @@ void App::Update()
 	{
 		ImGui::Begin("Tower");
 		ImGui::Checkbox("Draw Grid", &this->mDrawDebug);
-		// ImGui::Text("mouse: %.0f, %.0f", ImGui::GetMousePos().x, ImGui::GetMousePos().y);
 		if (ImGui::Button("$$$ + 20")) G.addMoney(20);
 		if (ImGui::Button("$$$ - 20")) G.addMoney(-20);
 		if (ImGui::Button("Soldier"))

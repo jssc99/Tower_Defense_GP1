@@ -87,11 +87,8 @@ bool Tower::isEnemyInsideRange(Enemy* en) const// SS collision
 bool Tower::isMouseOverTower() const
 {
 	ImVec2 mouse = ImGui::GetMousePos();
-	if ((this->pos.x - H_TOWER_SIZE <= mouse.x && mouse.x <= this->pos.x + H_TOWER_SIZE) &&
-		(this->pos.y - H_TOWER_SIZE <= mouse.y && mouse.y <= this->pos.y + H_TOWER_SIZE))
-		return true;
-	else
-		return false;
+	return ((this->pos.x - H_TOWER_SIZE <= mouse.x && mouse.x <= this->pos.x + H_TOWER_SIZE) &&
+		(this->pos.y - H_TOWER_SIZE <= mouse.y && mouse.y <= this->pos.y + H_TOWER_SIZE));
 }
 
 bool Tower::hasTarget() const
@@ -111,6 +108,8 @@ void Tower::getTarget(Enemy** en, int nbEnemies)
 {
 	for (int i = 0; i < nbEnemies; i++) {
 		if (en[i] && this->isEnemyInsideRange(en[i])) {
+			if (mType == Type_Tower::SLOW)
+				ma_engine_play_sound(&Entity::sAudioEngine, "assets/slow.mp3.", nullptr);
 			this->mCurrentTarget = en[i];
 			break;
 		}
@@ -124,6 +123,10 @@ void Tower::attackTarget(float gameSpeed)
 	{
 		this->attack();
 		this->mAttackCooldown -= this->mAttackSpeed;
+		if (mType == Type_Tower::EXPLOSIVE)
+			ma_engine_play_sound(&Entity::sAudioEngine, "assets/explosive.mp3.", nullptr);
+		else if (mType != Type_Tower::SLOW)
+			ma_engine_play_sound(&Entity::sAudioEngine, "assets/shot.mp3.", nullptr);
 	}
 }
 

@@ -85,7 +85,9 @@
     <ClCompile Include="externals\src\imgui_impl_opengl3.cpp" />
     <ClCompile Include="externals\src\imgui_tables.cpp" />
     <ClCompile Include="externals\src\imgui_widgets.cpp" />
+    <ClCompile Include="externals\src\miniaudio.c" />
     <ClCompile Include="externals\src\stb_image.cpp" />
+    <ClCompile Include="src\entity.cpp" />
     <ClCompile Include="src\entities\enemy.cpp" />
     <ClCompile Include="src\entities\square.cpp" />
     <ClCompile Include="src\entities\sub_enemies.cpp" />
@@ -123,6 +125,7 @@
     <Font Include="assets\GlueGun-GW8Z.ttf" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="assets\castle.png" />
     <Image Include="assets\towerDefense_tile001.png" />
     <Image Include="assets\towerDefense_tile002.png" />
     <Image Include="assets\towerDefense_tile003.png" />
@@ -319,6 +322,12 @@
     <Image Include="assets\towerDefense_tile297.png" />
     <Image Include="assets\towerDefense_tile298.png" />
     <Image Include="assets\towerDefense_tile299.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="assets\castle_hit.mp3" />
+    <Media Include="assets\explosive.mp3" />
+    <Media Include="assets\shot.mp3" />
+    <Media Include="assets\slow.mp3" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -19,12 +19,13 @@ public:
 
 	bool closeGame = false;
 
+	float gameSpeed = 1.f;
+
 	Game();
 	~Game();
 
 	void launchLvl(int lvl);
 	void unloadLvl();
-
 	void update();
 	void draw();
 
@@ -58,6 +59,7 @@ private:
 
 	void drawEnemies() const;
 	void drawTowers() const;
+	void drawCastle() const;
 
 	int getFreeEnemySpotId() const;
 	int getFreeTowerSpotId() const;

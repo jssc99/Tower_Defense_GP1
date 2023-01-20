@@ -25,12 +25,12 @@ public:
 	void heal(Enemy** en, float gameSpeed);
 
 	void setMoveSpeed(float s);
-	float getSize();
-	int getLoot();
+	float getSize() const;
+	int getLoot() const;
 
 	bool isDead() const;
 	bool isMouseOverEnemy() const;
-	bool isAtEndOfPath(int nbCheckpoints);
+	bool isAtEndOfPath(int nbCheckpoints) const;
 
 protected:
 	Type_Enemy mType = Type_Enemy::NONE;

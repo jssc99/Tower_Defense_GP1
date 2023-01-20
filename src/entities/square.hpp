@@ -21,7 +21,7 @@ public:
 	~Square();
 
 	void setType(Type_Square type);
-	Type_Square getType();
+	Type_Square getType() const;
 
 	float2 getPosCenter() const;
 

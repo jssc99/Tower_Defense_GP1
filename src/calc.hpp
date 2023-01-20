@@ -42,7 +42,6 @@ namespace calc
 		return (1.f - t) * a + t * b;
 	}
 
-	// Random utils, TODO: Move
 	static inline float randomFloat(float min, float max)
 	{
 		float rand01 = (rand() % RAND_MAX) / (float)RAND_MAX;

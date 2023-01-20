@@ -14,8 +14,16 @@ public:
 		this->health.posCenter = CASTLE_LIFE_POS;
 		this->health.maxLife = 100;
 		this->health.life = health.maxLife;
+		this->loadTexture("assets/castle.png");
 	};
 	inline ~Castle() {};
 
+	inline void draw();
+
 	inline bool isDead() const { return this->health.life <= 0; };
 };
+
+void Castle::draw()
+{
+	ImGuiUtils::DrawTextureEx(*ImGui::GetBackgroundDrawList(), this->sprite, this->pos, { 0.5f,0.5f });
+}
